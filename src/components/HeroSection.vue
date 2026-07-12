@@ -37,7 +37,7 @@
 
           <!-- 3D Earth -->
           <div class="hero__earth-wrapper">
-            <Earth3D @loaded="onEarthLoaded" />
+            <Earth3D backgroundColor="" waterColor="#021430" @loaded="onEarthLoaded" />
           </div>
 
           <!-- PROJECTS button -->
@@ -86,7 +86,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import backgroundImage from '@/assets/Fundo 1.png'
+import backgroundImage from '@/assets/NewBack.png'
 import Earth3D from './Earth3D.vue'
 
 defineEmits(['navigate'])
@@ -199,7 +199,7 @@ onMounted(() => {
 
 /* ===== Background Image ===== */
 .hero__background {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 1;
 }
@@ -331,7 +331,7 @@ onMounted(() => {
   transform: translateY(40px);
   transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
-  margin-top: -4.5rem; /* Pull up to overlap ATOM text */
+  margin-top: -8.5rem; /* Pull up to overlap ATOM text */
   width: 100%;
   position: relative;
   z-index: 2; /* Keep Earth on top of text */
@@ -353,10 +353,8 @@ onMounted(() => {
 }
 
 .hero__earth-wrapper {
-  width: clamp(150px, 20vw, 250px);
-  height: clamp(150px, 20vw, 250px);
-  border-radius: 50%;
-  overflow: hidden;
+  width: clamp(200px, 28vw, 380px);
+  height: clamp(200px, 28vw, 380px);
   position: relative;
   flex-shrink: 0;
 }

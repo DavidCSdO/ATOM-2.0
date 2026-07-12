@@ -1,29 +1,10 @@
 <template>
   <section class="planets-section">
     <div class="planets-container">
-      <img :src="imgMercury" class="planet p-mercury" alt="Mercury" />
-      <img :src="imgVenus" class="planet p-venus" alt="Venus" />
-      <img :src="imgEarth" class="planet p-earth" alt="Earth" />
-      <img :src="imgMars" class="planet p-mars" alt="Mars" />
-      <img :src="imgJupiter" class="planet p-jupiter" alt="Jupiter" />
-      <img :src="imgSaturn" class="planet p-saturn" alt="Saturn" />
-      <img :src="imgUranus" class="planet p-uranus" alt="Uranus" />
-      <img :src="imgNeptune" class="planet p-neptune" alt="Neptune" />
+      <OrbitingPlanets :planets="planetsList" :speed="0.8" :orbitWidthPct="120" style="transform: translateX(15%);" />
       
       <!-- Cards Overlay -->
-      <BorderGlow
-        class="card-vendas"
-        :edgeSensitivity="30"
-        glowColor="349 100 65"
-        backgroundColor="rgba(255, 255, 255, 0.03)"
-        :borderRadius="28"
-        :glowRadius="40"
-        :glowIntensity="1"
-        :coneSpread="25"
-        :animated="false"
-        :colors="['#FF4D6D', '#7B3FF2', '#c084fc']"
-        :fillOpacity="0"
-      >
+      <div class="glass-card card-vendas">
         <div class="card-vendas__inner">
           <h2 class="card-vendas__title">
             <span class="text-pink">Transformamos sua</span><br>
@@ -33,26 +14,42 @@
             Conectamos design de alto impacto, sites de alta performance e automação inteligente para fazer o seu negócio rodar no piloto automático. Da identidade visual ao chatbot com IA: tudo o que você precisa para crescer.
           </p>
         </div>
-      </BorderGlow>
+      </div>
 
       <div class="glass-card fluid-glass card-diagnostico">
-        <div class="steps-nav">
-          <div class="step step-active"><div class="step-inner"></div></div>
-          <div class="step-line"></div>
-          <div class="step">2</div>
-          <div class="step-line"></div>
-          <div class="step">3</div>
-          <div class="step-line-short"></div>
-        </div>
-        
-        <h3 class="card-diag__title">Diagnóstico Gratuito</h3>
-        <p class="card-diag__text">
-          Analisamos sua presença digital atual e identificamos as maiores oportunidades de crescimento para o seu negócio.
-        </p>
-        
-        <div class="card-diag__footer">
-          <button class="btn-proximo">Próximo</button>
-        </div>
+        <Stepper
+          :totalSteps="4"
+          :initialStep="1"
+          backButtonText="Voltar"
+          nextButtonText="Próximo"
+          @step-change="(step) => console.log('Step:', step)"
+          @completed="() => console.log('Diagnóstico completo!')"
+        >
+          <template #step-1>
+            <h3 class="card-diag__title">Diagnóstico Gratuito</h3>
+            <p class="card-diag__text">
+              Analisamos sua presença digital atual e identificamos as maiores oportunidades de crescimento para o seu negócio.
+            </p>
+          </template>
+          <template #step-2>
+            <h3 class="card-diag__title">Análise de Performance</h3>
+            <p class="card-diag__text">
+              Avaliamos a velocidade, SEO e usabilidade do seu site para identificar pontos de melhoria imediata.
+            </p>
+          </template>
+          <template #step-3>
+            <h3 class="card-diag__title">Plano de Ação</h3>
+            <p class="card-diag__text">
+              Entregamos um plano personalizado com as ações prioritárias para transformar sua presença digital.
+            </p>
+          </template>
+          <template #step-4>
+            <h3 class="card-diag__title">Execução & Resultados</h3>
+            <p class="card-diag__text">
+              Implementamos as soluções e acompanhamos os resultados com métricas claras de crescimento.
+            </p>
+          </template>
+        </Stepper>
       </div>
       
       <!-- Fluid Glass SVG Lens Filter -->
@@ -84,113 +81,58 @@ import imgSaturn from '@/assets/planets/saturn-planet-on-isolated-transparent-ba
 import imgUranus from '@/assets/planets/a-detailed-view-of-the-planet-uranus-showcasing-its-distinctive-blue-color-and-atmospheric-bands-captured-from-space-transparent-png 1.png'
 import imgNeptune from '@/assets/planets/30_neptune 1.png'
 
-import BorderGlow from './BorderGlow.vue'
+import Stepper from './Stepper.vue'
+import OrbitingPlanets from './OrbitingPlanets.vue'
+
+const planetsList = [
+  { src: imgMercury, alt: 'Mercury', width: '13%' },
+  { src: imgVenus, alt: 'Venus', width: '13%' },
+  { src: imgEarth, alt: 'Earth', width: '13.8%' },
+  { src: imgMars, alt: 'Mars', width: '14.5%' },
+  { src: imgJupiter, alt: 'Jupiter', width: '19%' },
+  { src: imgSaturn, alt: 'Saturn', width: '32%' },
+  { src: imgUranus, alt: 'Uranus', width: '22%' },
+  { src: imgNeptune, alt: 'Neptune', width: '35%' },
+]
 </script>
 
 <style scoped>
 .planets-section {
   width: 100%;
-  min-height: 120vh; /* Mais altura para dar espaço ao arco */
-  background: #020205; /* Fundo que combina com o Hero */
+  min-height: 120vh;
+  background: #090B17;
   position: relative;
   overflow: hidden;
+  z-index: 10;
 }
 
 .planets-container {
   position: relative;
   width: 100%;
-  max-width: 1600px;
   margin: 0 auto;
-  height: 100%;
-  min-height: 1000px;
+  height: 120vh;
+  min-height: 800px;
 }
 
-.planet {
-  position: absolute;
-  object-fit: contain;
-  /* Soft drop shadow to integrate them slightly into space */
-  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8));
-}
+/* ===== CORRENTE DE PLANETAS - Diagonal canto-a-canto ===== */
 
-/* 1. Mercúrio (Topo Esquerda) */
-.p-mercury {
-  width: 5%;
-  top: 0%;
-  left: 22%;
-  z-index: 1;
-}
 
-/* 2. Vênus / Júpiter 1 */
-.p-venus {
-  width: 8%;
-  top: 5%;
-  left: 18%;
-  z-index: 2;
-}
-
-/* 3. Terra */
-.p-earth {
-  width: 12%;
-  top: 13%;
-  left: 20%;
-  z-index: 3;
-}
-
-/* 4. Marte */
-.p-mars {
-  width: 16%;
-  top: 24%;
-  left: 26%;
-  z-index: 4;
-}
-
-/* 5. Júpiter Gigante (Centro) */
-.p-jupiter {
-  width: 22%;
-  top: 38%;
-  left: 35%;
-  z-index: 5;
-}
-
-/* 6. Saturno */
-.p-saturn {
-  /* Saturn needs more width because of rings */
-  width: 40%; 
-  top: 52%;
-  left: 42%;
-  z-index: 6;
-  transform: rotate(-15deg);
-}
-
-/* 7. Urano (Ciano/Azul claro) */
-.p-uranus {
-  width: 28%;
-  top: 70%;
-  left: 62%;
-  z-index: 7;
-}
-
-/* 8. Netuno (Azul escuro) */
-.p-neptune {
-  width: 35%;
-  top: 78%;
-  left: 76%;
-  z-index: 8;
-}
 
 /* ===== Glass Cards ===== */
 .glass-card {
   position: absolute;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top-color: rgba(255, 255, 255, 0.2);
-  border-left-color: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
+  background: rgba(15, 10, 25, 0.65);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-left-color: rgba(255, 255, 255, 0.12);
+  border-radius: 26px;
   padding: 2.5rem;
   z-index: 20;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* Fluid Glass Effect (CSS Version) */
@@ -217,13 +159,14 @@ import BorderGlow from './BorderGlow.vue'
   100% { transform: rotate(360deg) scale(1); }
 }
 
-/* Card Vendas (BorderGlow overrides) */
+/* Card Vendas */
 .card-vendas {
-  position: absolute !important;
+  position: absolute;
   top: 15%;
-  right: 5%;
-  width: 480px;
+  right: 6%;
+  width: 500px;
   z-index: 20;
+  border-radius: 26px;
 }
 .card-vendas__inner {
   padding: 2.5rem;
@@ -254,101 +197,38 @@ import BorderGlow from './BorderGlow.vue'
 
 /* Card Diagnostico */
 .card-diagnostico {
-  bottom: 2%;
-  left: 5%;
-  width: 420px;
-}
-
-.steps-nav {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.step {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.step-active {
-  background: #3B00B1;
-}
-
-.step-inner {
-  width: 8px;
-  height: 8px;
-  background: #fff;
-  border-radius: 50%;
-}
-
-.step-line {
-  height: 1px;
-  flex: 1;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 0 10px;
-}
-.step-line-short {
-  height: 1px;
-  width: 30px;
-  background: rgba(255, 255, 255, 0.1);
-  margin-left: 10px;
+  bottom: -50%;
+  left: 8%;
+  width: 500px;
 }
 
 .card-diag__title {
-  font-family: 'Times New Roman', Times, serif; /* Using standard serif to match reference */
-  font-size: 1.6rem;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.4rem;
   font-weight: bold;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .card-diag__text {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 2rem;
-}
-
-.card-diag__footer {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn-proximo {
-  background: #3B00B1;
-  color: #fff;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 20px;
   font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.btn-proximo:hover {
-  background: #7B3FF2;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
 }
 
 /* Wavy Glass Lens simulating FluidGlass */
 .wavy-lens {
   position: absolute;
-  bottom: 0%;
-  left: 20%;
-  width: 50vw;
-  height: 50vh;
+  bottom: 5%;
+  left: 25%;
+  width: 45vw;
+  height: 45vh;
   border-radius: 50%;
   backdrop-filter: url(#wavy-glass);
   -webkit-backdrop-filter: url(#wavy-glass);
   background: rgba(255, 255, 255, 0.05);
-  z-index: 15; /* Behind the card, over the planets */
+  z-index: 15;
   pointer-events: none;
   mix-blend-mode: overlay;
   opacity: 0.8;
