@@ -81,6 +81,9 @@
         }"
       ></span>
     </div>
+
+    <!-- Bottom Seamless Fade Transition -->
+    <div class="hero__bottom-fade"></div>
   </section>
 </template>
 
@@ -144,7 +147,7 @@ onMounted(() => {
 
 .hero {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
   background: #000;
@@ -199,7 +202,7 @@ onMounted(() => {
 
 /* ===== Background Image ===== */
 .hero__background {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 1;
 }
@@ -514,5 +517,17 @@ onMounted(() => {
   );
   pointer-events: none;
   opacity: 0.5;
+}
+
+/* ===== Bottom Fade Transition ===== */
+.hero__bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(to bottom, transparent, #090B17);
+  z-index: 10;
+  pointer-events: none;
 }
 </style>

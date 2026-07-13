@@ -1,6 +1,14 @@
 <template>
   <section class="planets-section">
     <div class="planets-container">
+      <div class="stars-layer"></div>
+      <div class="stars-layer stars-layer--2"></div>
+      
+      <!-- Shooting Stars -->
+      <div class="shooting-star st-1"></div>
+      <div class="shooting-star st-2"></div>
+      <div class="shooting-star st-3"></div>
+
       <OrbitingPlanets :planets="planetsList" :speed="0.8" :orbitWidthPct="120" style="transform: translateX(15%);" />
       
       <!-- Cards Overlay -->
@@ -51,22 +59,6 @@
           </template>
         </Stepper>
       </div>
-      
-      <!-- Fluid Glass SVG Lens Filter -->
-      <svg style="width:0;height:0;position:absolute;" aria-hidden="true">
-        <filter id="wavy-glass" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G" />
-          <feGaussianBlur stdDeviation="4" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </svg>
-      
-      <!-- Lens Element overlapping Jupiter -->
-      <div class="wavy-lens"></div>
     </div>
   </section>
 </template>
@@ -112,6 +104,8 @@ const planetsList = [
   margin: 0 auto;
   height: 120vh;
   min-height: 800px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 15%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 15%);
 }
 
 /* ===== CORRENTE DE PLANETAS - Diagonal canto-a-canto ===== */
@@ -217,20 +211,67 @@ const planetsList = [
   margin-bottom: 0.5rem;
 }
 
-/* Wavy Glass Lens simulating FluidGlass */
-.wavy-lens {
+/* ─── Stars & Spacecore Effects ─── */
+.stars-layer {
   position: absolute;
-  bottom: 5%;
-  left: 25%;
-  width: 45vw;
-  height: 45vh;
-  border-radius: 50%;
-  backdrop-filter: url(#wavy-glass);
-  -webkit-backdrop-filter: url(#wavy-glass);
-  background: rgba(255, 255, 255, 0.05);
-  z-index: 15;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 70% 60%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 45% 85%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 85% 20%, rgba(255,255,255,0.2), transparent);
+  background-size: 200px 200px;
+  opacity: 0.5;
+  animation: floatStars 20s linear infinite;
+  z-index: 1;
   pointer-events: none;
-  mix-blend-mode: overlay;
-  opacity: 0.8;
+}
+
+.stars-layer--2 {
+  background-size: 150px 150px;
+  background-image: 
+    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,0.6), transparent);
+  animation: floatStars 15s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes floatStars {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100px); }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(255,255,255,1), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: rotate(45deg);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.st-1 {
+  top: -10%; left: 30%;
+  animation: shootingStar 6s linear infinite;
+  animation-delay: 2s;
+}
+.st-2 {
+  top: -10%; left: 70%;
+  animation: shootingStar 9s linear infinite;
+  animation-delay: 5s;
+}
+.st-3 {
+  top: -10%; left: 10%;
+  animation: shootingStar 12s linear infinite;
+  animation-delay: 8s;
+}
+
+@keyframes shootingStar {
+  0% { transform: rotate(45deg) translateY(-100px); opacity: 1; }
+  20% { transform: rotate(45deg) translateY(500px); opacity: 0; }
+  100% { transform: rotate(45deg) translateY(500px); opacity: 0; }
 }
 </style>

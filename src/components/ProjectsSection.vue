@@ -1,257 +1,483 @@
 <template>
   <section class="projects-section" id="projetos">
-    <div class="projects-glow" aria-hidden="true"></div>
+    <!-- Fundo idêntico à tela de planetas -->
+    <div class="projects-bg" aria-hidden="true">
+      <div class="stars-layer"></div>
+      <div class="stars-layer stars-layer--2"></div>
+      
+      <!-- Spacecore Cosmic Elements -->
+      <div class="cosmic-elements">
+        <div class="floating-planet planet-jupiter">
+          <img :src="imgJupiter" alt="" />
+        </div>
+        <div class="floating-planet planet-saturn">
+          <img :src="imgSaturn" alt="" />
+        </div>
+        <div class="floating-planet planet-mars">
+          <img :src="imgMars" alt="" />
+        </div>
+        <div class="floating-planet planet-neptune">
+          <img :src="imgNeptune" alt="" />
+        </div>
+        
+        <!-- Shooting Stars -->
+        <div class="shooting-star st-1"></div>
+        <div class="shooting-star st-2"></div>
+        <div class="shooting-star st-3"></div>
+      </div>
+    </div>
 
     <div class="projects-container">
-      <div class="atom-title-container">
-        <h1 class="atom-brush-title" data-text="ATOM">ATOM</h1>
-        <p class="drag-hint">arraste para explorar<span class="drag-hint-arrow">→</span></p>
+      <!-- Section header -->
+      <div class="section-header">
+        <div class="header-glow"></div>
+        <span class="section-tag">✦ NOSSAS MISSÕES</span>
+        <h2 class="section-title">Projetos</h2>
+        <p class="section-subtitle">Exploração digital em sua melhor forma. Conheça nossos cases de sucesso.</p>
       </div>
 
-      <div class="track-wrapper">
-        <button class="nav-arrow nav-arrow--left" @click="scrollByCard(-1)" aria-label="Projeto anterior">‹</button>
+      <!-- Main carousel - Spacecore 3D Flow -->
+      <div class="carousel-stage">
+        
+        <div class="carousel-viewport" ref="viewportRef">
+          <div class="carousel-track" :style="{ transform: `translateX(${trackOffset}px)` }">
+            <div
+              v-for="(project, index) in projectsData"
+              :key="project.name"
+              class="project-card-wrapper"
+              :class="{
+                'is-active': activeIndex === index,
+                'is-prev': activeIndex === index - 1,
+                'is-next': activeIndex === index + 1,
+                'is-far': Math.abs(activeIndex - index) > 1
+              }"
+              @click="goTo(index)"
+            >
+              <div class="project-card" :style="{ '--accent': project.accent, '--accent-glow': project.accentGlow }">
+                
+                <!-- Glowing Aura -->
+                <div class="card-aura"></div>
+                
+                <!-- Inner Glass Container -->
+                <div class="card-glass">
+                  <!-- Screenshots slider -->
+                  <div class="card-screens">
+                    <transition name="screen-fade" mode="out-in">
+                      <img
+                        :key="project.screens[project.activeScreen].src"
+                        :src="project.screens[project.activeScreen].src"
+                        :alt="`${project.name} - tela ${project.activeScreen + 1}`"
+                        class="screen-image"
+                        draggable="false"
+                      />
+                    </transition>
+                    
+                    <div class="screen-indicators" v-if="project.screens.length > 1">
+                      <button
+                        v-for="(screen, si) in project.screens"
+                        :key="si"
+                        class="indicator-dot"
+                        :class="{ 'is-active': project.activeScreen === si }"
+                        @click.stop="setScreen(index, si)"
+                        :aria-label="`Tela ${si + 1} de ${project.name}`"
+                      ></button>
+                    </div>
+                  </div>
+                  
+                  <!-- Project Info -->
+                  <div class="card-content">
+                    <div class="content-header">
+                      <span class="project-category" :style="{ color: project.accent }">{{ project.category }}</span>
+                      <h3 class="project-name">{{ project.name }}</h3>
+                    </div>
+                    
+                    <p class="project-desc">{{ project.description }}</p>
+                    
+                    <div class="project-tags">
+                      <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
+                    </div>
+                    
+                    <button class="explore-btn" :style="{ '--btn-color': project.accent }">
+                      Explorar Missão <span class="arrow">→</span>
+                    </button>
+                  </div>
+                </div>
 
-        <div
-          class="projects-track"
-          ref="trackRef"
-          tabindex="0"
-          aria-label="Projetos"
-          :class="{ 'is-dragging': isDragging }"
-          @mousedown="startDrag"
-          @mouseleave="stopDrag"
-          @mouseup="stopDrag"
-          @mousemove="onDrag"
-          @keydown="onKeydown"
-        >
-          <div
-            v-for="(project, index) in projectsData"
-            :key="project.footer"
-            :ref="el => (cardRefs[index] = el)"
-            class="project-card"
-            :style="{ '--accent': project.accent, transitionDelay: prefersReducedMotion ? '0ms' : `${index * 70}ms` }"
-            @mousemove="handleTilt"
-            @mouseleave="resetTilt"
-          >
-            <div class="card-3d">
-              <img
-                v-if="!project.imgFailed"
-                :src="project.src"
-                :alt="project.title"
-                class="card-image"
-                :style="{ objectPosition: project.imagePos || 'center top' }"
-                draggable="false"
-                @error="onImgError(project)"
-              />
-              <div v-else class="card-fallback">
-                <span class="card-fallback-mark">{{ project.footer.charAt(0) }}</span>
-              </div>
-
-              <div class="card-spotlight"></div>
-              <div class="glass-scrim"></div>
-
-              <div class="glass-overlay">
-                <h3 class="glass-title">{{ project.title }}</h3>
-                <p class="glass-desc">{{ project.description }}</p>
-                <span class="glass-footer">{{ project.footer }}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <button class="nav-arrow nav-arrow--right" @click="scrollByCard(1)" aria-label="Próximo projeto">›</button>
+        <!-- Carousel Navigation Controls -->
+        <div class="carousel-controls">
+          <button class="nav-btn nav-btn--prev" @click="navigate(-1)" aria-label="Projeto anterior">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          <div class="nav-dots">
+            <button
+              v-for="(project, index) in projectsData"
+              :key="'dot-' + index"
+              class="nav-dot"
+              :class="{ 'is-active': activeIndex === index }"
+              :style="{ '--accent': project.accent }"
+              @click="goTo(index)"
+              :aria-label="`Ir para ${project.name}`"
+            ></button>
+          </div>
+          
+          <button class="nav-btn nav-btn--next" @click="navigate(1)" aria-label="Próximo projeto">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
-
-      <div class="track-dots" aria-hidden="true">
-        <button
-          v-for="(project, index) in projectsData"
-          :key="'dot-' + project.footer"
-          class="track-dot"
-          :class="{ 'is-active': activeIndex === index }"
-          :style="{ '--accent': project.accent }"
-          @click="scrollToIndex(index)"
-        ></button>
+    </div>
+    
+    <!-- Infinite Tech Marquee Full Screen -->
+    <div class="tech-marquee-wrapper">
+      <div class="tech-marquee-track">
+        <div class="tech-marquee-content" aria-hidden="true">
+          <template v-for="(item, i) in techList" :key="'a-'+i">
+            <div v-if="item.isSpace" class="space-element">
+              <img :src="item.icon" :alt="item.name" />
+            </div>
+            <div v-else class="tech-box">
+              <img v-if="item.icon" :src="item.icon" :alt="item.name" class="tech-icon" />
+              <span>{{ item.name }}</span>
+            </div>
+          </template>
+        </div>
+        <div class="tech-marquee-content" aria-hidden="true">
+          <template v-for="(item, i) in techList" :key="'b-'+i">
+            <div v-if="item.isSpace" class="space-element">
+              <img :src="item.icon" :alt="item.name" />
+            </div>
+            <div v-else class="tech-box">
+              <img v-if="item.icon" :src="item.icon" :alt="item.name" class="tech-icon" />
+              <span>{{ item.name }}</span>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { reactive, ref, onMounted, onBeforeUnmount } from 'vue'
+import { reactive, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-import atomImg from '@/assets/Carrocel/atom.png'
-import portifolioImg from '@/assets/Carrocel/portifolio.png'
-import atlasImg from '@/assets/Carrocel/atlas.png'
-import chaImg from '@/assets/Carrocel/cha.png'
-// TEMP placeholder until the real Kallah screenshot is added to /assets/Carrocel
-import kallahImg from '@/assets/Carrocel/image 4.png'
+// Import planets
+import imgMars from '@/assets/planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png'
+import imgJupiter from '@/assets/planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png'
+import imgSaturn from '@/assets/planets/saturn-planet-on-isolated-transparent-background-png 1.png'
+import imgNeptune from '@/assets/planets/30_neptune 1.png'
+
+const techList = [
+  { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
+  { name: 'Jupiter', icon: imgJupiter, isSpace: true },
+  { name: 'Three.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg' },
+  { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'Mars', icon: imgMars, isSpace: true },
+  { name: 'Tailwind', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+  { name: 'Saturn', icon: imgSaturn, isSpace: true },
+  { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'Neptune', icon: imgNeptune, isSpace: true },
+  { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' }
+]
+
+// Import project screenshots
+import atomImg1 from '@/assets/Carrocel/ATOM .png'
+import atomImg2 from '@/assets/Carrocel/ATOM 2.png'
+import atomImg3 from '@/assets/Carrocel/ATOM 3.png'
+
+import portImg1 from '@/assets/Carrocel/PORT.png'
+import portImg2 from '@/assets/Carrocel/PORT 2.png'
+import portImg3 from '@/assets/Carrocel/PORT 3.png'
+
+import atlasImg1 from '@/assets/Carrocel/ATLAS .png'
+import atlasImg2 from '@/assets/Carrocel/ATLAS 2.png'
+import atlasImg3 from '@/assets/Carrocel/ATLAS 3.png'
+
+import kallahImg1 from '@/assets/Carrocel/Kallah.png'
+import kallahImg2 from '@/assets/Carrocel/Kallah 2.png'
+import kallahImg3 from '@/assets/Carrocel/Kallah 3.png'
 
 const projectsData = reactive([
   {
-    src: atomImg,
-    title: 'Alta Performance',
-    description: 'Páginas web otimizadas focadas em conversão.',
-    footer: 'ATOM',
-    accent: '#4C8DFF',
-    imagePos: 'center top',
-    imgFailed: false
+    name: 'ATOM',
+    category: 'ALTA PERFORMANCE',
+    description: 'Páginas web otimizadas focadas em conversão, com temática espacial e animações de ponta.',
+    accent: '#3b9cff',
+    accentGlow: 'rgba(59, 156, 255, 0.4)',
+    tags: ['Vue', 'Three.js', 'Conversão'],
+    screens: [
+      { src: atomImg1 },
+      { src: atomImg2 },
+      { src: atomImg3 }
+    ],
+    activeScreen: 0
   },
   {
-    src: portifolioImg,
-    title: 'Automações & IA',
-    description: 'Sistemas inteligentes que fazem o negócio rodar no piloto automático.',
-    footer: 'Portfólio Pessoal',
-    accent: '#9AC79E',
-    imagePos: 'center 20%',
-    imgFailed: false
+    name: 'Portfólio Pessoal',
+    category: 'AUTOMAÇÃO & IA',
+    description: 'Sistemas inteligentes que fazem o negócio rodar no piloto automático, com design imersivo.',
+    accent: '#00e5ff',
+    accentGlow: 'rgba(0, 229, 255, 0.4)',
+    tags: ['UI/UX', 'Automação', 'Identidade'],
+    screens: [
+      { src: portImg1 },
+      { src: portImg2 },
+      { src: portImg3 }
+    ],
+    activeScreen: 0
   },
   {
-    src: atlasImg,
-    title: 'Identidade Visual',
-    description: 'Design de alto impacto e posicionamento estético de marca.',
-    footer: 'Atlas Fin',
-    accent: '#22D3EE',
-    imagePos: 'center top',
-    imgFailed: false
+    name: 'Atlas Fin',
+    category: 'IDENTIDADE VISUAL',
+    description: 'Design de alto impacto e posicionamento estético de marca no setor financeiro.',
+    accent: '#b478ff',
+    accentGlow: 'rgba(180, 120, 255, 0.4)',
+    tags: ['Fintech', 'Branding', 'Premium'],
+    screens: [
+      { src: atlasImg1 },
+      { src: atlasImg2 },
+      { src: atlasImg3 }
+    ],
+    activeScreen: 0
   },
   {
-    src: chaImg,
-    title: 'Suporte Contínuo',
-    description: 'Garantia de otimização contínua para sua estrutura digital.',
-    footer: 'Chá de Panela',
-    accent: '#FF8FB3',
-    imagePos: 'center top',
-    imgFailed: false
+    name: 'Kallah Bride',
+    category: 'E-COMMERCE',
+    description: 'Estratégias de SEO e design focado em converter noivas buscando excelência e modernidade.',
+    accent: '#ff8fb3',
+    accentGlow: 'rgba(255, 143, 179, 0.4)',
+    tags: ['E-commerce', 'Moda', 'SEO'],
+    screens: [
+      { src: kallahImg1 },
+      { src: kallahImg2 },
+      { src: kallahImg3 }
+    ],
+    activeScreen: 0
   },
   {
-    src: kallahImg,
-    title: 'SEO Otimizado',
-    description: 'Estratégias de SEO e conteúdo que trazem clientes sem precisar pagar por anúncios.',
-    footer: 'Kallah Bride house',
-    accent: '#E4A855',
-    imagePos: 'center top',
-    imgFailed: false
+    name: 'Nexus System',
+    category: 'SISTEMAS WEB',
+    description: 'Plataforma de gestão inteligente e dashboards dinâmicos para controle de dados em tempo real.',
+    accent: '#f39c12',
+    accentGlow: 'rgba(243, 156, 18, 0.4)',
+    tags: ['Dashboards', 'SaaS', 'Vue.js'],
+    screens: [
+      { src: portImg2 },
+      { src: atomImg1 },
+      { src: atlasImg3 }
+    ],
+    activeScreen: 0
+  },
+  {
+    name: 'Lumina',
+    category: 'UI/UX DESIGN',
+    description: 'Conceito visual arrojado combinando interações imersivas com usabilidade de alta performance.',
+    accent: '#9b59b6',
+    accentGlow: 'rgba(155, 89, 182, 0.4)',
+    tags: ['Design System', 'Figma', 'UX'],
+    screens: [
+      { src: kallahImg2 },
+      { src: atlasImg1 },
+      { src: portImg1 }
+    ],
+    activeScreen: 0
   }
 ])
 
-const trackRef = ref(null)
-const cardRefs = ref([])
-const isDragging = ref(false)
+const viewportRef = ref(null)
 const activeIndex = ref(0)
+const slideWidth = ref(0)
 
-const prefersReducedMotion =
-  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-const canHover =
-  typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches
+// Auto-rotate screens for active project
+let screenInterval = null
 
-let startX = 0
-let scrollLeft = 0
-
-function startDrag(e) {
-  isDragging.value = true
-  startX = e.pageX - trackRef.value.offsetLeft
-  scrollLeft = trackRef.value.scrollLeft
-}
-function stopDrag() {
-  isDragging.value = false
-}
-function onDrag(e) {
-  if (!isDragging.value) return
-  e.preventDefault()
-  const x = e.pageX - trackRef.value.offsetLeft
-  const walk = (x - startX) * 1.4
-  trackRef.value.scrollLeft = scrollLeft - walk
+function startScreenRotation() {
+  stopScreenRotation()
+  screenInterval = setInterval(() => {
+    const project = projectsData[activeIndex.value]
+    if (project && project.screens.length > 1) {
+      project.activeScreen = (project.activeScreen + 1) % project.screens.length
+    }
+  }, 3500)
 }
 
-function onImgError(project) {
-  project.imgFailed = true
+function stopScreenRotation() {
+  if (screenInterval) clearInterval(screenInterval)
 }
 
-function handleTilt(e) {
-  if (!canHover || prefersReducedMotion || isDragging.value) return
-  const card = e.currentTarget
-  const rect = card.getBoundingClientRect()
-  const x = e.clientX - rect.left
-  const y = e.clientY - rect.top
-  const rotateY = (x / rect.width - 0.5) * 12
-  const rotateX = (y / rect.height - 0.5) * -12
-  card.style.setProperty('--rx', `${rotateX}deg`)
-  card.style.setProperty('--ry', `${rotateY}deg`)
-  card.style.setProperty('--mx', `${(x / rect.width) * 100}%`)
-  card.style.setProperty('--my', `${(y / rect.height) * 100}%`)
-}
-function resetTilt(e) {
-  const card = e.currentTarget
-  card.style.setProperty('--rx', '0deg')
-  card.style.setProperty('--ry', '0deg')
+function setScreen(projectIndex, screenIndex) {
+  projectsData[projectIndex].activeScreen = screenIndex
+  // reset rotation timer
+  startScreenRotation()
 }
 
-function scrollByCard(dir) {
-  const card = trackRef.value?.querySelector('.project-card')
-  const gap = 32
-  const width = card ? card.offsetWidth + gap : 320
-  trackRef.value.scrollBy({ left: width * dir, behavior: 'smooth' })
+// Carousel navigation
+const trackOffset = computed(() => {
+  const sw = slideWidth.value || 400
+  const viewportWidth = viewportRef.value?.offsetWidth || 0
+  const centerOffset = (viewportWidth - sw) / 2
+  return centerOffset - activeIndex.value * sw
+})
+
+function navigate(dir) {
+  let next = activeIndex.value + dir
+  if (next >= projectsData.length) next = 0
+  if (next < 0) next = projectsData.length - 1
+  activeIndex.value = next
+  
+  projectsData.forEach((p, i) => {
+    if (i !== activeIndex.value) p.activeScreen = 0
+  })
+  startScreenRotation()
+}
+
+function goTo(index) {
+  activeIndex.value = index
+  projectsData.forEach((p, i) => {
+    if (i !== activeIndex.value) p.activeScreen = 0
+  })
+  startScreenRotation()
 }
 
 function onKeydown(e) {
-  if (e.key === 'ArrowRight') { e.preventDefault(); scrollByCard(1) }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); scrollByCard(-1) }
+  if (e.key === 'ArrowRight') { e.preventDefault(); navigate(1) }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); navigate(-1) }
 }
 
-function scrollToIndex(i) {
-  cardRefs.value[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+function updateSlideWidth() {
+  if (!viewportRef.value) return
+  const vw = viewportRef.value.offsetWidth
+  if (vw <= 768) {
+    slideWidth.value = vw * 0.85
+  } else if (vw <= 1024) {
+    slideWidth.value = 400
+  } else {
+    slideWidth.value = 460
+  }
 }
 
-let rafId = null
-function updateActiveIndex() {
-  if (!trackRef.value) return
-  const trackRect = trackRef.value.getBoundingClientRect()
-  const trackCenter = trackRect.left + trackRect.width / 2
-  let closest = 0
-  let closestDist = Infinity
-  cardRefs.value.forEach((card, i) => {
-    if (!card) return
-    const rect = card.getBoundingClientRect()
-    const dist = Math.abs(rect.left + rect.width / 2 - trackCenter)
-    if (dist < closestDist) { closestDist = dist; closest = i }
-  })
-  activeIndex.value = closest
-}
-function onScroll() {
-  if (rafId) return
-  rafId = requestAnimationFrame(() => { updateActiveIndex(); rafId = null })
+// Touch/drag support
+let startX = 0
+let startY = 0
+let isDragging = false
+let isSwiping = false
+
+function onDragStart(e) {
+  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
+  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY
+  startX = clientX
+  startY = clientY
+  isDragging = true
+  isSwiping = false
+  if (e.type === 'mousedown') {
+    if (viewportRef.value) viewportRef.value.style.cursor = 'grabbing'
+  }
 }
 
-let observer = null
+function onDragMove(e) {
+  if (!isDragging) return
+  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
+  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY
+  const dx = clientX - startX
+  const dy = clientY - startY
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+    isSwiping = true
+    e.preventDefault()
+  }
+}
+
+function onDragEnd(e) {
+  if (!isDragging) return
+  isDragging = false
+  if (viewportRef.value) {
+    viewportRef.value.style.cursor = 'grab'
+  }
+  if (!isSwiping) return
+  
+  const clientX = e.type.includes('mouse') ? e.clientX : e.changedTouches[0].clientX
+  const dx = clientX - startX
+  if (Math.abs(dx) > 50) {
+    navigate(dx < 0 ? 1 : -1)
+  }
+  startX = 0
+  isSwiping = false
+}
+
+// Auto-advance carousel
+let autoAdvance = null
+function startAutoAdvance() {
+  stopAutoAdvance()
+  autoAdvance = setInterval(() => {
+    navigate(1)
+  }, 8000)
+}
+function stopAutoAdvance() {
+  if (autoAdvance) clearInterval(autoAdvance)
+}
+
 onMounted(() => {
-  updateActiveIndex()
-  trackRef.value?.addEventListener('scroll', onScroll, { passive: true })
+  updateSlideWidth()
+  window.addEventListener('resize', updateSlideWidth)
+  window.addEventListener('keydown', onKeydown)
 
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('is-visible')
-      })
-    },
-    { threshold: 0.2 }
-  )
-  cardRefs.value.forEach((card) => card && observer.observe(card))
+  if (viewportRef.value) {
+    viewportRef.value.style.cursor = 'grab'
+    // Touch
+    viewportRef.value.addEventListener('touchstart', onDragStart, { passive: true })
+    viewportRef.value.addEventListener('touchmove', onDragMove, { passive: false })
+    viewportRef.value.addEventListener('touchend', onDragEnd, { passive: true })
+    // Mouse
+    viewportRef.value.addEventListener('mousedown', onDragStart)
+    window.addEventListener('mousemove', onDragMove, { passive: false })
+    window.addEventListener('mouseup', onDragEnd)
+  }
+
+  startScreenRotation()
+  startAutoAdvance()
 })
+
 onBeforeUnmount(() => {
-  trackRef.value?.removeEventListener('scroll', onScroll)
-  observer?.disconnect()
+  window.removeEventListener('resize', updateSlideWidth)
+  window.removeEventListener('keydown', onKeydown)
+  stopScreenRotation()
+  stopAutoAdvance()
+
+  if (viewportRef.value) {
+    viewportRef.value.removeEventListener('touchstart', onDragStart)
+    viewportRef.value.removeEventListener('touchmove', onDragMove)
+    viewportRef.value.removeEventListener('touchend', onDragEnd)
+    viewportRef.value.removeEventListener('mousedown', onDragStart)
+  }
+  window.removeEventListener('mousemove', onDragMove)
+  window.removeEventListener('mouseup', onDragEnd)
 })
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
+/* ─── Section & Background ─── */
 .projects-section {
-  --bg: #090b17;
-  --card-bg: #10121e;
-  --text-primary: #f5f6fa;
-  --text-muted: rgba(245, 246, 250, 0.68);
+  /* Match PlanetsSection background perfectly */
+  --bg: #090B17;
+  --text-primary: #f0f1f7;
+  --text-muted: rgba(240, 241, 247, 0.6);
+  
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background: var(--bg);
   display: flex;
@@ -259,267 +485,481 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 6rem 0;
-  z-index: 20;
+  padding: 6rem 0 8rem;
+  z-index: 10;
 }
 
-.projects-glow {
+.projects-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(50% 40% at 20% 15%, rgba(0, 119, 255, 0.14), transparent 70%),
-    radial-gradient(45% 35% at 85% 75%, rgba(255, 0, 119, 0.12), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
 
+/* Subtle stars mimicking spacecore without bright nebulas */
+.stars-layer {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 70% 60%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 45% 85%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 85% 20%, rgba(255,255,255,0.2), transparent);
+  background-size: 200px 200px;
+  opacity: 0.5;
+  animation: floatStars 20s linear infinite;
+}
+
+@keyframes floatStars {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100px); }
+}
+
+.stars-layer--2 {
+  background-size: 150px 150px;
+  background-image: 
+    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,0.6), transparent);
+  animation: floatStars 15s linear infinite;
+  opacity: 0.3;
+}
+
+/* Cosmic Elements */
+.cosmic-elements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-planet {
+  position: absolute;
+  filter: drop-shadow(0 0 30px rgba(0,0,0,0.8));
+}
+.floating-planet img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.planet-jupiter {
+  width: 300px;
+  top: 10%;
+  left: -100px;
+  opacity: 0.4;
+  animation: floatOrb 18s ease-in-out infinite alternate;
+}
+.planet-saturn {
+  width: 450px;
+  bottom: -50px;
+  right: -150px;
+  opacity: 0.3;
+  animation: floatOrb 25s ease-in-out infinite alternate-reverse;
+}
+.planet-mars {
+  width: 120px;
+  top: 40%;
+  right: 5%;
+  opacity: 0.25;
+  animation: floatOrb 12s ease-in-out infinite alternate;
+}
+.planet-neptune {
+  width: 200px;
+  bottom: 20%;
+  left: 8%;
+  opacity: 0.2;
+  animation: floatOrb 20s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatOrb {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-40px) rotate(5deg); }
+}
+
+/* Shooting Stars */
+.shooting-star {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(255,255,255,1), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: rotate(45deg);
+}
+.st-1 {
+  top: -10%; left: 30%;
+  animation: shootingStar 6s linear infinite;
+  animation-delay: 2s;
+}
+.st-2 {
+  top: -10%; left: 70%;
+  animation: shootingStar 9s linear infinite;
+  animation-delay: 5s;
+}
+.st-3 {
+  top: -10%; left: 10%;
+  animation: shootingStar 12s linear infinite;
+  animation-delay: 8s;
+}
+
+@keyframes shootingStar {
+  0% { transform: rotate(45deg) translateY(-100px); opacity: 1; }
+  20% { transform: rotate(45deg) translateY(500px); opacity: 0; }
+  100% { transform: rotate(45deg) translateY(500px); opacity: 0; }
+}
+
+/* ─── Container ─── */
 .projects-container {
   position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 1400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
-  z-index: 2;
+  gap: 3.5rem;
 }
 
-.atom-title-container {
-  margin-bottom: -2rem;
-  z-index: 30;
+/* ─── Header ─── */
+.section-header {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.header-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 100px;
+  background: radial-gradient(ellipse, rgba(59, 156, 255, 0.15), transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
   pointer-events: none;
 }
 
-@font-face {
-  font-family: 'Rocket brush';
-  src: url('@/assets/fonts/Rocket-Brush.woff') format('woff');
-}
-
-.atom-brush-title {
-  font-family: 'Rocket brush', 'Permanent Marker', cursive;
-  font-size: clamp(4rem, 11vw, 9rem);
-  font-weight: 400;
-  margin: 0;
-  line-height: 1;
-  letter-spacing: 0.05em;
+.section-tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  background: linear-gradient(100deg, #3b9cff, #b478ff 55%, #ff3d96);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-.drag-hint {
-  margin: 0.5rem 0 0;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  color: #3b9cff;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-}
-.drag-hint-arrow {
-  display: inline-block;
-  animation: nudge 1.6s ease-in-out infinite;
-}
-@keyframes nudge {
-  0%, 100% { transform: translateX(0); opacity: 0.5; }
-  50% { transform: translateX(6px); opacity: 1; }
+  gap: 0.5rem;
 }
 
-.track-wrapper {
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.section-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* ─── Carousel Stage ─── */
+.carousel-stage {
   position: relative;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 3rem;
 }
 
-.nav-arrow {
+.carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  padding: 3rem 0;
+  perspective: 1200px;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* ─── Project Card ─── */
+.project-card-wrapper {
+  flex: 0 0 460px;
+  display: flex;
+  justify-content: center;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* 3D Space Flow States */
+.project-card-wrapper.is-active {
+  transform: translateZ(0) scale(1);
+  opacity: 1;
+  z-index: 10;
+}
+.project-card-wrapper.is-prev {
+  transform: translateZ(-150px) translateX(40px) rotateY(12deg) scale(0.85);
+  opacity: 0.4;
+  z-index: 5;
+}
+.project-card-wrapper.is-next {
+  transform: translateZ(-150px) translateX(-40px) rotateY(-12deg) scale(0.85);
+  opacity: 0.4;
+  z-index: 5;
+}
+.project-card-wrapper.is-far {
+  transform: translateZ(-300px) scale(0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.project-card {
+  position: relative;
+  width: 100%;
+  border-radius: 28px;
+  transition: transform 0.4s ease;
+}
+.project-card-wrapper.is-active .project-card:hover {
+  transform: translateY(-10px);
+}
+
+.card-aura {
   position: absolute;
-  top: 42%;
-  z-index: 25;
+  inset: -15px;
+  border-radius: 35px;
+  background: var(--accent-glow);
+  filter: blur(25px);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.project-card-wrapper.is-active .card-aura {
+  opacity: 0.6;
+}
+
+.card-glass {
+  position: relative;
+  background: rgba(18, 20, 33, 0.6);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-left-color: rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Card Screens ─── */
+.card-screens {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #0f111a;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.screen-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.screen-fade-enter-active,
+.screen-fade-leave-active {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.screen-fade-enter-from {
+  opacity: 0;
+  transform: scale(1.05);
+}
+.screen-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.screen-indicators {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.indicator-dot.is-active {
+  background: var(--accent);
+  width: 16px;
+  border-radius: 4px;
+}
+
+/* ─── Card Content ─── */
+.card-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.content-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.project-category {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.project-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.project-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+}
+
+.explore-btn {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+.project-card-wrapper.is-active .explore-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.explore-btn:hover {
+  color: var(--btn-color);
+}
+.explore-btn .arrow {
+  transition: transform 0.3s ease;
+}
+.explore-btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ─── Carousel Controls ─── */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.nav-btn {
   width: 44px;
   height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(15, 17, 28, 0.55);
-  backdrop-filter: blur(12px);
-  color: var(--text-primary);
-  font-size: 1.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  transition: all 0.3s ease;
 }
-.nav-arrow:hover {
-  background: rgba(255, 255, 255, 0.12);
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-50%) scale(1.05);
-}
-.nav-arrow--left { left: 2vw; }
-.nav-arrow--right { right: 2vw; }
-@media (max-width: 900px) {
-  .nav-arrow { display: none; }
+  transform: scale(1.05);
 }
 
-.projects-track {
+.nav-dots {
   display: flex;
-  gap: 2rem;
-  padding: 4rem 8vw 3rem;
-  width: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  align-items: center;
-  perspective: 1400px;
-  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-  outline: none;
-}
-.projects-track::-webkit-scrollbar { display: none; }
-.projects-track.is-dragging { scroll-snap-type: none; cursor: grabbing; }
-
-.project-card {
-  --rx: 0deg;
-  --ry: 0deg;
-  --mx: 50%;
-  --my: 50%;
-  flex: 0 0 auto;
-  width: 300px;
-  height: 440px;
-  scroll-snap-align: center;
-  cursor: grab;
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.project-card.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.project-card:active { cursor: grabbing; }
-
-.card-3d {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 28px;
-  overflow: hidden;
-  background: var(--card-bg);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
-  transform: rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s ease, box-shadow 0.35s ease;
-}
-.project-card:hover .card-3d {
-  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
-  box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.55),
-    0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent),
-    0 0 40px -10px color-mix(in srgb, var(--accent) 55%, transparent);
+  gap: 12px;
 }
 
-.card-spotlight {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 35%, white 10%), transparent 55%);
-  opacity: 0;
-  mix-blend-mode: overlay;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-.project-card:hover .card-spotlight { opacity: 0.55; }
-
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  display: block;
-  transition: transform 0.6s ease;
-}
-.project-card:hover .card-image { transform: scale(1.04); }
-
-.card-fallback {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 35%, #0c0e18), #0c0e18 75%);
-}
-.card-fallback-mark {
-  font-family: 'Inter', sans-serif;
-  font-size: 4.5rem;
-  font-weight: 800;
-  color: color-mix(in srgb, var(--accent) 70%, white 30%);
-  opacity: 0.7;
-}
-
-.glass-scrim {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 60%;
-  background: linear-gradient(to top, rgba(6, 7, 14, 0.85), rgba(6, 7, 14, 0));
-  pointer-events: none;
-}
-
-.glass-overlay {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
-  right: 14px;
-  padding: 22px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.glass-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 21px;
-  font-weight: 800;
-  margin: 0;
-  color: var(--text-primary);
-  line-height: 1.2;
-}
-.glass-desc {
-  font-family: 'Inter', sans-serif;
-  font-size: 13.5px;
-  font-weight: 400;
-  line-height: 1.4;
-  margin: 0;
-  color: var(--text-muted);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.glass-footer {
-  font-family: 'Inter', sans-serif;
-  font-size: 12.5px;
-  font-weight: 700;
-  margin-top: 4px;
-  color: var(--accent);
-  letter-spacing: 0.02em;
-}
-
-.track-dots {
-  display: flex;
-  gap: 10px;
-  margin-top: 0.5rem;
-}
-.track-dot {
+.nav-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -527,26 +967,158 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.2);
   cursor: pointer;
   padding: 0;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.track-dot.is-active {
-  width: 24px;
+.nav-dot.is-active {
+  width: 32px;
   border-radius: 4px;
   background: var(--accent);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .project-card-wrapper { flex: 0 0 400px; padding: 0 1rem; }
+  .card-content { padding: 1.5rem; }
 }
 
 @media (max-width: 768px) {
-  .projects-section { padding: 4rem 0; }
-  .atom-title-container { margin-bottom: -1.25rem; }
-  .projects-track { padding: 3rem 1.5rem 2rem; gap: 1.25rem; }
-  .project-card { width: 250px; height: 400px; }
-  .card-3d { border-radius: 22px; }
+  .projects-section { padding: 4rem 0 6rem; }
+  .section-title { font-size: clamp(2.5rem, 8vw, 3rem); }
+  .project-card-wrapper { flex: 0 0 85vw; }
+  
+  .project-card-wrapper.is-prev,
+  .project-card-wrapper.is-next {
+    transform: translateZ(-100px) scale(0.9);
+    opacity: 0.5;
+  }
+  
+  .carousel-controls { gap: 1.5rem; }
+  .nav-btn { width: 40px; height: 40px; }
 }
 
+@media (max-width: 480px) {
+  .card-screens { aspect-ratio: 1/1; }
+  .card-content { padding: 1.25rem; }
+  .project-name { font-size: 1.3rem; }
+}
+
+/* ─── Tech Marquee ─── */
+.tech-marquee-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 5rem;
+  padding: 2.5rem 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.tech-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: scrollMarquee 40s linear infinite;
+  align-items: center;
+}
+.tech-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.tech-marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-right: 2.5rem; /* Matches the gap */
+}
+
+.space-element {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  animation: floatSpace 6s ease-in-out infinite;
+}
+.space-element img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+}
+
+@keyframes floatSpace {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.tech-box {
+  width: 120px;
+  height: 120px;
+  border-radius: 28px;
+  background: rgba(15, 10, 25, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(255, 255, 255, 0.15);
+  border-left-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: default;
+}
+
+.tech-box:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(123, 63, 242, 0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.tech-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 10px rgba(255, 255, 255, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.tech-box:hover .tech-icon {
+  transform: scale(1.1);
+}
+
+.tech-box span {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  transition: color 0.3s ease;
+}
+
+.tech-box:hover span {
+  color: #fff;
+}
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Reduced motion ─── */
 @media (prefers-reduced-motion: reduce) {
-  .project-card, .card-3d, .card-image, .card-spotlight {
+  .stars-layer,
+  .carousel-track,
+  .project-card-wrapper,
+  .project-card,
+  .card-aura,
+  .screen-image {
+    animation: none !important;
     transition: none !important;
   }
-  .drag-hint-arrow { animation: none; }
 }
 </style>
