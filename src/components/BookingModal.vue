@@ -55,44 +55,22 @@
           <div class="day empty"></div>
           
           <!-- Days -->
-          <div class="day">1</div>
-          <div class="day">2</div>
-          <div class="day">3</div>
-          <div class="day">4</div>
-          <div class="day">5</div>
-          <div class="day">6</div>
-          <div class="day">7</div>
-          <div class="day">8</div>
-          <div class="day">9</div>
-          <div class="day">10</div>
-          <div class="day">11</div>
-          <div class="day">12</div>
-          <div class="day">13</div>
-          <div class="day">14</div>
-          <div class="day active" @click="selectDay(15)">15</div>
-          <div class="day">16</div>
-          <div class="day">17</div>
-          <div class="day">18</div>
-          <div class="day">19</div>
-          <div class="day">20</div>
-          <div class="day">21</div>
-          <div class="day">22</div>
-          <div class="day">23</div>
-          <div class="day">24</div>
-          <div class="day">25</div>
-          <div class="day">26</div>
-          <div class="day">27</div>
-          <div class="day">28</div>
-          <div class="day">29</div>
-          <div class="day">30</div>
-          <div class="day">31</div>
+          <div 
+            class="day" 
+            v-for="day in 31" 
+            :key="day"
+            :class="{ active: selectedDay === day }"
+            @click="selectDay(day)"
+          >
+            {{ day }}
+          </div>
         </div>
       </div>
 
       <!-- Coluna 3: Horários -->
       <div class="booking-col col-times" :class="{ 'visible': selectedDay }">
         <div class="times-header">
-          <h3>Qua. 15</h3>
+          <h3>{{ selectedDateString }}</h3>
           <div class="format-toggle">
             <span class="active">24h</span>
           </div>
@@ -141,14 +119,22 @@ const emit = defineEmits(['close'])
 // CONFIGURAÇÕES GOOGLE CALENDAR
 // ==========================================
 // IMPORTANTE: Insira aqui o Client ID gerado no Google Cloud Console
-const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com'
-const HOST_EMAIL = 'hello@atom.com'
+const GOOGLE_CLIENT_ID = '1039216991577-bgkbrrh1oe5m2oq0du8um4ka9b3u1uar.apps.googleusercontent.com'
+const HOST_EMAIL = 'cardosodavid92@gmail.com'
 
 const isLoading = ref(false)
 const bookingSuccess = ref(false)
 
 const selectedDay = ref(null)
 const selectedTime = ref(null)
+
+const selectedDateString = computed(() => {
+  if (!selectedDay.value) return ''
+  const daysOfWeek = ['Dom.', 'Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sáb.']
+  // 1 de Julho de 2026 é Quarta-feira (índice 3: Dom=0, Seg=1, Ter=2, Qua=3)
+  const dayIndex = (3 + selectedDay.value - 1) % 7
+  return `${daysOfWeek[dayIndex]} ${selectedDay.value}`
+})
 
 // Gerar datas (mock simples)
 const availableTimes = ['09:00', '09:30', '10:00', '11:00', '13:30', '14:00', '15:00', '16:30']
