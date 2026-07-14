@@ -7,8 +7,8 @@
     </div>
     
     <div class="navbar__sub-pill">
-      <a href="#agendar" class="navbar__action">
-        Agente uma reunião 
+      <a href="#" @click.prevent="$emit('book')" class="navbar__action">
+        Agende uma reunião 
         <svg class="navbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -22,6 +22,8 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+
+defineEmits(['book'])
 
 const isVisible = ref(false)
 
