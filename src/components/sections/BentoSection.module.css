@@ -253,3 +253,34 @@
   .hugeTextBg span { font-size: 5rem; }
   .tmContent h2 { font-size: 2.5rem; }
 }
+
+.servicesButtonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.servicesButton {
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #b478ff, #00f0ff);
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.servicesButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(0, 240, 255, 0.4);
+}

@@ -284,8 +284,12 @@ export default function BookingModal({ onClose }) {
                   style={inputStyle}
                 >
                   <option value="Landing Page">Landing Page</option>
-                  <option value="Portfólio">Portfólio</option>
+                  <option value="Site Institucional">Site Institucional (4-8 páginas)</option>
+                  <option value="Portfólio Profissional">Portfólio Profissional</option>
                   <option value="E-commerce">E-commerce</option>
+                  <option value="Sistema Web sob medida">Sistema Web sob medida</option>
+                  <option value="Dashboard Administrativo">Dashboard Administrativo</option>
+                  <option value="Blog/CMS">Blog/CMS</option>
                   <option value="Outro">Outro</option>
                 </select>
               </div>

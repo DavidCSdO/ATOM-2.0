@@ -383,6 +383,10 @@ export default function BentoSection({ id, onBook }) {
         </div>
 
       </div>
+      
+      <div className={styles.servicesButtonWrapper}>
+        <a href="#planos" className={styles.servicesButton}>Explorar Valores e Serviços</a>
+      </div>
     </section>
   );
 }

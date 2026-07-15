@@ -47,7 +47,61 @@ export default function PricingSection({ onBook }) {
       });
   }, []);
 
+
+  const pricingPlans = [
+    {
+      name: 'Landing Page',
+      price: '600',
+      orbClass: styles.orbCyan,
+      features: ['Design Spacecore Premium', 'Layout Responsivo Otimizado', 'Animações Base', 'SEO Foundation'],
+      isPremium: false,
+    },
+    {
+      name: 'Site Institucional',
+      price: '900',
+      orbClass: styles.orbOrange,
+      features: ['4-8 Páginas Integradas', 'Layout Responsivo Avançado', 'Formulários de Contato', 'SEO Premium'],
+      isPremium: false,
+    },
+    {
+      name: 'Portfólio',
+      price: '700',
+      orbClass: styles.orbPurple,
+      features: ['Apresentação Imersiva 3D', 'Galeria Dinâmica', 'Microinterações Premium', 'Performance Máxima'],
+      isPremium: false,
+    },
+    {
+      name: 'E-commerce',
+      price: '2000',
+      orbClass: styles.orbCyan,
+      features: ['Catálogo Ilimitado Integrado', 'Dashboard de Vendas', 'Checkout Glassmorphism', 'Integração com Pagamentos'],
+      isPremium: true,
+    },
+    {
+      name: 'Sistema Web',
+      price: 'Sob orç.',
+      orbClass: styles.orbOrange,
+      features: ['Arquitetura Sob Medida', 'Banco de Dados Escalável', 'APIs Rest/GraphQL', 'Painel de Controle'],
+      isPremium: true,
+    },
+    {
+      name: 'Dashboard Admin',
+      price: 'Sob orç.',
+      orbClass: styles.orbPurple,
+      features: ['Gestão de Dados em Tempo Real', 'Gráficos e Relatórios', 'Controle de Acessos', 'Integração de Sistemas'],
+      isPremium: true,
+    },
+    {
+      name: 'Blog/CMS',
+      price: '1000',
+      orbClass: styles.orbCyan,
+      features: ['Gerenciamento de Conteúdo', 'Otimização para Artigos', 'Layout de Leitura Fluida', 'Integração com Redes Sociais'],
+      isPremium: false,
+    },
+  ];
+
   return (
+
     <section className={styles.pricingSection}>
       <div className={styles.marqueeContainer}>
         <div className={styles.marqueeContent}>
@@ -72,70 +126,35 @@ export default function PricingSection({ onBook }) {
       </div>
 
       <div className={styles.pricingContainer}>
-        
-        <div className={`${styles.pricingCard} ${styles.cardTl}`}>
-          <div className={styles.cardGlass}>
-            <div className={styles.cardHeader}>
-              <div className={`${styles.glassOrb} ${styles.orbCyan}`}></div>
-              <h3 className={styles.packageName}>Landing Page</h3>
+        {pricingPlans.map((plan, index) => (
+          <div key={index} className={styles.pricingCard}>
+            <div className={`${styles.cardGlass} ${plan.isPremium ? styles.premiumGlass : ''}`}>
+              <div className={styles.cardHeader}>
+                <div className={`${styles.glassOrb} ${plan.orbClass}`}></div>
+                <h3 className={styles.packageName}>{plan.name}</h3>
+              </div>
+              <div className={styles.priceBox}>
+                {plan.price.includes('Sob') ? (
+                  <span className={styles.value} style={{ fontSize: '1.5rem' }}>{plan.price}</span>
+                ) : (
+                  <>
+                    <span className={styles.currency}>R$</span>
+                    <span className={styles.value}>{plan.price}</span>
+                  </>
+                )}
+              </div>
+              <div className={styles.divider}></div>
+              <ul className={styles.features}>
+                {plan.features.map((feat, i) => (
+                  <li key={i}>{feat}</li>
+                ))}
+              </ul>
+              <button className={`${styles.planBtn} ${plan.isPremium ? styles.btnPremium : ''}`} onClick={onBook}>
+                {plan.isPremium ? 'Iniciar Projeto' : 'Decolar'}
+              </button>
             </div>
-            <div className={styles.priceBox}>
-              <span className={styles.currency}>R$</span>
-              <span className={styles.value}>600</span>
-            </div>
-            <div className={styles.divider}></div>
-            <ul className={styles.features}>
-              <li>Design Spacecore Premium</li>
-              <li>Layout Responsivo Otimizado</li>
-              <li>Animações Base</li>
-              <li>SEO Foundation</li>
-            </ul>
-            <button className={styles.planBtn} onClick={onBook}>Decolar</button>
           </div>
-        </div>
-
-        <div className={`${styles.pricingCard} ${styles.cardTr}`}>
-          <div className={styles.cardGlass}>
-            <div className={styles.cardHeader}>
-              <div className={`${styles.glassOrb} ${styles.orbOrange}`}></div>
-              <h3 className={styles.packageName}>Portfólio</h3>
-            </div>
-            <div className={styles.priceBox}>
-              <span className={styles.currency}>R$</span>
-              <span className={styles.value}>500</span>
-            </div>
-            <div className={styles.divider}></div>
-            <ul className={styles.features}>
-              <li>Apresentação Imersiva 3D</li>
-              <li>Galeria Dinâmica</li>
-              <li>Microinterações Premium</li>
-              <li>Performance Máxima</li>
-            </ul>
-            <button className={styles.planBtn} onClick={onBook}>Decolar</button>
-          </div>
-        </div>
-
-        <div className={`${styles.pricingCard} ${styles.cardBc}`}>
-          <div className={`${styles.cardGlass} ${styles.premiumGlass}`}>
-            <div className={styles.cardHeader}>
-              <div className={`${styles.glassOrb} ${styles.orbPurple}`}></div>
-              <h3 className={styles.packageName}>E-commerce</h3>
-            </div>
-            <div className={styles.priceBox}>
-              <span className={styles.currency}>R$</span>
-              <span className={styles.value}>1200</span>
-            </div>
-            <div className={styles.divider}></div>
-            <ul className={styles.features}>
-              <li>Catálogo Ilimitado Integrado</li>
-              <li>Dashboard de Vendas</li>
-              <li>Checkout Glassmorphism</li>
-              <li>Integração com Pagamentos</li>
-            </ul>
-            <button className={`${styles.planBtn} ${styles.btnPremium}`} onClick={onBook}>Iniciar Escala</button>
-          </div>
-        </div>
-
+        ))}
       </div>
 
       <div className={styles.sectionFadeBottom}></div>
