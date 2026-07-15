@@ -77,11 +77,29 @@
   transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   image-rendering: high-quality;
   -webkit-backface-visibility: hidden;
-  filter: contrast(1.15) brightness(1.1) saturate(1.1);
 }
 
 .heroRevealed .heroBgImage {
   transform: scale(1);
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+  mask-image: radial-gradient(circle at 50% 50%, black 10%, transparent 90%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 10%, transparent 90%);
+  opacity: 0;
+  transition: opacity 3s ease-out;
+}
+
+.heroRevealed .gridOverlay {
+  opacity: 1;
 }
 
 .heroDarkness {
@@ -260,12 +278,12 @@
 .heroTagline {
   font-family: 'Astro Space', sans-serif;
   font-size: clamp(0.80rem, 1.8vw, 1.3rem);
-  color: rgba(0, 0, 0, 0.75);
+  color: rgba(255, 255, 255, 0.75);
   text-align: center;
   line-height: 1.7;
   letter-spacing: 0.04em;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  margin-top: -40px;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  margin-top: -65px;
 }
 
 .heroScrollIndicator {
@@ -387,7 +405,7 @@
   }
   
   .heroTagline {
-    margin-top: 10px;
+    margin-top: -25px;
     font-size: 0.85rem;
   }
 }
