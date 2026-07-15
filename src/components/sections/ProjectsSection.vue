@@ -1,6 +1,6 @@
 <template>
   <section class="projects-section" id="projetos">
-    <!-- Fundo idêntico à tela de planetas -->
+    <!-- Fundo id├¬ntico ├á tela de planetas -->
     <div class="projects-bg" aria-hidden="true">
       <div class="stars-layer"></div>
       <div class="stars-layer stars-layer--2"></div>
@@ -31,9 +31,9 @@
       <!-- Section header -->
       <div class="section-header">
         <div class="header-glow"></div>
-        <span class="section-tag">✦ NOSSAS MISSÕES</span>
+        <span class="section-tag">Ô£ª NOSSAS MISS├òES</span>
         <h2 class="section-title">Projetos</h2>
-        <p class="section-subtitle">Exploração digital em sua melhor forma. Conheça nossos cases de sucesso.</p>
+        <p class="section-subtitle">Explora├º├úo digital em sua melhor forma. Conhe├ºa nossos cases de sucesso.</p>
       </div>
 
       <!-- Main carousel - Spacecore 3D Flow -->
@@ -98,7 +98,7 @@
                     </div>
                     
                     <button class="explore-btn" :style="{ '--btn-color': project.accent }">
-                      Explorar Missão <span class="arrow">→</span>
+                      Explorar Miss├úo <span class="arrow">ÔåÆ</span>
                     </button>
                   </div>
                 </div>
@@ -128,7 +128,7 @@
             ></button>
           </div>
           
-          <button class="nav-btn nav-btn--next" @click="navigate(1)" aria-label="Próximo projeto">
+          <button class="nav-btn nav-btn--next" @click="navigate(1)" aria-label="Pr├│ximo projeto">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -214,10 +214,10 @@ const projectsData = reactive([
   {
     name: 'ATOM',
     category: 'ALTA PERFORMANCE',
-    description: 'Páginas web otimizadas focadas em conversão, com temática espacial e animações de ponta.',
+    description: 'P├íginas web otimizadas focadas em convers├úo, com tem├ítica espacial e anima├º├Áes de ponta.',
     accent: '#3b9cff',
     accentGlow: 'rgba(59, 156, 255, 0.4)',
-    tags: ['Vue', 'Three.js', 'Conversão'],
+    tags: ['Vue', 'Three.js', 'Convers├úo'],
     screens: [
       { src: atomImg1 },
       { src: atomImg2 },
@@ -226,12 +226,12 @@ const projectsData = reactive([
     activeScreen: 0
   },
   {
-    name: 'Portfólio Pessoal',
-    category: 'AUTOMAÇÃO & IA',
-    description: 'Sistemas inteligentes que fazem o negócio rodar no piloto automático, com design imersivo.',
+    name: 'Portf├│lio Pessoal',
+    category: 'AUTOMA├ç├âO & IA',
+    description: 'Sistemas inteligentes que fazem o neg├│cio rodar no piloto autom├ítico, com design imersivo.',
     accent: '#00e5ff',
     accentGlow: 'rgba(0, 229, 255, 0.4)',
-    tags: ['UI/UX', 'Automação', 'Identidade'],
+    tags: ['UI/UX', 'Automa├º├úo', 'Identidade'],
     screens: [
       { src: portImg1 },
       { src: portImg2 },
@@ -242,7 +242,7 @@ const projectsData = reactive([
   {
     name: 'Atlas Fin',
     category: 'IDENTIDADE VISUAL',
-    description: 'Design de alto impacto e posicionamento estético de marca no setor financeiro.',
+    description: 'Design de alto impacto e posicionamento est├®tico de marca no setor financeiro.',
     accent: '#b478ff',
     accentGlow: 'rgba(180, 120, 255, 0.4)',
     tags: ['Fintech', 'Branding', 'Premium'],
@@ -256,7 +256,7 @@ const projectsData = reactive([
   {
     name: 'Kallah Bride',
     category: 'E-COMMERCE',
-    description: 'Estratégias de SEO e design focado em converter noivas buscando excelência e modernidade.',
+    description: 'Estrat├®gias de SEO e design focado em converter noivas buscando excel├¬ncia e modernidade.',
     accent: '#ff8fb3',
     accentGlow: 'rgba(255, 143, 179, 0.4)',
     tags: ['E-commerce', 'Moda', 'SEO'],
@@ -270,7 +270,7 @@ const projectsData = reactive([
   {
     name: 'Nexus System',
     category: 'SISTEMAS WEB',
-    description: 'Plataforma de gestão inteligente e dashboards dinâmicos para controle de dados em tempo real.',
+    description: 'Plataforma de gest├úo inteligente e dashboards din├ómicos para controle de dados em tempo real.',
     accent: '#f39c12',
     accentGlow: 'rgba(243, 156, 18, 0.4)',
     tags: ['Dashboards', 'SaaS', 'Vue.js'],
@@ -284,7 +284,7 @@ const projectsData = reactive([
   {
     name: 'Lumina',
     category: 'UI/UX DESIGN',
-    description: 'Conceito visual arrojado combinando interações imersivas com usabilidade de alta performance.',
+    description: 'Conceito visual arrojado combinando intera├º├Áes imersivas com usabilidade de alta performance.',
     accent: '#9b59b6',
     accentGlow: 'rgba(155, 89, 182, 0.4)',
     tags: ['Design System', 'Figma', 'UX'],
@@ -469,7 +469,7 @@ onBeforeUnmount(() => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* ─── Section & Background ─── */
+/* ÔöÇÔöÇÔöÇ Section & Background ÔöÇÔöÇÔöÇ */
 .projects-section {
   /* Match PlanetsSection background perfectly */
   --bg: #090B17;
@@ -608,7 +608,7 @@ onBeforeUnmount(() => {
   100% { transform: rotate(45deg) translateY(500px); opacity: 0; }
 }
 
-/* ─── Container ─── */
+/* ÔöÇÔöÇÔöÇ Container ÔöÇÔöÇÔöÇ */
 .projects-container {
   position: relative;
   z-index: 2;
@@ -620,7 +620,7 @@ onBeforeUnmount(() => {
   gap: 3.5rem;
 }
 
-/* ─── Header ─── */
+/* ÔöÇÔöÇÔöÇ Header ÔöÇÔöÇÔöÇ */
 .section-header {
   text-align: center;
   display: flex;
@@ -674,7 +674,7 @@ onBeforeUnmount(() => {
   line-height: 1.6;
 }
 
-/* ─── Carousel Stage ─── */
+/* ÔöÇÔöÇÔöÇ Carousel Stage ÔöÇÔöÇÔöÇ */
 .carousel-stage {
   position: relative;
   width: 100%;
@@ -696,17 +696,19 @@ onBeforeUnmount(() => {
   align-items: center;
   transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
-/* ─── Project Card ─── */
+/* ÔöÇÔöÇÔöÇ Project Card ÔöÇÔöÇÔöÇ */
 .project-card-wrapper {
   flex: 0 0 460px;
   display: flex;
   justify-content: center;
   padding: 0 1.5rem;
   cursor: pointer;
-  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
 /* 3D Space Flow States */
@@ -736,6 +738,7 @@ onBeforeUnmount(() => {
   width: 100%;
   border-radius: 28px;
   transition: transform 0.4s ease;
+  will-change: transform;
 }
 .project-card-wrapper.is-active .project-card:hover {
   transform: translateY(-10px);
@@ -751,6 +754,7 @@ onBeforeUnmount(() => {
   transition: opacity 0.6s ease;
   pointer-events: none;
   z-index: -1;
+  will-change: opacity;
 }
 .project-card-wrapper.is-active .card-aura {
   opacity: 0.6;
@@ -773,7 +777,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
 }
 
-/* ─── Card Screens ─── */
+/* ÔöÇÔöÇÔöÇ Card Screens ÔöÇÔöÇÔöÇ */
 .card-screens {
   position: relative;
   width: 100%;
@@ -834,7 +838,7 @@ onBeforeUnmount(() => {
   border-radius: 4px;
 }
 
-/* ─── Card Content ─── */
+/* ÔöÇÔöÇÔöÇ Card Content ÔöÇÔöÇÔöÇ */
 .card-content {
   padding: 2rem;
   display: flex;
@@ -926,7 +930,7 @@ onBeforeUnmount(() => {
   transform: translateX(4px);
 }
 
-/* ─── Carousel Controls ─── */
+/* ÔöÇÔöÇÔöÇ Carousel Controls ÔöÇÔöÇÔöÇ */
 .carousel-controls {
   display: flex;
   align-items: center;
@@ -976,7 +980,7 @@ onBeforeUnmount(() => {
   box-shadow: 0 0 15px var(--accent);
 }
 
-/* ─── Responsive ─── */
+/* ÔöÇÔöÇÔöÇ Responsive ÔöÇÔöÇÔöÇ */
 @media (max-width: 1024px) {
   .project-card-wrapper { flex: 0 0 400px; padding: 0 1rem; }
   .card-content { padding: 1.5rem; }
@@ -1003,7 +1007,7 @@ onBeforeUnmount(() => {
   .project-name { font-size: 1.3rem; }
 }
 
-/* ─── Tech Marquee ─── */
+/* ÔöÇÔöÇÔöÇ Tech Marquee ÔöÇÔöÇÔöÇ */
 .tech-marquee-wrapper {
   width: 100%;
   overflow: hidden;
@@ -1109,7 +1113,7 @@ onBeforeUnmount(() => {
   100% { transform: translateX(-50%); }
 }
 
-/* ─── Reduced motion ─── */
+/* ÔöÇÔöÇÔöÇ Reduced motion ÔöÇÔöÇÔöÇ */
 @media (prefers-reduced-motion: reduce) {
   .stars-layer,
   .carousel-track,
@@ -1119,6 +1123,37 @@ onBeforeUnmount(() => {
   .screen-image {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ===== Mobile Responsiveness ===== */
+@media (max-width: 768px) {
+  .project-card-wrapper {
+    flex: 0 0 85vw;
+    padding: 0;
+  }
+  
+  .project-card-wrapper.is-prev {
+    transform: translateZ(-150px) translateX(60px) rotateY(12deg) scale(0.85);
+  }
+  .project-card-wrapper.is-next {
+    transform: translateZ(-150px) translateX(-60px) rotateY(-12deg) scale(0.85);
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .carousel-viewport {
+    padding: 1.5rem 0;
+  }
+  
+  .card-content {
+    padding: 1.2rem;
+  }
+  
+  .project-title {
+    font-size: 1.3rem;
   }
 }
 </style>

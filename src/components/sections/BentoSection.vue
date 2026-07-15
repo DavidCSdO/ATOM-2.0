@@ -167,7 +167,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, defineEmits } from 'vue'
 import * as THREE from 'three'
-import anime from 'animejs'
+// ✅ v4: exports nomeados. "stagger" e "utils" vêm do core; "svg" traz createDrawable
+import { animate, stagger, utils, svg } from 'animejs'
 
 defineEmits(['book'])
 
@@ -248,7 +249,7 @@ function initThree() {
     mouseX = 0; mouseY = 0;
   })
 
-  animate()
+  renderLoop()
 }
 
 function onMouseMove(event) {
@@ -266,8 +267,11 @@ function onResize() {
   renderer.setSize(width, height)
 }
 
-function animate() {
-  animationId = requestAnimationFrame(animate)
+// ⚠️ RENOMEADO de "animate" para "renderLoop": o nome "animate" agora é
+// usado pela função importada do animejs v4. Manter o mesmo nome aqui
+// causaria shadowing e quebraria tanto o Three.js quanto o anime.js.
+function renderLoop() {
+  animationId = requestAnimationFrame(renderLoop)
   
   particles.rotation.z -= 0.003
   
@@ -278,7 +282,7 @@ function animate() {
 }
 
 function initAnimeEffects() {
-  // Animação dos números de preço usando Anime.js
+  // Animação dos números de preço usando Anime.js v4
   const prices = [
     { target: '.p-val-1', value: 600 },
     { target: '.p-val-2', value: 500 },
@@ -286,53 +290,50 @@ function initAnimeEffects() {
   ];
 
   prices.forEach((p, index) => {
-    anime({
-      targets: p.target,
+    animate(p.target, {
       innerHTML: [0, p.value],
-      easing: 'easeOutExpo',
-      round: 1, // Apenas números inteiros
+      ease: 'outExpo',       // era 'easeOutExpo'
+      round: 1,
       duration: 3500,
       delay: index * 200
     });
   });
 
-  // Animejs Mostradores Minimalistas - Rotação linear contínua
-  anime({
-    targets: ['.m-orbit-1', '.m-orbit-2', '.m-orbit-3'],
+  // Mostradores Minimalistas - Rotação linear contínua
+  animate(['.m-orbit-1', '.m-orbit-2', '.m-orbit-3'], {
     rotate: {
-      value: '+=1turn', // Valor relativo contínuo
+      to: '+=1turn',        // era "value"
       duration: 6000,
-      easing: 'linear'
+      ease: 'linear'
     },
     loop: true
   });
 
   // UI Mockup Animation (Top Left)
-  anime({
-    targets: ['.ui-mockup .mbox', '.ui-mockup .mline', '.ui-mockup .mbtn'],
+  animate(['.ui-mockup .mbox', '.ui-mockup .mline', '.ui-mockup .mbtn'], {
     opacity: [0.3, 1],
     translateY: [10, 0],
-    delay: anime.stagger(150),
+    delay: stagger(150),    // era anime.stagger(150)
     duration: 1500,
-    easing: 'easeOutExpo'
+    ease: 'outExpo'
   });
 
   // Chart Animation (Top Right)
-  anime({
-    targets: '.cbar',
+  animate('.cbar', {
     scaleY: [0, 1],
-    delay: anime.stagger(150),
+    delay: stagger(150),
     duration: 1500,
-    easing: 'easeOutElastic(1, .8)'
+    ease: 'outElastic(1, .8)' // era 'easeOutElastic(1, .8)'
   });
 
-  anime({
-    targets: '.chart-neon-line',
-    strokeDashoffset: [anime.setDashoffset, 0],
+  // Linha do gráfico: v4 substitui anime.setDashoffset por svg.createDrawable()
+  const chartLine = svg.createDrawable('.chart-neon-line');
+  animate(chartLine, {
+    draw: '0 1',
     duration: 2500,
-    easing: 'easeInOutSine',
+    ease: 'inOutSine',      // era 'easeInOutSine'
     delay: 500,
-    direction: 'alternate',
+    alternate: true,        // era direction: 'alternate'
     loop: true
   });
 }
@@ -598,7 +599,7 @@ h2, h3, p { margin: 0; }
   .br-card { grid-column: 2 / 3; grid-row: 2; min-height: 300px; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .bento-container {
     grid-template-columns: 1fr;
   }
@@ -614,4 +615,3 @@ h2, h3, p { margin: 0; }
   .tm-content h2 { font-size: 2.5rem; }
 }
 </style>
-

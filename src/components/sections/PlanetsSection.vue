@@ -73,8 +73,8 @@ import imgSaturn from '@/assets/planets/saturn-planet-on-isolated-transparent-ba
 import imgUranus from '@/assets/planets/a-detailed-view-of-the-planet-uranus-showcasing-its-distinctive-blue-color-and-atmospheric-bands-captured-from-space-transparent-png 1.png'
 import imgNeptune from '@/assets/planets/30_neptune 1.png'
 
-import Stepper from './Stepper.vue'
-import OrbitingPlanets from './OrbitingPlanets.vue'
+import Stepper from '../ui/Stepper.vue'
+import OrbitingPlanets from '../3d/OrbitingPlanets.vue'
 
 const planetsList = [
   { src: imgMercury, alt: 'Mercury', width: '13%' },
@@ -273,5 +273,45 @@ const planetsList = [
   0% { transform: rotate(45deg) translateY(-100px); opacity: 1; }
   20% { transform: rotate(45deg) translateY(500px); opacity: 0; }
   100% { transform: rotate(45deg) translateY(500px); opacity: 0; }
+}
+
+/* ===== Mobile Responsiveness ===== */
+@media (max-width: 768px) {
+  .planets-container {
+    height: auto;
+    min-height: 120vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 6rem 1rem;
+    gap: 4rem;
+  }
+  
+  .card-vendas {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    top: auto;
+    right: auto;
+    margin: 0 auto;
+  }
+
+  .card-diagnostico {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    bottom: auto;
+    left: auto;
+    margin: 0 auto;
+  }
+  
+  .card-vendas__title {
+    font-size: 1.5rem;
+  }
+  
+  .glass-card {
+    padding: 1.5rem;
+  }
 }
 </style>

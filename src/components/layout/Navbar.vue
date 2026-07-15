@@ -128,4 +128,23 @@ onUnmounted(() => {
   width: 14px;
   height: 14px;
 }
+
+@media (max-width: 768px) {
+  .navbar__main-pill {
+    gap: 1.5rem;
+    padding: 0.6rem 1.5rem;
+  }
+  
+  .navbar__link {
+    display: none;
+  }
+  
+  .navbar__sub-pill {
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar__action {
+    font-size: 0.8rem;
+  }
+}
 </style>

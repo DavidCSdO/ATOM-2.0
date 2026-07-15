@@ -105,54 +105,51 @@
 
 <script setup>
 import { onMounted } from 'vue'
-import anime from 'animejs'
+// ✅ v4: exports nomeados. "utils" traz random(); "stagger" vem do core também
+import { animate, stagger, utils } from 'animejs'
 
 onMounted(() => {
   // Animação de flutuação independente das letras
   const letters = ['.f-a', '.f-t', '.f-o', '.f-m']
   
   letters.forEach(selector => {
-    anime({
-      targets: selector,
-      translateX: () => anime.random(-30, 30) + 'px',
-      translateY: () => anime.random(-30, 30) + 'px',
-      rotate: () => anime.random(-25, 25) + 'deg',
-      scale: () => anime.random(9, 11) / 10,
-      duration: () => anime.random(4000, 7000),
-      easing: 'easeInOutSine',
-      direction: 'alternate',
+    animate(selector, {
+      translateX: () => utils.random(-30, 30) + 'px',
+      translateY: () => utils.random(-30, 30) + 'px',
+      rotate: () => utils.random(-25, 25) + 'deg',
+      scale: () => utils.random(9, 11) / 10,
+      duration: () => utils.random(4000, 7000),
+      ease: 'inOutSine',      // era 'easeInOutSine'
+      alternate: true,        // era direction: 'alternate'
       loop: true
     })
   });
 
   // Animação dos Planetas
-  anime({
-    targets: '.planet',
-    translateY: () => anime.random(-30, 30) + 'px',
+  animate('.planet', {
+    translateY: () => utils.random(-30, 30) + 'px',
     rotate: '1turn',
-    duration: () => anime.random(15000, 25000),
-    easing: 'linear',
+    duration: () => utils.random(15000, 25000),
+    ease: 'linear',
     loop: true
   });
 
-  anime({
-    targets: '.nebula-glow',
+  animate('.nebula-glow', {
     opacity: [0.3, 0.7],
     scale: [1, 1.2],
     duration: 4000,
-    direction: 'alternate',
+    alternate: true,
     loop: true,
-    easing: 'easeInOutSine'
+    ease: 'inOutSine'
   });
 
   // Animação de entrada dos cards (stagger)
-  anime({
-    targets: '.pricing-card',
+  animate('.pricing-card', {
     translateY: [50, 0],
     opacity: [0, 1],
     duration: 1500,
-    delay: anime.stagger(200, {start: 300}),
-    easing: 'easeOutExpo'
+    delay: stagger(200, { start: 300 }),
+    ease: 'outExpo'
   });
 })
 </script>

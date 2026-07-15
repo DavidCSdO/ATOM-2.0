@@ -90,7 +90,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import backgroundImage from '@/assets/NewBack.png'
-import Earth3D from './Earth3D.vue'
+import Earth3D from '../3d/Earth3D.vue'
 
 defineEmits(['navigate'])
 
@@ -529,5 +529,42 @@ onMounted(() => {
   background: linear-gradient(to bottom, transparent, #090B17);
   z-index: 10;
   pointer-events: none;
+}
+
+/* ===== Mobile Responsiveness ===== */
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: clamp(4rem, 18vw, 8rem);
+  }
+  .hero__content--settled .hero__title {
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+    margin-bottom: 2rem;
+  }
+  
+  .hero__below {
+    margin-top: -3rem; /* Less overlap */
+  }
+
+  .hero__earth-row {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .hero__earth-wrapper {
+    order: -1;
+    width: clamp(160px, 45vw, 250px);
+    height: clamp(160px, 45vw, 250px);
+  }
+  
+  .hero__nav-btn {
+    padding: 1.2rem 2rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .hero__tagline {
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
 }
 </style>

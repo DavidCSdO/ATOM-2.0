@@ -17,14 +17,13 @@
         </div>
         <div class="footer-col">
           <h4>Social</h4>
-          <a href="#">Instagram</a>
-          <a href="#">Twitter</a>
-          <a href="#">LinkedIn</a>
+          <a href="https://www.instagram.com/atom_con/" target="_blank">Instagram</a>
+          <a href="https://www.linkedin.com/in/david-cardoso-659239215/" target="_blank">LinkedIn</a>
         </div>
         <div class="footer-col">
           <h4>Contato</h4>
-          <p>hello@atom.com</p>
-          <p>+55 11 99999-9999</p>
+          <a href="mailto:cardosodavid92@gmail.com">cardosodavid92@gmail.com</a>
+          <a href="https://wa.me/5524992928110" target="_blank">WhatsApp: 24 99292 8110</a>
         </div>
       </div>
 

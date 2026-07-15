@@ -59,7 +59,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
+
+const emit = defineEmits(['update:activeIndex'])
 
 const props = defineProps({
   items: { type: Array, default: () => [] },
@@ -91,6 +93,22 @@ const radius = computed(() => {
   return (props.imageWidth * factor) / (2 * Math.tan(Math.PI / count.value))
 })
 const degPerSec = computed(() => props.speed * 6 * (props.direction === 'left' ? -1 : 1))
+
+const activeIndex = ref(0)
+
+watch(rotYRef, (newRotY) => {
+  let a = newRotY % 360
+  if (a < 0) a += 360
+  // Each item is spaced by angle
+  // When rotation is 0, item 0 is at front
+  // When rotation is -angle (or 360-angle), item 1 is at front
+  let index = Math.round((360 - a) / angle.value) % count.value
+  if (index < 0) index += count.value
+  if (index !== activeIndex.value) {
+    activeIndex.value = index
+    emit('update:activeIndex', index)
+  }
+})
 
 onMounted(() => {
   const ring = ringRef.value

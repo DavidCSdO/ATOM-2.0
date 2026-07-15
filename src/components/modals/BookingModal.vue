@@ -1,5 +1,6 @@
 <template>
   <div class="booking-overlay" @click.self="$emit('close')">
+    <RisingLines :lineCount="40" :speed="1.2" />
     
     <div class="booking-modal">
       <button class="close-btn" @click="$emit('close')">
@@ -33,10 +34,10 @@
       <!-- Coluna 2: Calendário -->
       <div class="booking-col col-calendar">
         <div class="cal-header">
-          <h3>Julho 2026</h3>
+          <h3>{{ monthName }} {{ yearStr }}</h3>
           <div class="cal-nav">
-            <button class="nav-btn">&lt;</button>
-            <button class="nav-btn">&gt;</button>
+            <button class="nav-btn" @click="prevMonth">&lt;</button>
+            <button class="nav-btn" @click="nextMonth">&gt;</button>
           </div>
         </div>
 
@@ -50,14 +51,12 @@
           <div class="day-name">SÁB.</div>
 
           <!-- Empty Days (Offset) -->
-          <div class="day empty"></div>
-          <div class="day empty"></div>
-          <div class="day empty"></div>
+          <div class="day empty" v-for="empty in firstDayOffset" :key="'empty-' + empty"></div>
           
           <!-- Days -->
           <div 
             class="day" 
-            v-for="day in 31" 
+            v-for="day in daysInMonth" 
             :key="day"
             :class="{ active: selectedDay === day }"
             @click="selectDay(day)"
@@ -112,6 +111,7 @@
 
 <script setup>
 import { ref, defineEmits, onMounted, onUnmounted, computed } from 'vue'
+import RisingLines from '../ui/RisingLines.vue'
 
 const emit = defineEmits(['close'])
 
@@ -128,12 +128,51 @@ const bookingSuccess = ref(false)
 const selectedDay = ref(null)
 const selectedTime = ref(null)
 
+const currentDate = ref(new Date())
+const currentMonthIndex = ref(currentDate.value.getMonth())
+const currentYear = ref(currentDate.value.getFullYear())
+
+const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+
+const monthName = computed(() => monthNames[currentMonthIndex.value])
+const yearStr = computed(() => currentYear.value)
+
+const daysInMonth = computed(() => {
+  return new Date(currentYear.value, currentMonthIndex.value + 1, 0).getDate()
+})
+
+const firstDayOffset = computed(() => {
+  return new Date(currentYear.value, currentMonthIndex.value, 1).getDay()
+})
+
+function prevMonth() {
+  if (currentMonthIndex.value === 0) {
+    currentMonthIndex.value = 11
+    currentYear.value--
+  } else {
+    currentMonthIndex.value--
+  }
+  selectedDay.value = null
+  selectedTime.value = null
+}
+
+function nextMonth() {
+  if (currentMonthIndex.value === 11) {
+    currentMonthIndex.value = 0
+    currentYear.value++
+  } else {
+    currentMonthIndex.value++
+  }
+  selectedDay.value = null
+  selectedTime.value = null
+}
+
 const selectedDateString = computed(() => {
   if (!selectedDay.value) return ''
   const daysOfWeek = ['Dom.', 'Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sáb.']
-  // 1 de Julho de 2026 é Quarta-feira (índice 3: Dom=0, Seg=1, Ter=2, Qua=3)
-  const dayIndex = (3 + selectedDay.value - 1) % 7
-  return `${daysOfWeek[dayIndex]} ${selectedDay.value}`
+  const date = new Date(currentYear.value, currentMonthIndex.value, selectedDay.value)
+  const dayIndex = date.getDay()
+  return `${daysOfWeek[dayIndex]} ${selectedDay.value} de ${monthName.value}`
 })
 
 // Gerar datas (mock simples)
@@ -176,11 +215,12 @@ function handleBooking() {
 }
 
 async function createEvent(accessToken) {
-  // Construindo ISO string da data simulada (2026-07-XX T HH:MM)
+  // Construindo ISO string da data
   const dayStr = selectedDay.value.toString().padStart(2, '0')
+  const monthStr = (currentMonthIndex.value + 1).toString().padStart(2, '0')
   const [hour, minute] = selectedTime.value.split(':')
   
-  const startDate = new Date(`2026-07-${dayStr}T${hour}:${minute}:00-03:00`)
+  const startDate = new Date(`${currentYear.value}-${monthStr}-${dayStr}T${hour}:${minute}:00-03:00`)
   const endDate = new Date(startDate.getTime() + 30 * 60000) // +30 min
 
   const event = {
@@ -612,15 +652,17 @@ onUnmounted(() => {
   transition: all 0.2s;
 }
 .done-btn:hover {
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
   transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
 }
 
+/* ===== Mobile Responsiveness ===== */
 @media (max-width: 992px) {
   .booking-modal {
     flex-direction: column;
+    max-height: 95vh;
     overflow-y: auto;
-    max-height: 90vh;
+    width: 95vw;
   }
   .booking-col {
     flex: auto;
