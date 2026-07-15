@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { animate, utils, stagger, setDashoffset } from 'animejs';
 import styles from './PricingSection.module.css';
 
-export default function PricingSection({ onBook }) {
+export default function PricingSection({ id, onBook }) {
   useEffect(() => {
     const letters = [`.${styles.fA}`, `.${styles.fT}`, `.${styles.fO}`, `.${styles.fM}`];
     
@@ -101,8 +101,7 @@ export default function PricingSection({ onBook }) {
   ];
 
   return (
-
-    <section className={styles.pricingSection}>
+    <section id={id} className={styles.pricingSection}>
       <div className={styles.marqueeContainer}>
         <div className={styles.marqueeContent}>
           <span>ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- ATOM -- </span>
