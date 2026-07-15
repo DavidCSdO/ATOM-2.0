@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.faqSection {
+  padding: 8rem 2rem;
+  background: url('/Fundo 2.png') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.faqContainer {
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+  z-index: 10;
+}
+
+.faqHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.faqHeader h2 {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.textGradient {
+  background: linear-gradient(90deg, #FF4D6D, #7B3FF2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.faqHeader p {
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faqItem {
+  background: rgba(15, 10, 25, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.faqItem:hover, .isOpen {
+  background: rgba(25, 28, 42, 0.7);
+  border-color: rgba(123, 63, 242, 0.4);
+}
+
+.faqQuestion {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faqQuestion h3 {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0;
+  padding-right: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.toggleIcon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.toggleIcon span {
+  position: absolute;
+  background: #00f0ff;
+  transition: transform 0.3s ease;
+}
+
+.horizontal {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.vertical {
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.vertical.rotate {
+  transform: translateX(-50%) rotate(90deg);
+}
+
+.faqAnswer {
+  padding: 0 2rem 1.5rem 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out, margin 0.3s ease-out;
+  max-height: 500px;
+  opacity: 1;
+}
+
+.faqAnswer.closed {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.faqAnswer p {
+  font-family: var(--font-inter), sans-serif;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .faqHeader h2 {
+    font-size: 2rem;
+  }
+  .faqQuestion {
+    padding: 1.2rem;
+  }
+  .faqAnswer {
+    padding: 0 1.2rem 1.2rem 1.2rem;
+  }
+}

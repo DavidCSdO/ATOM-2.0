@@ -1,0 +1,63 @@
+.hideDefaultCursor {
+  cursor: none !important;
+}
+
+.hideDefaultCursor a,
+.hideDefaultCursor button,
+.hideDefaultCursor input,
+.hideDefaultCursor textarea,
+.hideDefaultCursor select {
+  cursor: none !important;
+}
+
+.cursorDot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #00f0ff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  margin-top: -4px;
+  margin-left: -4px;
+  transition: transform 0.05s linear, width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.cursorRing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(123, 63, 242, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999998;
+  margin-top: -20px;
+  margin-left: -20px;
+  transition: width 0.2s, height 0.2s, margin 0.2s, border-color 0.2s;
+}
+
+.cursorDot.hovered {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.cursorRing.hovered {
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+  background-color: rgba(0, 240, 255, 0.1);
+  border-color: #00f0ff;
+  backdrop-filter: blur(2px);
+}
+
+@media (max-width: 768px) {
+  .cursorDot, .cursorRing {
+    display: none;
+  }
+}

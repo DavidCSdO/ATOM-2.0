@@ -1,0 +1,112 @@
+.footerSection {
+  position: relative;
+  width: 100%;
+  min-height: 800px;
+  background-color: #090B17;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem 2rem 4rem 2rem;
+}
+
+.galaxyCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.footerContent {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding-bottom: 2rem;
+  max-width: 1400px;
+}
+
+.footerInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 4rem;
+  margin-bottom: 4rem;
+  z-index: 4;
+}
+
+.footerCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footerCol h4 {
+  color: #fff;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.footerCol a, .footerCol p {
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-inter), sans-serif;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+  margin: 0;
+}
+
+.footerCol a:hover {
+  color: #00f0ff;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+}
+
+.hugeAtom {
+  font-family: 'Astro Space', sans-serif;
+  font-size: 25vw;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 0;
+  
+  background: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 1 0 0 0 0' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.31'/%3E%3C/svg%3E"),
+    linear-gradient(90deg, #7B3FF2 0%, #3FA9FF 50%, #FF4D6D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 40px rgba(63, 169, 255, 0.3))
+         drop-shadow(0 0 80px rgba(123, 63, 242, 0.2));
+  
+  position: relative;
+}
+
+.copyright {
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  margin-top: 1rem;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .hugeAtom {
+    font-size: 30vw;
+  }
+  .footerInfo {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 0 2rem;
+    align-items: center;
+    text-align: center;
+  }
+}

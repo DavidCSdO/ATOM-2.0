@@ -1,0 +1,101 @@
+.navbar {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbarVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.navbarMainPill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 0.8rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.navbarSubPill {
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.navbarLink {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.navbarLink:hover {
+  color: #fff;
+}
+
+.navbarLogo {
+  font-family: 'Astro Space', sans-serif;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+}
+
+.navbarAction {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+.navbarAction:hover {
+  color: #fff;
+}
+
+.navbarIcon {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 768px) {
+  .navbarMainPill {
+    gap: 1.5rem;
+    padding: 0.6rem 1.5rem;
+  }
+  
+  .navbarLink {
+    display: none;
+  }
+  
+  .navbarSubPill {
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbarAction {
+    font-size: 0.8rem;
+  }
+}

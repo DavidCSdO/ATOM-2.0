@@ -1,0 +1,429 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.bookingOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 11, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bookingModal {
+  display: flex;
+  background: rgba(18, 20, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(0, 240, 255, 0.1);
+  overflow: hidden;
+  position: relative;
+  width: 90%;
+  max-width: 1050px;
+  min-height: 550px;
+  transform: translateY(20px);
+  animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slideUp {
+  to { transform: translateY(0); }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 71, 87, 0.2);
+  border-color: rgba(255, 71, 87, 0.5);
+  color: #ff4757;
+  transform: rotate(90deg);
+}
+
+.bookingCol {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.colInfo {
+  flex: 0 0 300px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.hostInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.hostAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00f0ff, #b478ff);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.hostName {
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.meetingTitle {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.meetingDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.detailItem svg {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.mtAuto {
+  margin-top: auto;
+}
+
+.colCalendar {
+  flex: 1;
+  padding: 40px;
+}
+
+.calHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.calHeader h3 {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.calNav {
+  display: flex;
+  gap: 8px;
+}
+
+.navBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.navBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.dayName {
+  text-align: center;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 8px;
+}
+
+.day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day:not(.empty):not(.active):hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.day.empty {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+}
+
+.day.active {
+  background: #00f0ff;
+  color: #000;
+  font-weight: 700;
+  border-color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.colTimes {
+  flex: 0 0 260px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+}
+
+.colTimes.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.timesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.timesHeader h3 {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #fff;
+  margin: 0;
+}
+
+.formatToggle {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.formatToggle span {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  color: #fff;
+  opacity: 0.8;
+}
+
+.timesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 8px;
+}
+
+.timesList::-webkit-scrollbar { width: 4px; }
+.timesList::-webkit-scrollbar-track { background: transparent; }
+.timesList::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+
+.timeBtn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timeBtn:hover {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: #00f0ff;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+.timeBtn.selected {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: #00f0ff;
+  color: #fff;
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.actionFooter {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.confirmBtn {
+  width: 100%;
+  padding: 14px;
+  background: #fff;
+  color: #000;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmBtn:hover:not(:disabled) {
+  background: #00f0ff;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.confirmBtn:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+}
+
+.successOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 20, 30, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.successContent {
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.checkIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(0, 240, 255, 0.1);
+  border: 2px solid #00f0ff;
+  color: #00f0ff;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.successContent h2 {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.successContent p {
+  font-family: var(--font-inter), sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.doneBtn {
+  padding: 12px 30px;
+  background: #00f0ff;
+  color: #000;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.doneBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+}
+
+@media (max-width: 992px) {
+  .bookingModal {
+    flex-direction: column;
+    max-height: 95vh;
+    overflow-y: auto;
+    width: 95vw;
+  }
+  .bookingCol {
+    flex: auto;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .colInfo {
+    padding-bottom: 24px;
+  }
+  .meetingDetails {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

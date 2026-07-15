@@ -1,0 +1,129 @@
+"use client";
+
+import { useState, useEffect, useRef, useMemo } from 'react';
+import styles from './HeroSection.module.css';
+import Earth3D from '../3d/Earth3D';
+
+export default function HeroSection({ id, onNavigate, onReady }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRevealed, setIsRevealed] = useState(false);
+  const [vignetteOpen, setVignetteOpen] = useState(false);
+  const [darknessFade, setDarknessFade] = useState(false);
+  const [textVisible, setTextVisible] = useState(false);
+  const [isSettled, setIsSettled] = useState(false);
+
+  const sequenceStarted = useRef(false);
+
+  const [particlePositions, setParticlePositions] = useState([]);
+
+  useEffect(() => {
+    setParticlePositions(Array.from({ length: 30 }, () => ({
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      delay: Math.random() * 5,
+      duration: 2 + Math.random() * 4,
+      size: 1 + Math.random() * 2,
+    })));
+  }, []);
+
+  const startSequence = () => {
+    if (sequenceStarted.current) return;
+    sequenceStarted.current = true;
+
+    setIsLoading(false);
+    if (onReady) onReady();
+
+    setTimeout(() => setDarknessFade(true), 200);
+    setTimeout(() => setVignetteOpen(true), 400);
+    setTimeout(() => setIsRevealed(true), 600);
+    setTimeout(() => setTextVisible(true), 700);
+    setTimeout(() => setIsSettled(true), 2200);
+  };
+
+  const onEarthLoaded = () => {
+    setTimeout(startSequence, 800);
+  };
+
+  useEffect(() => {
+    const fallbackTimeout = setTimeout(startSequence, 5000);
+    return () => clearTimeout(fallbackTimeout);
+  }, []);
+
+  return (
+    <section
+      id={id}
+      className={`${styles.hero} ${isRevealed ? styles.heroRevealed : ''} ${isSettled ? styles.heroSettled : ''}`}
+    >
+      <div className={`${styles.heroLoadingScreen} ${!isLoading ? styles.heroLoadingScreenHidden : ''}`}>
+        <div className={styles.heroSpinner}></div>
+        <div className={styles.heroLoadingText}>INICIANDO</div>
+      </div>
+
+      <div className={styles.heroBackground}>
+        <img src="/NewBack.png" alt="ATOM background - nebula" className={styles.heroBgImage} />
+      </div>
+
+      <div className={`${styles.heroVignette} ${vignetteOpen ? styles.heroVignetteOpen : ''}`}></div>
+
+      <div className={`${styles.heroDarkness} ${darknessFade ? styles.heroDarknessFade : ''}`}></div>
+
+      <div className={`${styles.heroContent} ${textVisible ? styles.heroContentVisible : ''} ${isSettled ? styles.heroContentSettled : ''}`}>
+
+        <h1 className={styles.heroTitle}>ATOM</h1>
+
+        <div className={`${styles.heroBelow} ${isSettled ? styles.heroBelowVisible : ''}`}>
+
+          <div className={styles.heroEarthRow}>
+            <button className={styles.heroNavBtn} onClick={() => onNavigate('explore')}>
+              <span className={styles.heroNavIcon}>✦</span>
+              <span className={styles.heroNavLabel}>EXPLORAR</span>
+              <span className={styles.heroNavIcon}>✦</span>
+            </button>
+
+            <div className={styles.heroEarthWrapper}>
+              <Earth3D backgroundColor="" waterColor="#021430" onLoaded={onEarthLoaded} />
+            </div>
+
+            <button className={styles.heroNavBtn} onClick={() => onNavigate('projects')}>
+              <span className={styles.heroNavIcon}>✦</span>
+              <span className={styles.heroNavLabel}>PROJETOS</span>
+              <span className={styles.heroNavIcon}>✦</span>
+            </button>
+          </div>
+
+          <p className={styles.heroTagline}>
+            Building intelligent technology<br />
+            for the next generation.
+          </p>
+
+          <div className={styles.heroScrollIndicator}>
+            <div className={styles.heroScrollCircle}>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4 L10 14 M6 10 L10 14 L14 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.heroParticles}>
+        {particlePositions.map((pos, i) => (
+          <span
+            key={i}
+            className={styles.heroParticle}
+            style={{
+              left: `${pos.x}%`,
+              top: `${pos.y}%`,
+              animationDelay: `${pos.delay}s`,
+              animationDuration: `${pos.duration}s`,
+              width: `${pos.size}px`,
+              height: `${pos.size}px`,
+            }}
+          ></span>
+        ))}
+      </div>
+
+      <div className={styles.heroBottomFade}></div>
+    </section>
+  );
+}
