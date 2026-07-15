@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import styles from './ProjectsSection.module.css';
 
 const techList = [
@@ -266,16 +267,16 @@ export default function ProjectsSection({ id }) {
         
         <div className={styles.cosmicElements}>
           <div className={`${styles.floatingPlanet} ${styles.planetJupiter}`}>
-            <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" />
+            <Image src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetSaturn}`}>
-            <img src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" />
+            <Image src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetMars}`}>
-            <img src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" />
+            <Image src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetNeptune}`}>
-            <img src="/Planets/30_neptune 1.png" alt="" />
+            <Image src="/Planets/30_neptune 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
           </div>
           
           <div className={`${styles.shootingStar} ${styles.st1}`}></div>
@@ -322,11 +323,13 @@ export default function ProjectsSection({ id }) {
                     
                     <div className={styles.cardGlass}>
                       <div className={styles.cardScreens}>
-                        <img
+                        <Image
                           src={project.screens[project.activeScreen].src}
                           alt={`${project.name} - tela ${project.activeScreen + 1}`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          style={{ objectFit: 'cover' }}
                           className={styles.screenImage}
-                          draggable="false"
                         />
                         
                         {project.screens.length > 1 && (
@@ -402,11 +405,11 @@ export default function ProjectsSection({ id }) {
             {techList.map((item, i) => (
               item.isSpace ? (
                 <div key={`a-${i}`} className={styles.spaceElement}>
-                  <img src={item.icon} alt={item.name} />
+                  <Image src={item.icon} alt={item.name} width={40} height={40} />
                 </div>
               ) : (
                 <div key={`a-${i}`} className={styles.techBox}>
-                  {item.icon && <img src={item.icon} alt={item.name} className={styles.techIcon} />}
+                  {item.icon && <Image src={item.icon} alt={item.name} width={20} height={20} className={styles.techIcon} />}
                   <span>{item.name}</span>
                 </div>
               )
@@ -416,11 +419,11 @@ export default function ProjectsSection({ id }) {
             {techList.map((item, i) => (
               item.isSpace ? (
                 <div key={`b-${i}`} className={styles.spaceElement}>
-                  <img src={item.icon} alt={item.name} />
+                  <Image src={item.icon} alt={item.name} width={40} height={40} />
                 </div>
               ) : (
                 <div key={`b-${i}`} className={styles.techBox}>
-                  {item.icon && <img src={item.icon} alt={item.name} className={styles.techIcon} />}
+                  {item.icon && <Image src={item.icon} alt={item.name} width={20} height={20} className={styles.techIcon} />}
                   <span>{item.name}</span>
                 </div>
               )

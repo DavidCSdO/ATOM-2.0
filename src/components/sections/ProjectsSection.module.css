@@ -26,6 +26,7 @@
 }
 
 .starsLayer {
+  will-change: transform;
   position: absolute;
   inset: 0;
   background-image: 
@@ -60,6 +61,7 @@
 }
 
 .floatingPlanet {
+  will-change: transform;
   position: absolute;
   filter: drop-shadow(0 0 30px rgba(0,0,0,0.8));
 }
@@ -70,6 +72,7 @@
 }
 
 .planetJupiter {
+  will-change: transform;
   width: 300px;
   top: 10%;
   left: -100px;
@@ -77,6 +80,7 @@
   animation: floatOrb 18s ease-in-out infinite alternate;
 }
 .planetSaturn {
+  will-change: transform;
   width: 450px;
   bottom: -50px;
   right: -150px;
@@ -84,6 +88,7 @@
   animation: floatOrb 25s ease-in-out infinite alternate-reverse;
 }
 .planetMars {
+  will-change: transform;
   width: 120px;
   top: 40%;
   right: 5%;
@@ -91,6 +96,7 @@
   animation: floatOrb 12s ease-in-out infinite alternate;
 }
 .planetNeptune {
+  will-change: transform;
   width: 200px;
   bottom: 20%;
   left: 8%;
@@ -104,6 +110,7 @@
 }
 
 .shootingStar {
+  will-change: transform;
   position: absolute;
   width: 2px;
   height: 80px;
@@ -527,6 +534,7 @@
 }
 
 .spaceElement {
+  will-change: transform;
   display: flex;
   align-items: center;
   justify-content: center;

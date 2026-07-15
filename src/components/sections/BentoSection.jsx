@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { animate, utils, stagger, createDrawable } from 'animejs';
+import Image from 'next/image';
 import styles from './BentoSection.module.css';
 
 export default function BentoSection({ id, onBook }) {
@@ -255,7 +256,7 @@ export default function BentoSection({ id, onBook }) {
               <div className={styles.mockBody}>
                 <div className={`${styles.mline} ${styles.w40}`}></div>
                 <div className={`${styles.mline} ${styles.w80}`}></div>
-                <div className={styles.mbox}>
+                <div className={`${styles.mbox}`}>
                   <div className={`${styles.mline} ${styles.w30} ${styles.mDark}`}></div>
                 </div>
                 <div className={styles.mflex}>
@@ -271,9 +272,9 @@ export default function BentoSection({ id, onBook }) {
           <div className={`${styles.cardGlass} ${styles.p0} ${styles.noiseOverlay}`}>
             <div className={styles.blContent}>
               <p className={styles.blText}>Experiências imersivas que conectam usuários através de interfaces de outra dimensão e performance impecável.</p>
-              <div className={styles.blCoverWrapper}>
-                <div className={styles.blCover}>
-                  <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="Cover" className={styles.blImage} loading="lazy" decoding="async" />
+              <div className={styles.blCoverWrapper} style={{ position: 'relative' }}>
+                <div className={styles.blCover} style={{ position: 'relative', width: '100%', height: '100%' }}>
+                  <Image src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="Cover" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} className={styles.blImage} />
                   <div className={styles.blBadge}>EXPLORAR</div>
                 </div>
               </div>

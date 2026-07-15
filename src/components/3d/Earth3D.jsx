@@ -235,7 +235,7 @@ export default function Earth3D({
     renderer.toneMappingExposure = toneMappingExposure;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     
-    const dpr = Math.min(window.devicePixelRatio * quality, 8);
+    const dpr = Math.min(window.devicePixelRatio * quality, 1.5);
     renderer.setPixelRatio(dpr);
     renderer.setSize(width, height);
 
@@ -437,7 +437,24 @@ self.onmessage = (e) => {
       }
     }
 
-    animationId = requestAnimationFrame(animate);
+    
+      let isVisible = false;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            lastTime = performance.now();
+            if (!animationId) animate(performance.now());
+          } else {
+            if (animationId) {
+              cancelAnimationFrame(animationId);
+              animationId = null;
+            }
+          }
+        });
+      }, { threshold: 0.05 });
+      io.observe(container);
+
 
     const resizeObserver = new ResizeObserver(() => {
       const newWidth = container.clientWidth || container.offsetWidth || 600;
@@ -452,6 +469,7 @@ self.onmessage = (e) => {
 
     return () => {
       if (animationId !== null) cancelAnimationFrame(animationId);
+        io.disconnect();
       controls.dispose();
       resizeObserver.disconnect();
       if (composer) composer.dispose();

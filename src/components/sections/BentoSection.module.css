@@ -33,6 +33,7 @@
 }
 
 .starsLayer {
+  will-change: transform;
   position: absolute;
   inset: 0;
   background-image: radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,0.4), transparent),

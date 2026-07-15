@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 export default function OrbitingPlanets({
   planets = [],
@@ -108,19 +109,17 @@ export default function OrbitingPlanets({
                 left: `${pos.left}px`,
                 top: `${pos.top}px`,
                 width: planet.width,
+                aspectRatio: '1',
                 transform: `translate(-50%, -50%) rotateX(${yCurve}deg) rotateY(${-xCurve}deg) scale(${pos.scale})`,
                 zIndex: pos.zIndex,
               }}
             >
-              <img
+              <Image
                 src={planet.src}
                 alt={planet.alt}
-                loading="lazy"
-                decoding="async"
+                fill
+                sizes="100px"
                 style={{
-                  width: '100%',
-                  height: 'auto',
-                  display: 'block',
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.6))',
                 }}

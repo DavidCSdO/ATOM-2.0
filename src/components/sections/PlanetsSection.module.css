@@ -116,6 +116,7 @@
 }
 
 .starsLayer {
+  will-change: transform;
   position: absolute;
   inset: 0;
   background-image: 
@@ -145,6 +146,7 @@
 }
 
 .shootingStar {
+  will-change: transform;
   position: absolute;
   width: 2px;
   height: 80px;

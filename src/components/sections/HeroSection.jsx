@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import Image from 'next/image';
 import styles from './HeroSection.module.css';
 import Earth3D from '../3d/Earth3D';
 
@@ -59,8 +60,8 @@ export default function HeroSection({ id, onNavigate, onReady }) {
         <div className={styles.heroLoadingText}>INICIANDO</div>
       </div>
 
-      <div className={styles.heroBackground}>
-        <img src="/NewBack.png" alt="ATOM background - nebula" className={styles.heroBgImage} />
+      <div className={styles.heroBackground} style={{ position: 'relative' }}>
+        <Image src="/NewBack.png" alt="ATOM background - nebula" fill priority style={{ objectFit: 'cover' }} className={styles.heroBgImage} />
       </div>
 
       <div className={`${styles.heroVignette} ${vignetteOpen ? styles.heroVignetteOpen : ''}`}></div>
