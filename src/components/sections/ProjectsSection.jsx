@@ -5,18 +5,18 @@ import styles from './ProjectsSection.module.css';
 
 const techList = [
   { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
-  { name: 'Jupiter', icon: '/planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', isSpace: true },
+  { name: 'Jupiter', icon: '/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', isSpace: true },
   { name: 'Three.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg' },
   { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
   { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-  { name: 'Mars', icon: '/planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', isSpace: true },
+  { name: 'Mars', icon: '/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', isSpace: true },
   { name: 'Tailwind', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
   { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
   { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-  { name: 'Saturn', icon: '/planets/saturn-planet-on-isolated-transparent-background-png 1.png', isSpace: true },
+  { name: 'Saturn', icon: '/Planets/saturn-planet-on-isolated-transparent-background-png 1.png', isSpace: true },
   { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
   { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-  { name: 'Neptune', icon: '/planets/30_neptune 1.png', isSpace: true },
+  { name: 'Neptune', icon: '/Planets/30_neptune 1.png', isSpace: true },
   { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' }
 ];
 
@@ -29,7 +29,7 @@ const initialProjectsData = [
     accentGlow: 'rgba(59, 156, 255, 0.4)',
     tags: ['Vue', 'Three.js', 'Conversão'],
     screens: [
-      { src: '/Carrocel/ATOM .png' },
+      { src: '/Carrocel/ATOM.png' },
       { src: '/Carrocel/ATOM 2.png' },
       { src: '/Carrocel/ATOM 3.png' }
     ],
@@ -57,7 +57,7 @@ const initialProjectsData = [
     accentGlow: 'rgba(180, 120, 255, 0.4)',
     tags: ['Fintech', 'Branding', 'Premium'],
     screens: [
-      { src: '/Carrocel/ATLAS .png' },
+      { src: '/Carrocel/ATLAS.png' },
       { src: '/Carrocel/ATLAS 2.png' },
       { src: '/Carrocel/ATLAS 3.png' }
     ],
@@ -86,7 +86,7 @@ const initialProjectsData = [
     tags: ['Dashboards', 'SaaS', 'Vue.js'],
     screens: [
       { src: '/Carrocel/PORT 2.png' },
-      { src: '/Carrocel/ATOM .png' },
+      { src: '/Carrocel/ATOM.png' },
       { src: '/Carrocel/ATLAS 3.png' }
     ],
     activeScreen: 0
@@ -100,8 +100,8 @@ const initialProjectsData = [
     tags: ['Design System', 'Figma', 'UX'],
     screens: [
       { src: '/Carrocel/Kallah 2.png' },
-      { src: '/Carrocel/ATLAS .png' },
-      { src: '/Carrocel/PORT .png' }
+      { src: '/Carrocel/ATLAS.png' },
+      { src: '/Carrocel/PORT.png' }
     ],
     activeScreen: 0
   }
@@ -266,16 +266,16 @@ export default function ProjectsSection({ id }) {
         
         <div className={styles.cosmicElements}>
           <div className={`${styles.floatingPlanet} ${styles.planetJupiter}`}>
-            <img src="/planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" />
+            <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetSaturn}`}>
-            <img src="/planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" />
+            <img src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetMars}`}>
-            <img src="/planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" />
+            <img src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetNeptune}`}>
-            <img src="/planets/30_neptune 1.png" alt="" />
+            <img src="/Planets/30_neptune 1.png" alt="" />
           </div>
           
           <div className={`${styles.shootingStar} ${styles.st1}`}></div>

@@ -5,14 +5,14 @@ import Stepper from '../ui/Stepper';
 import OrbitingPlanets from '../3d/OrbitingPlanets';
 
 const planetsList = [
-  { src: '/planets/isolated-realistic-mercury-illustration-png 1.png', alt: 'Mercury', width: '13%' },
-  { src: '/planets/pngtree-beautiful-venus-planet-on-transparent-png-image_13144099 1.png', alt: 'Venus', width: '13%' },
-  { src: '/planets/Earth_Western_Hemisphere_transparent_background 2.png', alt: 'Earth', width: '13.8%' },
-  { src: '/planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', alt: 'Mars', width: '14.5%' },
-  { src: '/planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', alt: 'Jupiter', width: '19%' },
-  { src: '/planets/saturn-planet-on-isolated-transparent-background-png 1.png', alt: 'Saturn', width: '32%' },
-  { src: '/planets/a-detailed-view-of-the-planet-uranus-showcasing-its-distinctive-blue-color-and-atmospheric-bands-captured-from-space-transparent-png 1.png', alt: 'Uranus', width: '22%' },
-  { src: '/planets/30_neptune 1.png', alt: 'Neptune', width: '35%' },
+  { src: '/Planets/isolated-realistic-mercury-illustration-png 1.png', alt: 'Mercury', width: '13%' },
+  { src: '/Planets/pngtree-beautiful-venus-planet-on-transparent-png-image_13144099 1.png', alt: 'Venus', width: '13%' },
+  { src: '/Planets/Earth_Western_Hemisphere_transparent_background 2.png', alt: 'Earth', width: '13.8%' },
+  { src: '/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', alt: 'Mars', width: '14.5%' },
+  { src: '/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', alt: 'Jupiter', width: '19%' },
+  { src: '/Planets/saturn-planet-on-isolated-transparent-background-png 1.png', alt: 'Saturn', width: '32%' },
+  { src: '/Planets/a-detailed-view-of-the-planet-uranus-showcasing-its-distinctive-blue-color-and-atmospheric-bands-captured-from-space-transparent-png 1.png', alt: 'Uranus', width: '22%' },
+  { src: '/Planets/30_neptune 1.png', alt: 'Neptune', width: '35%' },
 ];
 
 export default function PlanetsSection({ id }) {

@@ -6,6 +6,13 @@ import { animate, utils, stagger, createDrawable } from 'animejs';
 import styles from './BentoSection.module.css';
 
 export default function BentoSection({ id, onBook }) {
+
+  const sectionRef = useRef(null);
+  const val1Ref = useRef(null);
+  const val2Ref = useRef(null);
+  const val3Ref = useRef(null);
+  const hasAnimated = useRef(false);
+
   const canvasContainer = useRef(null);
 
   useEffect(() => {
@@ -119,15 +126,18 @@ export default function BentoSection({ id, onBook }) {
     };
 
     const initAnimeEffects = () => {
+      if (hasAnimated.current) return;
+      hasAnimated.current = true;
+
       const prices = [
-        { target: '.pVal1', value: 600 },
-        { target: '.pVal2', value: 500 },
-        { target: '.pVal3', value: 1200 }
+        { ref: val1Ref, value: 600 },
+        { ref: val2Ref, value: 500 },
+        { ref: val3Ref, value: 1200 }
       ];
 
       prices.forEach((p, index) => {
         const obj = { val: 0 };
-        const el = document.querySelector(p.target);
+        const el = p.ref.current;
         if (el) {
           animate(obj, {
             val: p.value,
@@ -188,7 +198,18 @@ export default function BentoSection({ id, onBook }) {
     };
 
     initThree();
-    initAnimeEffects();
+    
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        initAnimeEffects();
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
 
     return () => {
       window.removeEventListener('resize', onResize);
@@ -206,7 +227,7 @@ export default function BentoSection({ id, onBook }) {
   }, []);
 
   return (
-    <section id={id} className={styles.bentoSection}>
+    <section id={id} ref={sectionRef} className={styles.bentoSection}>
       <div className={styles.projectsBg} aria-hidden="true">
         <div className={styles.starsLayer}></div>
         <div className={`${styles.starsLayer} ${styles.starsLayer2}`}></div>
@@ -252,7 +273,7 @@ export default function BentoSection({ id, onBook }) {
               <p className={styles.blText}>Experiências imersivas que conectam usuários através de interfaces de outra dimensão e performance impecável.</p>
               <div className={styles.blCoverWrapper}>
                 <div className={styles.blCover}>
-                  <img src="/planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="Cover" className={styles.blImage} loading="lazy" decoding="async" />
+                  <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="Cover" className={styles.blImage} loading="lazy" decoding="async" />
                   <div className={styles.blBadge}>EXPLORAR</div>
                 </div>
               </div>
