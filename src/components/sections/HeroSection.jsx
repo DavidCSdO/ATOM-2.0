@@ -60,7 +60,7 @@ export default function HeroSection({ id, onNavigate, onReady }) {
         <div className={styles.heroLoadingText}>INICIANDO</div>
       </div>
 
-      <div className={styles.heroBackground} style={{ position: 'relative' }}>
+      <div className={styles.heroBackground}>
         <Image src="/NewBack.png" alt="ATOM background - nebula" fill priority style={{ objectFit: 'cover' }} className={styles.heroBgImage} />
       </div>
 
