@@ -20,7 +20,7 @@ const SERVICE_DURATIONS = {
 // Horários comerciais disponíveis (09:00 - 18:00)
 const BUSINESS_HOURS = {
   start: 9,
-  end: 18,
+  end: 17,
 };
 
 function getGoogleAuth() {

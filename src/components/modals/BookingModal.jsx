@@ -195,11 +195,20 @@ export default function BookingModal({ onClose }) {
             
             {Array.from({ length: daysInMonth }).map((_, i) => {
               const day = i + 1;
+              const isPast = (currentYear < currentDate.getFullYear()) ||
+                             (currentYear === currentDate.getFullYear() && currentMonthIndex < currentDate.getMonth()) ||
+                             (currentYear === currentDate.getFullYear() && currentMonthIndex === currentDate.getMonth() && day < currentDate.getDate());
+              
               return (
                 <div 
                   key={day}
-                  className={`${styles.day} ${selectedDay === day ? styles.active : ''}`}
-                  onClick={() => { setSelectedDay(day); setSelectedTime(null); }}
+                  className={`${styles.day} ${selectedDay === day ? styles.active : ''} ${isPast ? styles.disabledDay : ''}`}
+                  onClick={() => { 
+                    if (!isPast) {
+                      setSelectedDay(day); 
+                      setSelectedTime(null); 
+                    }
+                  }}
                 >
                   {day}
                 </div>

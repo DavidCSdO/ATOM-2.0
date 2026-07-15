@@ -213,6 +213,18 @@
   transform: translateY(-2px);
 }
 
+
+.disabledDay {
+  opacity: 0.2;
+  cursor: not-allowed !important;
+}
+.disabledDay:hover {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
 .day.empty {
   background: transparent;
   border-color: transparent;
@@ -228,15 +240,23 @@
 }
 
 .colTimes {
-  flex: 0 0 260px;
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  flex: 0 0 0px;
+  padding-left: 0;
+  padding-right: 0;
+  border-left: 0px solid transparent;
   background: rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .colTimes.visible {
+  flex: 0 0 320px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
   opacity: 1;
   visibility: visible;
 }
@@ -410,17 +430,37 @@
 @media (max-width: 992px) {
   .bookingModal {
     flex-direction: column;
-    max-height: 95vh;
+    height: auto;
+    max-height: 90vh;
     overflow-y: auto;
     width: 95vw;
+    border-radius: 20px;
   }
   .bookingCol {
     flex: auto;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px 20px;
   }
   .colInfo {
-    padding-bottom: 24px;
+    padding-bottom: 20px;
+    flex: none;
+  }
+  .colTimes {
+    flex: none;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-out;
+  }
+  .colTimes.visible {
+    max-height: 1000px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    opacity: 1;
+    visibility: visible;
   }
   .meetingDetails {
     flex-direction: row;
