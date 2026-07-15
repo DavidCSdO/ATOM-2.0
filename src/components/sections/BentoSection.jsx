@@ -274,7 +274,7 @@ export default function BentoSection({ id, onBook }) {
               <p className={styles.blText}>Experiências imersivas que conectam usuários através de interfaces de outra dimensão e performance impecável.</p>
               <div className={styles.blCoverWrapper} style={{ position: 'relative' }}>
                 <div className={styles.blCover} style={{ position: 'relative', width: '100%', height: '100%' }}>
-                  <Image src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="Cover" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} className={styles.blImage} />
+                  <Image src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="Cover" fill sizes="100vw" quality={100} style={{ objectFit: 'cover' }} className={styles.blImage} />
                   <div className={styles.blBadge}>EXPLORAR</div>
                 </div>
               </div>

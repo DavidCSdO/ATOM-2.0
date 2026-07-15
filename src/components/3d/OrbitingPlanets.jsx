@@ -118,7 +118,8 @@ export default function OrbitingPlanets({
                 src={planet.src}
                 alt={planet.alt}
                 fill
-                sizes="100px"
+                sizes="50vw"
+                quality={100}
                 style={{
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.6))',

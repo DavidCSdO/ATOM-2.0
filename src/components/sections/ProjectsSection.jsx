@@ -267,16 +267,16 @@ export default function ProjectsSection({ id }) {
         
         <div className={styles.cosmicElements}>
           <div className={`${styles.floatingPlanet} ${styles.planetJupiter}`}>
-            <Image src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
+            <Image src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" fill sizes="50vw" quality={100} style={{objectFit:'contain'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetSaturn}`}>
-            <Image src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
+            <Image src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" fill sizes="50vw" quality={100} style={{objectFit:'contain'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetMars}`}>
-            <Image src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
+            <Image src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" fill sizes="50vw" quality={100} style={{objectFit:'contain'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetNeptune}`}>
-            <Image src="/Planets/30_neptune 1.png" alt="" fill sizes="150px" style={{objectFit:'contain'}} />
+            <Image src="/Planets/30_neptune 1.png" alt="" fill sizes="50vw" quality={100} style={{objectFit:'contain'}} />
           </div>
           
           <div className={`${styles.shootingStar} ${styles.st1}`}></div>
@@ -327,7 +327,8 @@ export default function ProjectsSection({ id }) {
                           src={project.screens[project.activeScreen].src}
                           alt={`${project.name} - tela ${project.activeScreen + 1}`}
                           fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
+                          sizes="100vw"
+                          quality={100}
                           style={{ objectFit: 'cover' }}
                           className={styles.screenImage}
                         />
