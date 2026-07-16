@@ -206,6 +206,28 @@
   flex-shrink: 0;
 }
 
+.dragIndicator {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Astro Space', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  animation: pulseIndicator 3s infinite ease-in-out;
+  white-space: nowrap;
+}
+
+@keyframes pulseIndicator {
+  0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.8; transform: translateX(-50%) translateY(-3px); }
+}
+
 .heroNavBtn {
   display: flex;
   align-items: center;
