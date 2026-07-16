@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import styles from './ProjectsSection.module.css';
 
+import ConceptModal from '../modals/ConceptModal';
+
 const techList = [
   { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
   { name: 'Jupiter', icon: '/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', isSpace: true },
@@ -23,7 +25,7 @@ const techList = [
 
 const initialProjectsData = [
   {
-    name: 'ATOM',
+    name: 'Chá',
     category: 'ALTA PERFORMANCE',
     description: 'Páginas web otimizadas focadas em conversão, com temática espacial e animações de ponta.',
     accent: '#3b9cff',
@@ -34,7 +36,8 @@ const initialProjectsData = [
       { src: '/Carrocel/ATOM 2.png' },
       { src: '/Carrocel/ATOM 3.png' }
     ],
-    activeScreen: 0
+    activeScreen: 0,
+    link: 'https://cha-front.vercel.app/'
   },
   {
     name: 'Portfólio Pessoal',
@@ -48,7 +51,8 @@ const initialProjectsData = [
       { src: '/Carrocel/PORT 2.png' },
       { src: '/Carrocel/PORT 3.png' }
     ],
-    activeScreen: 0
+    activeScreen: 0,
+    link: 'https://portifolio-ruddy-phi-47.vercel.app/'
   },
   {
     name: 'Atlas Fin',
@@ -62,7 +66,8 @@ const initialProjectsData = [
       { src: '/Carrocel/ATLAS 2.png' },
       { src: '/Carrocel/ATLAS 3.png' }
     ],
-    activeScreen: 0
+    activeScreen: 0,
+    link: 'https://atlas-lyart-six.vercel.app/'
   },
   {
     name: 'Kallah Bride',
@@ -76,7 +81,8 @@ const initialProjectsData = [
       { src: '/Carrocel/Kallah 2.png' },
       { src: '/Carrocel/Kallah 3.png' }
     ],
-    activeScreen: 0
+    activeScreen: 0,
+    link: 'https://khalla-bridehouse.vercel.app/'
   },
   {
     name: 'Nexus System',
@@ -90,7 +96,8 @@ const initialProjectsData = [
       { src: '/Carrocel/ATOM.png' },
       { src: '/Carrocel/ATLAS 3.png' }
     ],
-    activeScreen: 0
+    activeScreen: 0,
+    isConcept: true
   },
   {
     name: 'Lumina',
@@ -104,11 +111,13 @@ const initialProjectsData = [
       { src: '/Carrocel/ATLAS.png' },
       { src: '/Carrocel/PORT.png' }
     ],
-    activeScreen: 0
+    activeScreen: 0,
+    isConcept: true
   }
 ];
 
 export default function ProjectsSection({ id }) {
+  const [showConceptModal, setShowConceptModal] = useState(null);
   const [projectsData, setProjectsData] = useState(initialProjectsData);
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideWidth, setSlideWidth] = useState(0);
@@ -361,9 +370,25 @@ export default function ProjectsSection({ id }) {
                           ))}
                         </div>
                         
-                        <button className={styles.exploreBtn} style={{ '--btn-color': project.accent }}>
-                          Explorar Missão <span className={styles.arrow}>→</span>
-                        </button>
+                        {project.link ? (
+                          <a 
+                            href={project.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className={styles.exploreBtn} 
+                            style={{ '--btn-color': project.accent, textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
+                          >
+                            Explorar Missão <span className={styles.arrow}>→</span>
+                          </a>
+                        ) : (
+                          <button 
+                            className={styles.exploreBtn} 
+                            style={{ '--btn-color': project.accent }}
+                            onClick={() => setShowConceptModal(project)}
+                          >
+                            Explorar Conceito <span className={styles.arrow}>→</span>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -432,6 +457,8 @@ export default function ProjectsSection({ id }) {
           </div>
         </div>
       </div>
+
+      <ConceptModal project={showConceptModal} onClose={() => setShowConceptModal(null)} />
     </section>
   );
 }
