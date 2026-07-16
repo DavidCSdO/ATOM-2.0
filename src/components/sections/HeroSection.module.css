@@ -68,19 +68,32 @@
   mix-blend-mode: overlay;
 }
 
-.heroBgImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.05);
-  transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  image-rendering: high-quality;
-  -webkit-backface-visibility: hidden;
+.auroraContainer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000000;
+  z-index: 1;
 }
 
-.heroRevealed .heroBgImage {
-  transform: scale(1);
+.spacecoreGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center, rgba(63, 169, 255, 0.25) 0%, rgba(123, 63, 242, 0.1) 40%, transparent 70%);
+  opacity: 0;
+  transition: opacity 3s ease-out;
+  pointer-events: none;
+}
+
+.heroRevealed .spacecoreGlow {
+  opacity: 1;
 }
 
 .gridOverlay {
@@ -228,47 +241,41 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 1.85rem 2rem;
-  border-radius: 26px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%);
-  backdrop-filter: blur(3px) saturate(190%); 
-  -webkit-backdrop-filter: blur(6px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-top-color: rgba(255, 255, 255, 0.4);
-  border-left-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    0 16px 40px rgba(0, 0, 0, 0.15),
-    inset 2px 0px 4px rgba(255, 40, 80, 0.15),
-    inset -2px 0px 4px rgba(40, 255, 255, 0.15),
-    inset 0px 4px 12px rgba(255, 255, 255, 0.35),
-    inset 0px -4px 12px rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.85);
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
   font-family: 'Astro Space', sans-serif;
-  font-size: clamp(0.75rem, 1.9vw, 2rem);
+  font-size: clamp(0.75rem, 1.5vw, 1.1rem);
   letter-spacing: 0.12em;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .heroNavBtn:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
-  border-color: rgba(255, 255, 255, 0.25);
-  border-top-color: rgba(255, 255, 255, 0.6);
-  border-left-color: rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(63, 169, 255, 0.6);
   transform: translateY(-3px) scale(1.02);
   box-shadow: 
-    0 24px 50px rgba(0, 0, 0, 0.2),
-    inset 3px 0px 6px rgba(255, 40, 80, 0.2),
-    inset -3px 0px 6px rgba(40, 255, 255, 0.2),
-    inset 0px 6px 16px rgba(255, 255, 255, 0.5),
-    inset 0px -4px 12px rgba(0, 0, 0, 0.15);
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(63, 169, 255, 0.3),
+    inset 0 0 10px rgba(123, 63, 242, 0.2);
 }
 
 .heroNavIcon {
   font-size: 0.75em;
-  opacity: 0.6;
-  color: rgba(0, 0, 0, 0.65);
+  color: #3FA9FF;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.heroNavBtn:hover .heroNavIcon {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(63, 169, 255, 0.6);
+  transform: scale(1.2);
 }
 
 .heroNavLabel {
@@ -283,7 +290,7 @@
   line-height: 1.7;
   letter-spacing: 0.04em;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  margin-top: -65px;
+  margin-top: -30px;
 }
 
 .heroScrollIndicator {

@@ -24,7 +24,7 @@ export default function EarthWireframe({
     if (backgroundColor) scene.background = new THREE.Color(backgroundColor);
 
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0, 3.5);
+    camera.position.set(0, 0, 4.5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setClearColor(0x000000, 0);
@@ -96,17 +96,83 @@ export default function EarthWireframe({
       side: THREE.DoubleSide
     });
     
-    // Equatorial ring
-    const ringGeo1 = new THREE.TorusGeometry(1.2, 0.005, 3, 64);
-    const ringMesh1 = new THREE.Mesh(ringGeo1, ringMaterial);
+    // Texture Loader for real PNGs
+    const textureLoader = new THREE.TextureLoader();
+    const rocketTex = textureLoader.load('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f680.png');
+    const satTex = textureLoader.load('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6f0.png');
+    const starTex = textureLoader.load('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/2b50.png');
+    const cometTex = textureLoader.load('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/2604.png');
+
+    // Symmetrical Atom Rings (3 arcs)
+    const ringGeo = new THREE.TorusGeometry(1.2, 0.005, 3, 64);
+    
+    const ringMesh1 = new THREE.Mesh(ringGeo, ringMaterial);
     ringMesh1.rotation.x = Math.PI / 2;
+    ringMesh1.rotation.y = 0;
     globeGroup.add(ringMesh1);
 
-    // Polar ring
-    const ringGeo2 = new THREE.TorusGeometry(1.15, 0.005, 3, 64);
-    const ringMesh2 = new THREE.Mesh(ringGeo2, ringMaterial);
-    ringMesh2.rotation.y = Math.PI / 2;
+    const ringMesh2 = new THREE.Mesh(ringGeo, ringMaterial);
+    ringMesh2.rotation.x = Math.PI / 2;
+    ringMesh2.rotation.y = Math.PI / 3;
     globeGroup.add(ringMesh2);
+    
+    const ringMesh3 = new THREE.Mesh(ringGeo, ringMaterial);
+    ringMesh3.rotation.x = Math.PI / 2;
+    ringMesh3.rotation.y = (Math.PI / 3) * 2;
+    globeGroup.add(ringMesh3);
+
+    // PNG Elements (Sprites)
+    const rocketMat = new THREE.SpriteMaterial({ map: rocketTex });
+    const satMat = new THREE.SpriteMaterial({ map: satTex });
+    const cometMat = new THREE.SpriteMaterial({ map: cometTex });
+    
+    // Rocket orbiting
+    const rocketOrbit = new THREE.Group();
+    const rocketSprite = new THREE.Sprite(rocketMat);
+    rocketSprite.scale.set(0.2, 0.2, 0.2);
+    rocketSprite.position.set(1.5, 0, 0);
+    rocketOrbit.add(rocketSprite);
+    rocketOrbit.rotation.x = Math.PI / 6;
+    globeGroup.add(rocketOrbit);
+
+    // Satellite orbiting
+    const satOrbit = new THREE.Group();
+    const satSprite = new THREE.Sprite(satMat);
+    satSprite.scale.set(0.2, 0.2, 0.2);
+    satSprite.position.set(0, 1.7, 0); 
+    satOrbit.add(satSprite);
+    satOrbit.rotation.y = Math.PI / 3;
+    globeGroup.add(satOrbit);
+
+    // Comet passing
+    const cometOrbit = new THREE.Group();
+    const cometSprite = new THREE.Sprite(cometMat);
+    cometSprite.scale.set(0.18, 0.18, 0.18);
+    cometSprite.position.set(-1.4, 0.5, 1.4);
+    cometOrbit.add(cometSprite);
+    cometOrbit.rotation.z = Math.PI / 4;
+    globeGroup.add(cometOrbit);
+
+    // Starfield around the planet (using PNG)
+    const starsGeometry = new THREE.BufferGeometry();
+    const starsCount = 200;
+    const posArray = new Float32Array(starsCount * 3);
+    for(let i = 0; i < starsCount * 3; i++) {
+      let val = (Math.random() - 0.5) * 8;
+      if (Math.abs(val) < 1.5) val = val > 0 ? val + 1.5 : val - 1.5;
+      posArray[i] = val;
+    }
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const starsMaterial = new THREE.PointsMaterial({
+      size: 0.1,
+      map: starTex,
+      transparent: true,
+      opacity: 0.7,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const starsMesh = new THREE.Points(starsGeometry, starsMaterial);
+    globeGroup.add(starsMesh);
 
     // Tilt the whole group like the Earth
     globeGroup.rotation.z = 23.5 * Math.PI / 180;
@@ -122,9 +188,18 @@ export default function EarthWireframe({
 
       if (controls) controls.update();
 
-      // Independent rotations for the rings to make it feel alive
+      // Independent rotations for the rings and sprites
       ringMesh1.rotation.z -= 0.2 * deltaTime;
       ringMesh2.rotation.z += 0.3 * deltaTime;
+      ringMesh3.rotation.z -= 0.15 * deltaTime;
+      
+      rocketOrbit.rotation.y += 0.5 * deltaTime;
+      satOrbit.rotation.z -= 0.4 * deltaTime;
+      
+      cometOrbit.rotation.x -= 0.3 * deltaTime;
+      cometOrbit.rotation.y += 0.2 * deltaTime;
+
+      starsMesh.rotation.y += 0.05 * deltaTime;
       
       // Pulse the points slightly
       pointsMaterial.opacity = 0.3 + Math.sin(currentTime * 0.002) * 0.15;

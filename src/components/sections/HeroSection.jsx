@@ -63,7 +63,9 @@ export default function HeroSection({ id, onNavigate, onReady }) {
       </div>
 
       <div className={styles.heroBackground}>
-        <Image src="/NewBack.webp" alt="Nebula background" fill priority style={{ objectFit: 'cover', opacity: 0.6 }} className={styles.heroBgImage} />
+        <div className={styles.auroraContainer}>
+          <div className={styles.spacecoreGlow}></div>
+        </div>
         <div className={styles.gridOverlay}></div>
       </div>
 
