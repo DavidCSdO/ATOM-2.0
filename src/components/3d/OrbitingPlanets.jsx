@@ -114,13 +114,12 @@ export default function OrbitingPlanets({
                 zIndex: pos.zIndex,
               }}
             >
-              <Image
+              <img
                 src={planet.src}
                 alt={planet.alt}
-                fill
-                sizes="50vw"
-                quality={100}
                 style={{
+                  width: '100%',
+                  height: '100%',
                   objectFit: 'contain',
                   filter: 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.6))',
                 }}

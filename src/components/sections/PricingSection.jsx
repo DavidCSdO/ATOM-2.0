@@ -7,7 +7,7 @@ import styles from './PricingSection.module.css';
 export default function PricingSection({ id, onBook }) {
   useEffect(() => {
     const letters = [`.${styles.fA}`, `.${styles.fT}`, `.${styles.fO}`, `.${styles.fM}`];
-    
+
     letters.forEach(selector => {
       animate(selector, {
         translateX: () => utils.random(-30, 30) + 'px',
@@ -22,29 +22,29 @@ export default function PricingSection({ id, onBook }) {
     });
 
     animate(`.${styles.planet}`, {
-        translateY: () => utils.random(-30, 30) + 'px',
+      translateY: () => utils.random(-30, 30) + 'px',
       rotate: '1turn',
       duration: () => utils.random(15000, 25000),
       easing: 'linear',
       loop: true
-      });
+    });
 
     animate(`.${styles.nebulaGlow}`, {
-        opacity: [0.3, 0.7],
+      opacity: [0.3, 0.7],
       scale: [1, 1.2],
       duration: 4000,
       direction: 'alternate',
       loop: true,
       easing: 'easeInOutSine'
-      });
+    });
 
     animate(`.${styles.pricingCard}`, {
-        translateY: [50, 0],
+      translateY: [50, 0],
       opacity: [0, 1],
       duration: 1500,
       delay: stagger(200, { start: 300 }),
       easing: 'easeOutExpo'
-      });
+    });
   }, []);
 
 
@@ -65,14 +65,14 @@ export default function PricingSection({ id, onBook }) {
     },
     {
       name: 'Portfólio',
-      price: '700',
+      price: '500',
       orbClass: styles.orbPurple,
       features: ['Apresentação Imersiva 3D', 'Galeria Dinâmica', 'Microinterações Premium', 'Performance Máxima'],
       isPremium: false,
     },
     {
       name: 'E-commerce',
-      price: '2000',
+      price: '1200',
       orbClass: styles.orbCyan,
       features: ['Catálogo Ilimitado Integrado', 'Dashboard de Vendas', 'Checkout Glassmorphism', 'Integração com Pagamentos'],
       isPremium: true,

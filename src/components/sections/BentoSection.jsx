@@ -320,7 +320,7 @@ export default function BentoSection({ id, onBook }) {
                 <div className={`${styles.mOrbitAnimated} ${styles.mOrbit2}`}></div>
                 <div className={styles.mostradorValue}>
                   <span className={styles.currency}>R$</span>
-                  <span className={`${styles.priceNumber} pVal2`}>700</span>
+                  <span className={`${styles.priceNumber} pVal2`}>500</span>
                 </div>
               </div>
               <span className={styles.pricingLabel}><span className={`${styles.dot} ${styles.dOrange}`}></span> Portfólio</span>
@@ -332,7 +332,7 @@ export default function BentoSection({ id, onBook }) {
                 <div className={`${styles.mOrbitAnimated} ${styles.mOrbit3}`}></div>
                 <div className={styles.mostradorValue}>
                   <span className={styles.currency}>R$</span>
-                  <span className={`${styles.priceNumber} pVal3`}>2000</span>
+                  <span className={`${styles.priceNumber} pVal3`}>1200</span>
                 </div>
               </div>
               <span className={styles.pricingLabel}><span className={`${styles.dot} ${styles.dPurple}`}></span> E-commerce</span>

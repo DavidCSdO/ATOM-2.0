@@ -3,7 +3,9 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
 import styles from './HeroSection.module.css';
-import Earth3D from '../3d/Earth3D';
+import dynamic from 'next/dynamic';
+
+const EarthWireframe = dynamic(() => import('../3d/EarthWireframe'), { ssr: false });
 
 export default function HeroSection({ id, onNavigate, onReady }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +63,10 @@ export default function HeroSection({ id, onNavigate, onReady }) {
       </div>
 
       <div className={styles.heroBackground}>
-        <Image src="/NewBack.png" alt="ATOM background - nebula" fill priority style={{ objectFit: 'cover' }} className={styles.heroBgImage} />
+        <div className={styles.auroraContainer}>
+          <div className={styles.spacecoreGlow}></div>
+        </div>
+        <div className={styles.gridOverlay}></div>
       </div>
 
       <div className={`${styles.heroVignette} ${vignetteOpen ? styles.heroVignetteOpen : ''}`}></div>
@@ -82,7 +87,7 @@ export default function HeroSection({ id, onNavigate, onReady }) {
             </button>
 
             <div className={styles.heroEarthWrapper}>
-              <Earth3D backgroundColor="" waterColor="#021430" onLoaded={onEarthLoaded} />
+              <EarthWireframe onLoaded={onEarthLoaded} />
               <div className={styles.dragIndicator}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
