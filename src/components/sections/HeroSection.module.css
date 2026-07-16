@@ -239,7 +239,7 @@
 
 .dragIndicator {
   position: absolute;
-  bottom: -20px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -252,6 +252,8 @@
   pointer-events: none;
   animation: pulseIndicator 3s infinite ease-in-out;
   white-space: nowrap;
+  z-index: 10;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 @keyframes pulseIndicator {
