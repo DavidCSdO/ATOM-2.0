@@ -23,12 +23,12 @@
 
 .testimonialsHeader {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
   padding: 0 1rem;
 }
 
 .testimonialsHeader h2 {
-  font-family: var(--font-space-grotesk), sans-serif;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -41,11 +41,46 @@
 }
 
 .testimonialsHeader p {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-inter), 'Inter', sans-serif;
   color: rgba(255, 255, 255, 0.6);
   font-size: 1.1rem;
   max-width: 500px;
   margin: 0 auto;
+}
+
+/* Niche Tabs */
+.nicheTabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 0.55rem 1.25rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tabBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.tabActive {
+  background: rgba(123, 63, 242, 0.25) !important;
+  border-color: #7B3FF2 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(123, 63, 242, 0.4);
 }
 
 .marqueeContainer {
@@ -73,17 +108,17 @@
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .glassCard {
-  background: rgba(15, 10, 25, 0.4);
+  background: rgba(15, 10, 25, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-top-color: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  padding: 2rem;
+  padding: 1.75rem;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -92,17 +127,35 @@
   border-color: rgba(123, 63, 242, 0.4);
 }
 
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .quoteIcon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #7B3FF2;
   line-height: 1;
-  opacity: 0.5;
+  opacity: 0.6;
   font-family: serif;
 }
 
+.metricBadge {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+}
+
 .testimonialText {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 1rem;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-size: 0.98rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
   flex-grow: 1;
@@ -112,31 +165,31 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .authorAvatar {
-  font-family: var(--font-space-grotesk), sans-serif;
-  width: 45px;
-  height: 45px;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: linear-gradient(135deg, #FF4D6D, #7B3FF2);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .authorInfo h4 {
-  font-family: var(--font-space-grotesk), sans-serif;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
 }
 
 .authorInfo span {
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-inter), 'Inter', sans-serif;
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.5);
 }

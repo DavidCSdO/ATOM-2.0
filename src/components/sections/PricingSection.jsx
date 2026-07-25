@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect } from 'react';
-import { animate, utils, stagger, setDashoffset } from 'animejs';
+import { useState, useEffect } from 'react';
+import { animate, utils, stagger } from 'animejs';
 import styles from './PricingSection.module.css';
+import PlanPreviewModal from '@/components/modals/PlanPreviewModal';
+import TiltCard from '@/components/ui/TiltCard';
 
 export default function PricingSection({ id, onBook }) {
+  const [selectedPlanForPreview, setSelectedPlanForPreview] = useState(null);
+
   useEffect(() => {
     const letters = [`.${styles.fA}`, `.${styles.fT}`, `.${styles.fO}`, `.${styles.fM}`];
 
@@ -47,7 +51,6 @@ export default function PricingSection({ id, onBook }) {
     });
   }, []);
 
-
   const pricingPlans = [
     {
       name: 'Landing Page',
@@ -55,6 +58,13 @@ export default function PricingSection({ id, onBook }) {
       orbClass: styles.orbCyan,
       features: ['Design Spacecore Premium', 'Layout Responsivo Otimizado', 'Animações Base', 'SEO Foundation'],
       isPremium: false,
+      modelTitle: 'Landing Page ATOM — Alta Conversão',
+      modelDesc: 'Página única focada em capturar e converter visitantes com alta velocidade, gráficos 3D e design futurista.',
+      screens: [
+        { src: '/Carrocel/ATOM.png' },
+        { src: '/Carrocel/ATOM 2.png' },
+        { src: '/Carrocel/ATOM 3.png' }
+      ]
     },
     {
       name: 'Site Institucional',
@@ -62,6 +72,13 @@ export default function PricingSection({ id, onBook }) {
       orbClass: styles.orbOrange,
       features: ['4-8 Páginas Integradas', 'Layout Responsivo Avançado', 'Formulários de Contato', 'SEO Premium'],
       isPremium: false,
+      modelTitle: 'Atlas Fin — Presença Corporativa',
+      modelDesc: 'Estrutura multipáginas robusta para estabelecer autoridade no seu nicho, com navegação intuitiva e estética premium.',
+      screens: [
+        { src: '/Carrocel/ATLAS.png' },
+        { src: '/Carrocel/ATLAS 2.png' },
+        { src: '/Carrocel/ATLAS 3.png' }
+      ]
     },
     {
       name: 'Portfólio',
@@ -69,6 +86,13 @@ export default function PricingSection({ id, onBook }) {
       orbClass: styles.orbPurple,
       features: ['Apresentação Imersiva 3D', 'Galeria Dinâmica', 'Microinterações Premium', 'Performance Máxima'],
       isPremium: false,
+      modelTitle: 'Portfólio Pessoal Imersivo',
+      modelDesc: 'Apresente seus projetos e conquistas com um visual impactante, microinterações modernas e galeria interativa.',
+      screens: [
+        { src: '/Carrocel/PORT.png' },
+        { src: '/Carrocel/PORT 2.png' },
+        { src: '/Carrocel/PORT 3.png' }
+      ]
     },
     {
       name: 'E-commerce',
@@ -76,6 +100,13 @@ export default function PricingSection({ id, onBook }) {
       orbClass: styles.orbCyan,
       features: ['Catálogo Ilimitado Integrado', 'Dashboard de Vendas', 'Checkout Glassmorphism', 'Integração com Pagamentos'],
       isPremium: true,
+      modelTitle: 'Kallah Bride — Loja Virtual Otimizada',
+      modelDesc: 'E-commerce de alto padrão com experiência de compra rápida, catálogo interativo e checkout fluido.',
+      screens: [
+        { src: '/Carrocel/Kallah.png' },
+        { src: '/Carrocel/Kallah 2.png' },
+        { src: '/Carrocel/Kallah 3.png' }
+      ]
     },
     {
       name: 'Sistema Web',
@@ -83,6 +114,13 @@ export default function PricingSection({ id, onBook }) {
       orbClass: styles.orbOrange,
       features: ['Arquitetura Sob Medida', 'Banco de Dados Escalável', 'APIs Rest/GraphQL', 'Painel de Controle'],
       isPremium: true,
+      modelTitle: 'Symphony — Sistema Web & Chatbot Inteligente',
+      modelDesc: 'Plataforma completa sob medida com assistente conversacional integrado, orquestração de processos e automações de ponta.',
+      screens: [
+        { src: '/Carrocel/Symp.png' },
+        { src: '/Carrocel/Symp 2.png' },
+        { src: '/Carrocel/Symp 3.png' }
+      ]
     },
     {
       name: 'Dashboard Admin',
@@ -90,6 +128,13 @@ export default function PricingSection({ id, onBook }) {
       orbClass: styles.orbPurple,
       features: ['Gestão de Dados em Tempo Real', 'Gráficos e Relatórios', 'Controle de Acessos', 'Integração de Sistemas'],
       isPremium: true,
+      modelTitle: 'Painel Admin & Analytics em Tempo Real',
+      modelDesc: 'Painel analítico completo para monitorar métricas do seu negócio, gerenciar usuários e visualizar dados com gráficos interativos.',
+      screens: [
+        { src: '/Carrocel/Symp 2.png' },
+        { src: '/Carrocel/Symp.png' },
+        { src: '/Carrocel/Symp 3.png' }
+      ]
     },
     {
       name: 'Blog/CMS',
@@ -97,6 +142,13 @@ export default function PricingSection({ id, onBook }) {
       orbClass: styles.orbCyan,
       features: ['Gerenciamento de Conteúdo', 'Otimização para Artigos', 'Layout de Leitura Fluida', 'Integração com Redes Sociais'],
       isPremium: false,
+      modelTitle: 'Portal de Conteúdo & CMS',
+      modelDesc: 'Plataforma para publicação e gestão de conteúdo SEO-friendly, com navegação limpa e foco em retenção de leitores.',
+      screens: [
+        { src: '/Carrocel/ATLAS 2.png' },
+        { src: '/Carrocel/PORT 2.png' },
+        { src: '/Carrocel/ATOM 2.png' }
+      ]
     },
   ];
 
@@ -124,9 +176,16 @@ export default function PricingSection({ id, onBook }) {
         <div className={`${styles.fLetter} ${styles.fM}`}>M</div>
       </div>
 
+      <div className={styles.scarcityHeader}>
+        <div className={styles.scarcityBadge}>
+          <span className={styles.scarcityPulse}></span>
+          🚀 APENAS 5 VAGAS DE PROJETOS DISPONÍVEIS PARA ESTE MÊS
+        </div>
+      </div>
+
       <div className={styles.pricingContainer}>
         {pricingPlans.map((plan, index) => (
-          <div key={index} className={styles.pricingCard}>
+          <TiltCard key={index} className={styles.pricingCard}>
             <div className={`${styles.cardGlass} ${plan.isPremium ? styles.premiumGlass : ''}`}>
               <div className={styles.cardHeader}>
                 <div className={`${styles.glassOrb} ${plan.orbClass}`}></div>
@@ -148,15 +207,27 @@ export default function PricingSection({ id, onBook }) {
                   <li key={i}>{feat}</li>
                 ))}
               </ul>
-              <button className={`${styles.planBtn} ${plan.isPremium ? styles.btnPremium : ''}`} onClick={onBook}>
+              <button 
+                className={`${styles.planBtn} ${plan.isPremium ? styles.btnPremium : ''}`} 
+                onClick={() => setSelectedPlanForPreview(plan)}
+              >
                 {plan.isPremium ? 'Iniciar Projeto' : 'Decolar'}
               </button>
             </div>
-          </div>
+          </TiltCard>
         ))}
       </div>
 
       <div className={styles.sectionFadeBottom}></div>
+
+      {/* Plan Preview Modal */}
+      {selectedPlanForPreview && (
+        <PlanPreviewModal
+          plan={selectedPlanForPreview}
+          onClose={() => setSelectedPlanForPreview(null)}
+          onBook={onBook}
+        />
+      )}
     </section>
   );
 }

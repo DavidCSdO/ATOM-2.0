@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9998;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  background: rgba(14, 17, 34, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 16px;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.7),
+    0 0 25px rgba(168, 85, 247, 0.2);
+  max-width: 360px;
+  width: calc(100vw - 3rem);
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color 0.2s ease;
+}
+
+.closeBtn:hover {
+  color: #ffffff;
+}
+
+.iconBox {
+  font-size: 1.5rem;
+  line-height: 1;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 0.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.badge {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  padding: 0.15rem 0.5rem;
+  border-radius: 100px;
+}
+
+.time {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.7rem;
+  color: rgba(240, 241, 247, 0.45);
+}
+
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0.15rem 0;
+}
+
+.desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(240, 241, 247, 0.7);
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .toast {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+    max-width: none;
+  }
+}

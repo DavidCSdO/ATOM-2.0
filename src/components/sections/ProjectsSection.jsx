@@ -25,6 +25,20 @@ const techList = [
 
 const initialProjectsData = [
   {
+    name: 'Symphony',
+    category: 'SISTEMA PREMIUM & CHATBOT',
+    description: 'Plataforma de alta conversão com assistente conversacional integrado 24/7, engenharia avançada e design imersivo.',
+    accent: '#a855f7',
+    accentGlow: 'rgba(168, 85, 247, 0.4)',
+    tags: ['Chatbot 24/7', 'Next.js', 'Alta Conversão'],
+    screens: [
+      { src: '/Carrocel/Symp.png' },
+      { src: '/Carrocel/Symp 2.png' },
+      { src: '/Carrocel/Symp 3.png' }
+    ],
+    activeScreen: 0
+  },
+  {
     name: 'Chá',
     category: 'ALTA PERFORMANCE',
     description: 'Páginas web otimizadas focadas em conversão, com temática espacial e animações de ponta.',
@@ -338,6 +352,8 @@ export default function ProjectsSection({ id }) {
                           fill
                           sizes="(max-width: 768px) 85vw, (max-width: 1024px) 400px, 460px"
                           quality={100}
+                          draggable={false}
+                          onDragStart={(e) => e.preventDefault()}
                           style={{ objectFit: 'cover' }}
                           className={styles.screenImage}
                         />

@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap');
+
+.widget {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 999;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 1rem;
+  background: rgba(8, 10, 22, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 100px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(0, 229, 255, 0.15);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  color: rgba(240, 241, 247, 0.8);
+  white-space: nowrap;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  background: #27c93f;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #27c93f;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.statusText {
+  font-weight: 700;
+  color: #27c93f;
+  letter-spacing: 0.05em;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.activeTag {
+  color: #00e5ff;
+}
+
+.latencyTag {
+  color: #a855f7;
+}
+
+.toggleBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  transition: color 0.2s ease;
+}
+
+.toggleBtn:hover {
+  color: #ffffff;
+}
+
+.minimized .container {
+  padding: 0.35rem 0.8rem;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 768px) {
+  .details {
+    display: none;
+  }
+  .widget {
+    bottom: 0.75rem;
+    left: 0.75rem;
+  }
+}

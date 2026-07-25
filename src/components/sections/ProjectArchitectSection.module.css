@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap');
+
+.section {
+  position: relative;
+  width: 100%;
+  padding: 6.5rem 1.5rem 7.5rem;
+  background: #080a18;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  max-width: 720px;
+  margin-bottom: 3rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 100px;
+  color: #00e5ff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+}
+
+.titleHighlight {
+  background: linear-gradient(135deg, #00e5ff 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(240, 241, 247, 0.65);
+  line-height: 1.6;
+}
+
+/* Steps Nav Bar */
+.stepsNav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.stepNavBtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  padding: 0.6rem 1.4rem;
+  color: rgba(240, 241, 247, 0.6);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: all 0.25s ease;
+}
+
+.stepNum {
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.stepActive {
+  background: rgba(0, 229, 255, 0.15) !important;
+  border-color: #00e5ff !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+
+.stepActive .stepNum {
+  background: #00e5ff;
+  color: #000;
+}
+
+.stepCompleted {
+  border-color: rgba(168, 85, 247, 0.5);
+  color: #a855f7;
+}
+
+.stepArrow {
+  color: rgba(255, 255, 255, 0.2);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Wizard Body */
+.wizardBody {
+  width: 100%;
+  background: rgba(15, 18, 35, 0.6);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.stepTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.gridOptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.25rem;
+}
+
+.optionCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.optionCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+  border-color: rgba(0, 229, 255, 0.4);
+}
+
+.optionActive {
+  background: rgba(168, 85, 247, 0.15) !important;
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+}
+
+.optIcon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.optLabel {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.optDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(240, 241, 247, 0.6);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.timeCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1.2rem;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.timeCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Summary Box */
+.summaryBox {
+  background: rgba(10, 12, 24, 0.85);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 18px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.summaryTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.summaryItems {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.sumItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sumLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(240, 241, 247, 0.5);
+}
+
+.sumVal {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #00e5ff;
+}
+
+.finishBtn {
+  background: linear-gradient(135deg, #00e5ff 0%, #a855f7 100%);
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 1rem 2.2rem;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.finishBtn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 40px rgba(0, 229, 255, 0.7);
+}
+
+.arrow {
+  transition: transform 0.25s ease;
+}
+
+.finishBtn:hover .arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4.5rem 1rem 5.5rem;
+  }
+
+  .wizardBody {
+    padding: 1.5rem;
+  }
+
+  .stepArrow {
+    display: none;
+  }
+}

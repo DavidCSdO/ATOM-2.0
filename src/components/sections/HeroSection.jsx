@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from 'react';
-import Image from 'next/image';
+import { useState, useEffect, useRef } from 'react';
 import styles from './HeroSection.module.css';
 import dynamic from 'next/dynamic';
 
@@ -9,6 +8,9 @@ const EarthWireframe = dynamic(() => import('../3d/EarthWireframe'), { ssr: fals
 
 export default function HeroSection({ id, onNavigate, onReady }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [loadingStatus, setLoadingStatus] = useState('INICIALIZANDO SISTEMA ESPACIAL...');
+
   const [isRevealed, setIsRevealed] = useState(false);
   const [vignetteOpen, setVignetteOpen] = useState(false);
   const [darknessFade, setDarknessFade] = useState(false);
@@ -43,23 +45,84 @@ export default function HeroSection({ id, onNavigate, onReady }) {
     setTimeout(() => setIsSettled(true), 2200);
   };
 
-  const onEarthLoaded = () => {
-    setTimeout(startSequence, 800);
-  };
-
+  // Deterministic & Smooth Loading Progress Counter (0% to 100% over 2.2 seconds)
   useEffect(() => {
-    const fallbackTimeout = setTimeout(startSequence, 5000);
-    return () => clearTimeout(fallbackTimeout);
+    const startTime = Date.now();
+    const duration = 2200; // 2.2 seconds
+
+    const timer = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, Math.floor((elapsed / duration) * 100));
+
+      setLoadingProgress(pct);
+
+      if (pct < 35) {
+        setLoadingStatus('INICIALIZANDO SISTEMA ESPACIAL...');
+      } else if (pct < 75) {
+        setLoadingStatus('CARREGANDO MÓDULOS 3D & CONEXÕES DE IA...');
+      } else if (pct < 100) {
+        setLoadingStatus('SINCRONIZANDO ÓRBITAS DIGITAL...');
+      } else {
+        setLoadingStatus('SISTEMAS ATOM 2.0 PRONTOS 🚀');
+        clearInterval(timer);
+        setTimeout(() => {
+          startSequence();
+        }, 300);
+      }
+    }, 30);
+
+    // Fallback safety trigger
+    const fallbackTimer = setTimeout(() => {
+      startSequence();
+    }, 3500);
+
+    return () => {
+      clearInterval(timer);
+      clearTimeout(fallbackTimer);
+    };
   }, []);
+
+  const onEarthLoaded = () => {
+    // Earth model initialized in background
+  };
 
   return (
     <section
       id={id}
       className={`${styles.hero} ${isRevealed ? styles.heroRevealed : ''} ${isSettled ? styles.heroSettled : ''}`}
     >
+      {/* Spacecore Custom Loading Screen */}
       <div className={`${styles.heroLoadingScreen} ${!isLoading ? styles.heroLoadingScreenHidden : ''}`}>
-        <div className={styles.heroSpinner}></div>
-        <div className={styles.heroLoadingText}>INICIANDO</div>
+        <div className={styles.loadingAura}></div>
+
+        <div className={styles.loadingContent}>
+          {/* Orbital Atom Ring */}
+          <div className={styles.orbitalAtom}>
+            <div className={styles.orbitRingOne}></div>
+            <div className={styles.orbitRingTwo}></div>
+            <div className={styles.atomCore}>
+              <span>ATOM</span>
+            </div>
+          </div>
+
+          <div className={styles.progressCounter}>
+            <span className={styles.progressNum}>{loadingProgress}</span>
+            <span className={styles.progressPercent}>%</span>
+          </div>
+
+          {/* Progress Bar Container */}
+          <div className={styles.progressBarTrack}>
+            <div 
+              className={styles.progressBarFill} 
+              style={{ width: `${loadingProgress}%` }}
+            ></div>
+          </div>
+
+          <div className={styles.loadingStatusText}>
+            <span className={styles.pulseDot}></span>
+            {loadingStatus}
+          </div>
+        </div>
       </div>
 
       <div className={styles.heroBackground}>
