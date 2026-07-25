@@ -276,15 +276,32 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 4.5rem 1rem 5.5rem;
+    padding: 4rem 1rem 5rem;
   }
 
   .calculatorCard {
-    padding: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+
+  .goalButtons {
+    grid-template-columns: 1fr;
+  }
+
+  .resultsBox {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .resultValue, .resultValueHighlight {
+    font-size: 1.5rem;
   }
 
   .ctaBtn {
     width: 100%;
     justify-content: center;
+    font-size: 0.95rem;
+    padding: 0.9rem 1.2rem;
   }
 }

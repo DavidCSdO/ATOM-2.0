@@ -275,4 +275,50 @@
   .section {
     padding: 4rem 1rem 5rem;
   }
+
+  .comparisonWrapper {
+    height: 380px;
+    border-radius: 16px;
+  }
+
+  .fixedHeaderLeft {
+    top: 0.6rem;
+    left: 0.6rem;
+  }
+
+  .fixedHeaderRight {
+    top: 0.6rem;
+    right: 0.6rem;
+  }
+
+  .tagAfter, .tagBefore {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .comparisonWrapper {
+    height: 320px;
+  }
+
+  .fixedHeaderLeft {
+    top: 0.5rem;
+    left: 0.4rem;
+  }
+
+  .fixedHeaderRight {
+    top: 0.5rem;
+    right: 0.4rem;
+  }
+
+  .tagAfter, .tagBefore {
+    font-size: 0.6rem;
+    padding: 0.25rem 0.45rem;
+  }
 }
