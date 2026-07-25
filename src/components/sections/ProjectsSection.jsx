@@ -39,16 +39,30 @@ const initialProjectsData = [
     activeScreen: 0
   },
   {
-    name: 'Chá',
-    category: 'ALTA PERFORMANCE',
-    description: 'Páginas web otimizadas focadas em conversão, com temática espacial e animações de ponta.',
-    accent: '#3b9cff',
-    accentGlow: 'rgba(59, 156, 255, 0.4)',
-    tags: ['Vue', 'Three.js', 'Conversão'],
+    name: 'ATOM 2.0',
+    category: 'PLATAFORMA ESPACIAL',
+    description: 'Ecossistema web interativo com órbita 3D, estética spacecore de elite e máxima taxa de conversão.',
+    accent: '#00e5ff',
+    accentGlow: 'rgba(0, 229, 255, 0.4)',
+    tags: ['Next.js 16', 'Three.js', 'Spacecore'],
     screens: [
       { src: '/Carrocel/ATOM.png' },
       { src: '/Carrocel/ATOM 2.png' },
       { src: '/Carrocel/ATOM 3.png' }
+    ],
+    activeScreen: 0
+  },
+  {
+    name: 'Chá',
+    category: 'ALTA PERFORMANCE & CHÁ',
+    description: 'Plataforma web otimizada para a marca Chá, focada em experiência do cliente e velocidade extrema.',
+    accent: '#3b9cff',
+    accentGlow: 'rgba(59, 156, 255, 0.4)',
+    tags: ['Vue.js', 'Fast Load', 'Conversão'],
+    screens: [
+      { src: '/Carrocel/ATLAS.png' },
+      { src: '/Carrocel/ATLAS 2.png' },
+      { src: '/Carrocel/ATLAS 3.png' }
     ],
     activeScreen: 0,
     link: 'https://cha-front.vercel.app/'

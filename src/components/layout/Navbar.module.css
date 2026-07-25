@@ -72,6 +72,12 @@
   transform: scale(1.1);
 }
 
+.soundIcon {
+  width: 16px;
+  height: 16px;
+  color: #00e5ff;
+}
+
 .navbarLink {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
