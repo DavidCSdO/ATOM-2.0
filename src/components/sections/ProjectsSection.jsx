@@ -60,9 +60,7 @@ const initialProjectsData = [
     accentGlow: 'rgba(59, 156, 255, 0.4)',
     tags: ['Vue.js', 'Fast Load', 'Conversão'],
     screens: [
-      { src: '/Carrocel/ATLAS.png' },
-      { src: '/Carrocel/ATLAS 2.png' },
-      { src: '/Carrocel/ATLAS 3.png' }
+      { src: '/Carrocel/Cha.png' }
     ],
     activeScreen: 0,
     link: 'https://cha-front.vercel.app/'
