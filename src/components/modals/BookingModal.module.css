@@ -12,6 +12,9 @@
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.3s ease-out forwards;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes fadeIn {
@@ -25,13 +28,15 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(0, 240, 255, 0.1);
-  overflow: hidden;
+  overflow-y: auto;
   position: relative;
   width: 90%;
   max-width: 1050px;
   min-height: 550px;
   transform: translateY(20px);
   animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes slideUp {
@@ -431,20 +436,29 @@
   .bookingModal {
     flex-direction: column;
     height: auto;
-    max-height: 90vh;
+    max-height: 88vh;
     overflow-y: auto;
-    width: 95vw;
+    width: 94vw;
     border-radius: 20px;
+    padding: 10px;
   }
   .bookingCol {
     flex: auto;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 25px 20px;
+    padding: 20px 15px;
   }
   .colInfo {
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     flex: none;
+  }
+  .calGrid {
+    gap: 6px;
+  }
+  .day {
+    min-height: 38px;
+    font-size: 0.95rem;
+    border-radius: 10px;
   }
   .colTimes {
     flex: none;
@@ -456,14 +470,18 @@
     transition: all 0.4s ease-out;
   }
   .colTimes.visible {
-    max-height: 1000px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    max-height: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
     opacity: 1;
     visibility: visible;
+  }
+  .timesList {
+    max-height: 280px;
   }
   .meetingDetails {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 10px;
   }
 }

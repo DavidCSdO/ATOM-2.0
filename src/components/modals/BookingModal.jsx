@@ -22,6 +22,7 @@ export default function BookingModal({ onClose }) {
 
   const [availableTimes, setAvailableTimes] = useState([]);
   const [isLoadingTimes, setIsLoadingTimes] = useState(false);
+  const colTimesRef = useRef(null);
 
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(bookingSchema.omit({ date: true, time: true })),
@@ -207,6 +208,9 @@ export default function BookingModal({ onClose }) {
                     if (!isPast) {
                       setSelectedDay(day); 
                       setSelectedTime(null); 
+                      setTimeout(() => {
+                        colTimesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 100);
                     }
                   }}
                 >
@@ -217,7 +221,7 @@ export default function BookingModal({ onClose }) {
           </div>
         </div>
 
-        <div className={`${styles.bookingCol} ${styles.colTimes} ${selectedDay ? styles.visible : ''}`}>
+        <div ref={colTimesRef} className={`${styles.bookingCol} ${styles.colTimes} ${selectedDay ? styles.visible : ''}`}>
           <div className={styles.timesHeader}>
             <h3>{selectedDateString}</h3>
             <div className={styles.formatToggle}>

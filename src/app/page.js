@@ -132,7 +132,7 @@ export default function Page() {
       {/* Floating System Status, WhatsApp Orbit & Live Activity Toast */}
       <SystemStatusWidget />
       <WhatsAppWidget hasToastVisible={isToastVisible} />
-      <LiveActivityToast onVisibilityChange={handleToastVisibilityChange} />
+      <LiveActivityToast onVisibilityChange={handleToastVisibilityChange} onBook={() => setIsBookingOpen(true)} />
       
       {isBookingOpen && <BookingModal onClose={() => setIsBookingOpen(false)} />}
       
