@@ -271,6 +271,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  padding-top: 5px;
 }
 
 .timesHeader h3 {
@@ -433,20 +434,40 @@
 }
 
 @media (max-width: 992px) {
+  .bookingOverlay {
+    align-items: flex-end;
+  }
+  
   .bookingModal {
     flex-direction: column;
     height: auto;
-    max-height: 88vh;
+    max-height: 94vh;
     overflow-y: auto;
-    width: 94vw;
-    border-radius: 20px;
-    padding: 10px;
+    width: 100vw;
+    border-radius: 32px 32px 0 0;
+    padding: 70px 20px 20px 20px;
+    transform: translateY(100%);
+    animation: slideUpBottomSheet 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    box-sizing: border-box;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  @keyframes slideUpBottomSheet {
+    to { transform: translateY(0); }
+  }
+
+  .closeBtn {
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
   }
   .bookingCol {
     flex: auto;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 20px 15px;
+    padding: 15px 5px;
   }
   .colInfo {
     padding-bottom: 15px;
