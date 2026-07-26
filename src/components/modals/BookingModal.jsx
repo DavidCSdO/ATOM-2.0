@@ -137,16 +137,34 @@ export default function BookingModal({ onClose }) {
   };
 
   useEffect(() => {
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevBodyTouchAction = document.body.style.touchAction;
+
     document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+
+    return () => {
+      document.body.style.overflow = prevBodyOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.body.style.touchAction = prevBodyTouchAction;
+    };
   }, []);
 
   return (
-    <div className={styles.bookingOverlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+    <div 
+      className={styles.bookingOverlay} 
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      data-lenis-prevent="true"
+    >
       <RisingLines lineCount={40} speed={1.2} />
       
       {/* Dynamic Modal Body with Mobile Stepper Support */}
-      <div className={`${styles.bookingModal} ${styles['step' + mobileStep]}`}>
+      <div 
+        className={`${styles.bookingModal} ${styles['step' + mobileStep]}`}
+        data-lenis-prevent="true"
+      >
         
         {/* Mobile Header Bar */}
         <div className={styles.mobileHeaderBar}>
@@ -275,9 +293,23 @@ export default function BookingModal({ onClose }) {
               <span className={styles.badgeCalendarIcon}>📅</span>
               <h3>{selectedDateString || 'Selecione um dia'}</h3>
             </div>
+            {selectedDay && (
+              <button 
+                type="button" 
+                className={styles.backToCalBtn}
+                onClick={() => {
+                  setMobileStep(1);
+                  setSelectedDay(null);
+                  setSelectedTime(null);
+                }}
+                title="Escolher outra data"
+              >
+                Mudar data
+              </button>
+            )}
           </div>
           
-          {/* Step 2: Time slot selection for Mobile */}
+          {/* Step 2: Time slot selection */}
           {mobileStep === 2 && (
             <div className={styles.timesStepWrapper}>
               <p className={styles.stepSubtitleText}>Escolha um horário disponível:</p>
@@ -307,108 +339,94 @@ export default function BookingModal({ onClose }) {
             </div>
           )}
 
-          {/* Step 3 or Desktop Form view */}
-          {(mobileStep === 3 || (!selectedTime && mobileStep !== 2)) && (
-            <>
-              {!selectedTime ? (
-                /* Desktop default time picker list */
-                <div className={styles.timesList}>
-                  {isLoadingTimes ? (
-                    <p style={{ color: '#fff', fontSize: '0.9rem', textAlign: 'center', marginTop: '20px' }}>Buscando horários...</p>
-                  ) : availableTimes.length > 0 ? (
-                    availableTimes.map(time => (
-                      <button 
-                        key={time}
-                        className={`${styles.timeBtn} ${selectedTime === time ? styles.selected : ''}`}
-                        onClick={() => {
-                          setSelectedTime(time);
-                          setMobileStep(3);
-                        }}
-                      >
-                        {time}
-                      </button>
-                    ))
-                  ) : (
-                    <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem', textAlign: 'center', marginTop: '20px' }}>Nenhum horário disponível.</p>
-                  )}
+          {/* Step 3: Form view */}
+          {mobileStep === 3 && (
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+              
+              {/* Summary Card */}
+              <div className={styles.bookingSummaryCard}>
+                <div className={styles.summaryCardHeader}>
+                  <div className={styles.summaryCardBadge}>✦ AGENDAMENTO SELECIONADO</div>
+                  <button 
+                    type="button" 
+                    className={styles.changeStepBtn}
+                    onClick={() => {
+                      setMobileStep(2);
+                      setSelectedTime(null);
+                    }}
+                  >
+                    Alterar
+                  </button>
                 </div>
-              ) : (
-                /* Final Form Step */
-                <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
-                  
-                  {/* Summary Card */}
-                  <div className={styles.bookingSummaryCard}>
-                    <div className={styles.summaryCardBadge}>✦ AGENDAMENTO SELECIONADO</div>
-                    <div className={styles.summaryCardDetail}>
-                      <span>📅 {selectedDateString}</span>
-                      <span>🕒 {selectedTime} (BRT)</span>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.inputGroup}>
-                    <input 
-                      type="text" 
-                      placeholder="Seu Nome *" 
-                      {...register('name')}
-                      className={`${styles.formInput} ${errors.name ? styles.inputError : ''}`}
-                    />
-                    {errors.name && <span className={styles.errorText}>{errors.name.message}</span>}
-                  </div>
+                <div className={styles.summaryCardDetail}>
+                  <span>📅 {selectedDateString}</span>
+                  <span>🕒 {selectedTime} (BRT)</span>
+                </div>
+              </div>
+              
+              <div className={styles.inputGroup}>
+                <input 
+                  type="text" 
+                  placeholder="Seu Nome *" 
+                  {...register('name')}
+                  className={`${styles.formInput} ${errors.name ? styles.inputError : ''}`}
+                />
+                {errors.name && <span className={styles.errorText}>{errors.name.message}</span>}
+              </div>
 
-                  <div className={styles.inputGroup}>
-                    <input 
-                      type="email" 
-                      placeholder="Seu E-mail *" 
-                      {...register('email')}
-                      className={`${styles.formInput} ${errors.email ? styles.inputError : ''}`}
-                    />
-                    {errors.email && <span className={styles.errorText}>{errors.email.message}</span>}
-                  </div>
+              <div className={styles.inputGroup}>
+                <input 
+                  type="email" 
+                  placeholder="Seu E-mail *" 
+                  {...register('email')}
+                  className={`${styles.formInput} ${errors.email ? styles.inputError : ''}`}
+                />
+                {errors.email && <span className={styles.errorText}>{errors.email.message}</span>}
+              </div>
 
-                  <div className={styles.inputGroup}>
-                    <input 
-                      type="tel" 
-                      placeholder="Telefone (WhatsApp)" 
-                      {...register('phone')}
-                      className={styles.formInput}
-                    />
-                  </div>
+              <div className={styles.inputGroup}>
+                <input 
+                  type="tel" 
+                  placeholder="Telefone (WhatsApp)" 
+                  {...register('phone')}
+                  className={styles.formInput}
+                />
+              </div>
 
-                  <div className={styles.inputGroup}>
-                    <select 
-                      {...register('service')}
-                      className={styles.formSelect}
-                    >
-                      <option value="Landing Page">Landing Page</option>
-                      <option value="Site Institucional">Site Institucional (4-8 páginas)</option>
-                      <option value="Portfólio Profissional">Portfólio Profissional</option>
-                      <option value="E-commerce">E-commerce</option>
-                      <option value="Sistema Web sob medida">Sistema Web sob medida</option>
-                      <option value="Dashboard Administrativo">Dashboard Administrativo</option>
-                      <option value="Blog/CMS">Blog/CMS</option>
-                      <option value="Outro">Outro</option>
-                    </select>
-                  </div>
+              <div className={styles.inputGroup}>
+                <select 
+                  {...register('service')}
+                  className={styles.formSelect}
+                >
+                  <option value="Landing Page">Landing Page</option>
+                  <option value="Site Institucional">Site Institucional (4-8 páginas)</option>
+                  <option value="Portfólio Profissional">Portfólio Profissional</option>
+                  <option value="E-commerce">E-commerce</option>
+                  <option value="Sistema Web sob medida">Sistema Web sob medida</option>
+                  <option value="Dashboard Administrativo">Dashboard Administrativo</option>
+                  <option value="Blog/CMS">Blog/CMS</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
 
-                  <div className={styles.inputGroup}>
-                    <textarea 
-                      placeholder="Observações (Opcional)" 
-                      {...register('notes')}
-                      className={styles.formTextarea}
-                    />
-                    {errors.notes && <span className={styles.errorText}>{errors.notes.message}</span>}
-                  </div>
-                  
-                  {submitError && <div className={styles.submitErrorMsg}>{submitError}</div>}
+              <div className={styles.inputGroup}>
+                <textarea 
+                  placeholder="Observações (Opcional)" 
+                  {...register('notes')}
+                  className={styles.formTextarea}
+                  rows={2}
+                />
+                {errors.notes && <span className={styles.errorText}>{errors.notes.message}</span>}
+              </div>
+              
+              {submitError && <div className={styles.submitErrorMsg}>{submitError}</div>}
 
-                  <div className={styles.actionFooter}>
-                    <button type="submit" className={styles.confirmBtn} disabled={isSubmitting}>
-                      {isSubmitting ? <span>Agendando...</span> : <span>✦ Confirmar Agendamento</span>}
-                    </button>
-                  </div>
-                </form>
-              )}
-            </>
+              <div className={styles.actionFooter}>
+                <button type="submit" className={styles.confirmBtn} disabled={isSubmitting}>
+                  {isSubmitting ? <span>Agendando...</span> : <span>✦ Confirmar Agendamento</span>}
+                </button>
+              </div>
+            </form>
           )}
 
         </div>
@@ -429,3 +447,4 @@ export default function BookingModal({ onClose }) {
     </div>
   );
 }
+

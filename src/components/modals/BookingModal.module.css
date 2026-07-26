@@ -12,6 +12,8 @@
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.3s ease-out forwards;
+  overscroll-behavior: contain;
+  touch-action: none;
 }
 
 @keyframes fadeIn {
@@ -27,14 +29,15 @@
   box-shadow: 
     0 40px 100px rgba(0, 0, 0, 0.85), 
     inset 0 0 0 1px rgba(0, 240, 255, 0.15);
-  overflow-y: auto;
   position: relative;
-  width: 90%;
+  width: 92%;
   max-width: 1050px;
-  min-height: 550px;
+  max-height: 88vh;
+  overflow: hidden;
   transform: translateY(20px);
   animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 @keyframes slideUp {
@@ -72,15 +75,17 @@
 }
 
 .bookingCol {
-  padding: 40px 30px;
+  padding: 35px 25px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .colInfo {
-  flex: 0 0 300px;
+  flex: 0 0 280px;
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   background: rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
 }
 
 .hostInfo {
@@ -141,7 +146,8 @@
 
 .colCalendar {
   flex: 1;
-  padding: 40px;
+  padding: 35px 30px;
+  overflow-y: auto;
 }
 
 .calHeader {
@@ -262,23 +268,41 @@
   visibility: hidden;
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow: hidden;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .colTimes.visible {
-  flex: 0 0 340px;
-  padding-left: 30px;
-  padding-right: 30px;
+  flex: 0 0 360px;
+  padding: 30px 24px;
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   opacity: 1;
   visibility: visible;
+  overflow-y: auto;
+  max-height: 100%;
+  white-space: normal;
+}
+
+.colTimes::-webkit-scrollbar {
+  width: 5px;
+}
+.colTimes::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+.colTimes::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.25);
+  border-radius: 4px;
+}
+.colTimes::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.5);
 }
 
 .timesHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  gap: 8px;
 }
 
 .selectedDateBadge {
@@ -299,13 +323,33 @@
   margin: 0;
 }
 
+.backToCalBtn {
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  color: #00e5ff;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.backToCalBtn:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: #00e5ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+}
+
 .timesList {
   display: flex;
   flex-direction: column;
   gap: 12px;
   overflow-y: auto;
   max-height: 400px;
-  padding-right: 8px;
+  padding-right: 4px;
 }
 
 .timesList::-webkit-scrollbar { width: 4px; }
@@ -314,12 +358,12 @@
 
 .timeBtn {
   width: 100%;
-  padding: 14px;
+  padding: 13px 16px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.9);
   font-family: var(--font-space-grotesk), sans-serif;
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 600;
   border-radius: 14px;
   cursor: pointer;
@@ -353,27 +397,34 @@
   transform: translateX(3px);
 }
 
-/* Step 2 Mobile Layout Grid */
+/* Step 2 Mobile & Desktop Grid */
 .timesStepWrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   width: 100%;
 }
 
 .stepSubtitleText {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: rgba(240, 241, 247, 0.7);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .timesListGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
   width: 100%;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
 }
+
+.timesListGrid::-webkit-scrollbar { width: 4px; }
+.timesListGrid::-webkit-scrollbar-track { background: transparent; }
+.timesListGrid::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
 
 .loadingTimesText, .emptyTimesText {
   grid-column: span 2;
@@ -388,16 +439,24 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .bookingSummaryCard {
   background: linear-gradient(135deg, rgba(0, 229, 255, 0.12) 0%, rgba(168, 85, 247, 0.12) 100%);
   border: 1px solid rgba(0, 229, 255, 0.3);
   border-radius: 16px;
-  padding: 1rem 1.25rem;
-  margin-bottom: 0.5rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.summaryCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
 }
 
 .summaryCardBadge {
@@ -406,7 +465,25 @@
   font-weight: 700;
   color: #00e5ff;
   letter-spacing: 0.08em;
-  margin-bottom: 0.4rem;
+}
+
+.changeStepBtn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.changeStepBtn:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: #00e5ff;
+  color: #00e5ff;
 }
 
 .summaryCardDetail {
@@ -414,7 +491,7 @@
   flex-direction: column;
   gap: 4px;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #ffffff;
 }
@@ -427,13 +504,13 @@
 
 .formInput, .formSelect, .formTextarea {
   width: 100%;
-  padding: 14px 16px;
+  padding: 12px 14px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  border-radius: 12px;
   color: #ffffff;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   outline: none;
   transition: all 0.25s ease;
   box-sizing: border-box;
@@ -455,7 +532,7 @@
 }
 
 .formTextarea {
-  min-height: 80px;
+  min-height: 70px;
   resize: vertical;
 }
 
@@ -479,17 +556,17 @@
 }
 
 .actionFooter {
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 6px;
+  padding-top: 4px;
 }
 
 .confirmBtn {
   width: 100%;
-  padding: 16px;
+  padding: 15px;
   background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 100%);
   color: #000000;
   font-family: var(--font-space-grotesk), sans-serif;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 800;
   border-radius: 14px;
   border: none;
@@ -599,9 +676,11 @@
     background: #090b17;
     flex-direction: column;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     transform: none;
     animation: fadeIn 0.25s ease-out forwards;
-    padding: 0 0 2rem 0;
+    padding: 0 0 3rem 0;
+    overscroll-behavior: contain;
   }
 
   .closeBtn {
@@ -614,12 +693,13 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.25rem;
-    background: rgba(15, 18, 35, 0.95);
+    background: rgba(15, 18, 35, 0.98);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     position: sticky;
     top: 0;
     z-index: 100;
+    flex-shrink: 0;
   }
 
   .mobileNavBackBtn {
@@ -752,8 +832,27 @@
     flex-direction: column;
     opacity: 1;
     visibility: visible;
+    overflow: visible;
+    height: auto;
     max-height: none;
     background: transparent;
-    padding: 1.5rem 1.25rem;
+    padding: 1.25rem 1.25rem 4rem 1.25rem;
+    white-space: normal;
+  }
+
+  .timesListGrid {
+    max-height: none;
+    overflow-y: visible;
+    gap: 10px;
+    padding-bottom: 2rem;
+  }
+
+  .formInput, .formSelect, .formTextarea {
+    font-size: 16px;
+  }
+
+  .formContainer {
+    padding-bottom: 4rem;
   }
 }
+
