@@ -19,7 +19,6 @@ import RoiCalculatorSection from '@/components/sections/RoiCalculatorSection';
 import PricingSection from '@/components/sections/PricingSection';
 import BookingModal from '@/components/modals/BookingModal';
 import LatestProjectModal from '@/components/modals/LatestProjectModal';
-import SystemStatusWidget from '@/components/layout/SystemStatusWidget';
 import LiveActivityToast from '@/components/layout/LiveActivityToast';
 import WhatsAppWidget from '@/components/layout/WhatsAppWidget';
 
@@ -129,8 +128,7 @@ export default function Page() {
       
       <FooterSection id="contato" />
 
-      {/* Floating System Status, WhatsApp Orbit & Live Activity Toast */}
-      <SystemStatusWidget />
+      {/* Floating WhatsApp Orbit & Live Activity Toast */}
       <WhatsAppWidget hasToastVisible={isToastVisible} />
       <LiveActivityToast onVisibilityChange={handleToastVisibilityChange} onBook={() => setIsBookingOpen(true)} />
       
