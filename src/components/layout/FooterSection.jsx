@@ -117,7 +117,7 @@ export default function FooterSection() {
           <div className={styles.footerCol}>
             <h4>Contato</h4>
             <a href="mailto:cardosodavid92@gmail.com">cardosodavid92@gmail.com</a>
-            <a href="https://wa.me/5524992928110" target="_blank" rel="noopener noreferrer">WhatsApp: 24 99292 8110</a>
+            <a href="https://wa.me/5524992622909" target="_blank" rel="noopener noreferrer">WhatsApp: (24) 9 92622-909</a>
           </div>
         </div>
 

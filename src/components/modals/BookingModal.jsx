@@ -441,7 +441,7 @@ export default function BookingModal({ onClose }) {
               
               <div className={styles.successActions}>
                 <a 
-                  href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá equipe ATOM! Acabei de agendar uma reunião no site para ${selectedDateString} às ${selectedTime} (BRT) e gostaria de confirmar.`)}`} 
+                  href={`https://wa.me/5524992622909?text=${encodeURIComponent(`Olá equipe ATOM! Acabei de agendar uma reunião no site para ${selectedDateString} às ${selectedTime} (BRT) e gostaria de confirmar.`)}`} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className={styles.whatsappSuccessBtn}

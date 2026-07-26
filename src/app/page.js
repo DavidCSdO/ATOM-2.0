@@ -21,6 +21,7 @@ import BookingModal from '@/components/modals/BookingModal';
 import LatestProjectModal from '@/components/modals/LatestProjectModal';
 import LiveActivityToast from '@/components/layout/LiveActivityToast';
 import WhatsAppWidget from '@/components/layout/WhatsAppWidget';
+import SystemStatusWidget from '@/components/layout/SystemStatusWidget';
 
 export default function Page() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -128,7 +129,8 @@ export default function Page() {
       
       <FooterSection id="contato" />
 
-      {/* Floating WhatsApp Orbit & Live Activity Toast */}
+      {/* Floating Widgets */}
+      <SystemStatusWidget />
       <WhatsAppWidget hasToastVisible={isToastVisible} />
       <LiveActivityToast onVisibilityChange={handleToastVisibilityChange} onBook={() => setIsBookingOpen(true)} />
       

@@ -3,7 +3,7 @@
 import styles from './WhatsAppWidget.module.css';
 
 export default function WhatsAppWidget({ hasToastVisible }) {
-  const whatsappUrl = "https://wa.me/?text=Ol%C3%A1!%20Vi%20o%20site%20da%20ATOM%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20o%20meu%20projeto.";
+  const whatsappUrl = "https://wa.me/5524992622909?text=Ol%C3%A1!%20Vi%20o%20site%20da%20ATOM%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20o%20meu%20projeto.";
 
   return (
     <div className={`${styles.widgetWrapper} ${hasToastVisible ? styles.hasToastAbove : ''}`}>

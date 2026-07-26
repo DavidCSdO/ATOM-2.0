@@ -9,7 +9,6 @@ const activityFeed = [
     icon: '🚀',
     title: 'Novo Agendamento',
     desc: 'Cliente de São Paulo agendou uma reunião de decolagem.',
-    time: 'há 3 minutos',
     badge: 'DECOLAGEM',
     action: 'book'
   },
@@ -18,7 +17,6 @@ const activityFeed = [
     icon: '⚡',
     title: 'Case Symphony AI',
     desc: '+1.840 interações de Chatbot 24/7 realizadas esta semana.',
-    time: 'há 12 minutos',
     badge: 'PERFORMANCE',
     action: 'symphony'
   },
@@ -27,7 +25,6 @@ const activityFeed = [
     icon: '💎',
     title: 'Entrega Concluída',
     desc: 'E-commerce Kallah Bride lançado com taxa de conversão 4.8%.',
-    time: 'há 28 minutos',
     badge: 'SUCESSO',
     action: 'projects'
   },
@@ -36,7 +33,6 @@ const activityFeed = [
     icon: '🎯',
     title: 'Reserva de Projeto',
     desc: 'Empresa do setor financeiro garantiu 1 vaga deste mês.',
-    time: 'há 45 minutos',
     badge: 'GARANTIDO',
     action: 'book'
   }
@@ -121,7 +117,6 @@ export default function LiveActivityToast({ onVisibilityChange, onBook }) {
       <div className={styles.content}>
         <div className={styles.headerRow}>
           <span className={styles.badge}>{currentItem.badge}</span>
-          <span className={styles.time}>{currentItem.time}</span>
         </div>
         <h5 className={styles.title}>{currentItem.title}</h5>
         <p className={styles.desc}>{currentItem.desc}</p>
