@@ -138,7 +138,10 @@ export default function HeroSection({ id, onNavigate, onReady }) {
 
       <div className={`${styles.heroContent} ${textVisible ? styles.heroContentVisible : ''} ${isSettled ? styles.heroContentSettled : ''}`}>
 
-        <h1 className={styles.heroTitle}>ATOM</h1>
+        <h1 className={styles.heroTitle}>
+          ATOM
+          <span className="sr-only"> — Studio & Agência de Desenvolvimento Web, Landing Pages e Sistemas de Alta Conversão</span>
+        </h1>
 
         <div className={`${styles.heroBelow} ${isSettled ? styles.heroBelowVisible : ''}`}>
 

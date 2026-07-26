@@ -636,22 +636,57 @@
   margin-bottom: 2rem;
 }
 
-.doneBtn {
-  padding: 14px 36px;
-  background: #00f0ff;
-  color: #000;
+.successActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.whatsappSuccessBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 24px;
+  background: #25d366;
+  color: #000000;
   font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.98rem;
   font-weight: 800;
-  font-size: 1rem;
   border-radius: 100px;
-  border: none;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.4);
+  box-sizing: border-box;
+}
+
+.whatsappSuccessBtn:hover {
+  background: #20bd5a;
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(37, 211, 102, 0.6);
+}
+
+.doneBtn {
+  width: 100%;
+  padding: 14px 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 100px;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .doneBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 240, 255, 0.4);
 }
 
 /* ==========================================================================
