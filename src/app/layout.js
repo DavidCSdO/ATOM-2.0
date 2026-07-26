@@ -15,8 +15,8 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata = {
   metadataBase: new URL('https://atomstudio.com.br'),
   title: {
-    default: "ATOM 2.0 | Studio de Desenvolvimento Web, Landing Pages & Sistemas",
-    template: "%s | ATOM 2.0"
+    default: "ATOM | Studio de Desenvolvimento Web, Landing Pages & Sistemas",
+    template: "%s | ATOM"
   },
   description: "Engenharia digital de elite para marcas de alta performance. Criamos Landing Pages de alta conversão, Sites Institucionais, E-commerce e Sistemas Web sob medida.",
   keywords: [
@@ -27,7 +27,7 @@ export const metadata = {
     "estúdio web premium",
     "next.js agência",
     "design de interface ui ux",
-    "atom 2.0 studio"
+    "atom studio"
   ],
   authors: [{ name: "ATOM Studio", url: "https://atomstudio.com.br" }],
   creator: "ATOM Studio",
@@ -41,26 +41,26 @@ export const metadata = {
     canonical: 'https://atomstudio.com.br',
   },
   openGraph: {
-    title: "ATOM 2.0 | Studio de Desenvolvimento Web, Landing Pages & Sistemas",
+    title: "ATOM | Studio de Desenvolvimento Web, Landing Pages & Sistemas",
     description: "Engenharia digital de elite. Criamos Landing Pages de alta conversão, Sites Institucionais e Sistemas Web sob medida.",
     url: 'https://atomstudio.com.br',
-    siteName: 'ATOM 2.0 Studio',
+    siteName: 'ATOM Studio',
     locale: 'pt_BR',
     type: 'website',
     images: [
       {
-        url: '/icon.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'ATOM Studio - Engenharia Digital & Desenvolvimento Web',
+        alt: 'ATOM - Engenharia Digital & Desenvolvimento Web',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "ATOM 2.0 | Studio de Desenvolvimento Web",
+    title: "ATOM | Studio de Desenvolvimento Web",
     description: "Engenharia digital de elite para marcas de alta performance.",
-    images: ['/icon.png'],
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -78,10 +78,10 @@ export const metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "ATOM 2.0 Studio & Agência",
+  "name": "ATOM Studio & Agência",
   "url": "https://atomstudio.com.br",
   "logo": "https://atomstudio.com.br/icon.png",
-  "image": "https://atomstudio.com.br/icon.png",
+  "image": "https://atomstudio.com.br/og-image.png",
   "description": "Studio de desenvolvimento web sob medida, focado em landing pages de alta conversão, sites institucionais e sistemas web de elite.",
   "priceRange": "$$$",
   "address": {

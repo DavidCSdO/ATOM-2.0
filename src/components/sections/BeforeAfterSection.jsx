@@ -79,7 +79,7 @@ export default function BeforeAfterSection({ id }) {
             <span className={styles.tagAfter}>✦ COM ATOM (ALTA CONVERSÃO)</span>
           </div>
 
-          {/* AFTER (Right/Bottom Layer - ATOM 2.0) */}
+          {/* AFTER (Right/Bottom Layer - ATOM) */}
           <div className={styles.afterLayer}>
             <div className={styles.imageBox}>
               <Image
