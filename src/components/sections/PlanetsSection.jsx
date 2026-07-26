@@ -60,7 +60,7 @@ export default function PlanetsSection({ id }) {
 
         {/* 3D Orbiting Planets Engine */}
         <div className={styles.orbitWrapper}>
-          <OrbitingPlanets planets={planetsList} speed={0.9} orbitWidthPct={92} />
+          <OrbitingPlanets planets={planetsList} speed={0.9} orbitWidthPct={115} />
         </div>
         
         {/* Cards Overlay with ATOM Spacecore Design */}

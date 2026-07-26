@@ -10,10 +10,8 @@ export default function LatestProjectModal({ onClose, onExplore }) {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
     };
   }, [onClose]);
 
@@ -56,7 +54,7 @@ export default function LatestProjectModal({ onClose, onExplore }) {
               <span className={styles.dotYellow}></span>
               <span className={styles.dotGreen}></span>
             </div>
-            <span className={styles.urlText}>symphony.atom.app</span>
+            <span className={styles.urlText}>symphony-pearl.vercel.app</span>
           </div>
 
           <div className={styles.imageWrap}>
@@ -76,11 +74,17 @@ export default function LatestProjectModal({ onClose, onExplore }) {
 
         {/* Action Buttons */}
         <div className={styles.actions}>
-          <button className={styles.secondaryBtn} onClick={onClose}>
-            Explorar o Site
-          </button>
+          <a
+            href="https://symphony-pearl.vercel.app/home"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.externalBtn}
+          >
+            Abrir Site Symphony ↗
+          </a>
+
           <button className={styles.primaryBtn} onClick={handleExploreClick}>
-            Ver Projeto Symphony <span className={styles.arrow}>→</span>
+            Ver Case na Plataforma <span className={styles.arrow}>→</span>
           </button>
         </div>
       </div>

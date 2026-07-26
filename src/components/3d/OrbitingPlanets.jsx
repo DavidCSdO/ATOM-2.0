@@ -6,9 +6,9 @@ export default function OrbitingPlanets({
   planets = [],
   xCurve = 63,
   yCurve = -47,
-  speed = 1.2,
+  speed = 1.0,
   direction = 'anticlockwise',
-  orbitWidthPct = 67,
+  orbitWidthPct = 115,
 }) {
   const containerRef = useRef(null);
   const [positions, setPositions] = useState([]);
@@ -58,14 +58,9 @@ export default function OrbitingPlanets({
 
           const left = cx + x;
           const top = cy + y;
-          
-          // Calculate 3D depth scale based on Y position in orbit
-          const depthRatio = (y + b) / (2 * b);
-          const scale = 0.75 + depthRatio * 0.5; // Scale fluctuates between 0.75x and 1.25x
           const zIndex = Math.round(y + 1000);
-          const opacity = 0.5 + depthRatio * 0.5;
 
-          newPositions.push({ left, top, scale, zIndex, opacity });
+          newPositions.push({ left, top, scale: 1, zIndex });
         }
         setPositions(newPositions);
       }
@@ -93,30 +88,6 @@ export default function OrbitingPlanets({
         perspective: '1200px',
       }}
     >
-      {/* Orbital Path Glow Line */}
-      <svg
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-          zIndex: 1,
-          opacity: 0.25,
-        }}
-      >
-        <ellipse
-          cx="50%"
-          cy="50%"
-          rx="38%"
-          ry="18%"
-          fill="none"
-          stroke="#00e5ff"
-          strokeWidth="1.5"
-          strokeDasharray="6 6"
-        />
-      </svg>
-
       <div
         style={{
           position: 'absolute',
@@ -126,7 +97,7 @@ export default function OrbitingPlanets({
         }}
       >
         {planets.map((planet, i) => {
-          const pos = positions[i] || { left: 0, top: 0, scale: 1, zIndex: 0, opacity: 1 };
+          const pos = positions[i] || { left: 0, top: 0, scale: 1, zIndex: 0 };
           return (
             <div
               key={i}
@@ -140,7 +111,6 @@ export default function OrbitingPlanets({
                 aspectRatio: '1',
                 transform: `translate(-50%, -50%) rotateX(${yCurve}deg) rotateY(${-xCurve}deg) scale(${pos.scale})`,
                 zIndex: pos.zIndex,
-                opacity: pos.opacity,
               }}
             >
               <img
@@ -150,7 +120,7 @@ export default function OrbitingPlanets({
                   width: '100%',
                   height: '100%',
                   objectFit: 'contain',
-                  filter: 'drop-shadow(0 0 25px rgba(0, 229, 255, 0.4))',
+                  filter: 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.6))',
                   mixBlendMode: planet.src.includes('white-background') ? 'screen' : 'normal'
                 }}
               />

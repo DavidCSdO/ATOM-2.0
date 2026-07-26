@@ -168,14 +168,186 @@
 .blBadge { position: absolute; bottom: -10px; right: -10px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.7rem; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-.canvasContainer { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: auto; }
-.hugeTextBg { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 0; opacity: 0.2; pointer-events: none; }
-.hugeTextBg span { font-family: var(--font-space-grotesk), sans-serif; font-size: 8rem; font-weight: 800; line-height: 0.85; color: #3b9cff; }
-.hugeTextBg span.outline { -webkit-text-stroke: 2px #3b9cff; color: transparent; }
-.tmContent { position: absolute; bottom: 0; left: 0; padding: 3rem; z-index: 2; pointer-events: none; }
-.badge { display: inline-block; padding: 0.35rem 1rem; background: rgba(59, 156, 255, 0.2); color: #3b9cff; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem; border: 1px solid rgba(59, 156, 255, 0.3); }
-.tmContent h2 { font-family: var(--font-space-grotesk), sans-serif; font-size: 3.5rem; color: #fff; margin-bottom: 0.5rem; margin-top: 0; }
-.tmContent p { font-family: var(--font-inter), sans-serif; color: rgba(255,255,255,0.7); max-width: 400px; line-height: 1.5; margin: 0; }
+.tmGlass {
+  background: radial-gradient(circle at 50% 40%, rgba(0, 229, 255, 0.1) 0%, rgba(10, 12, 24, 0.95) 70%) !important;
+  border-color: rgba(0, 229, 255, 0.25) !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hugeTextBg { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 0; opacity: 0.12; pointer-events: none; }
+.hugeTextBg span { font-family: var(--font-space-grotesk), sans-serif; font-size: 8rem; font-weight: 800; line-height: 0.85; color: #00e5ff; }
+.hugeTextBg span.outline { -webkit-text-stroke: 2px #a855f7; color: transparent; }
+
+/* Reactor Core Graphics */
+.reactorDisplay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.reactorRing1 {
+  position: absolute;
+  inset: 0;
+  border: 2px dashed rgba(0, 229, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.reactorRing2 {
+  position: absolute;
+  inset: 22px;
+  border: 2px solid transparent;
+  border-top-color: #a855f7;
+  border-bottom-color: rgba(168, 85, 247, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+}
+
+.reactorRing3 {
+  position: absolute;
+  inset: 44px;
+  border: 1px dotted #00e5ff;
+  border-radius: 50%;
+}
+
+.reactorCoreOrb {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #00e5ff 0%, rgba(168, 85, 247, 0.8) 60%, transparent 100%);
+  box-shadow: 0 0 40px rgba(0, 229, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseCore 3s ease-in-out infinite alternate;
+}
+
+.coreSymbol {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 10px #ffffff);
+}
+
+@keyframes pulseCore {
+  0% { transform: scale(0.9); box-shadow: 0 0 25px rgba(0, 229, 255, 0.5); }
+  100% { transform: scale(1.1); box-shadow: 0 0 50px rgba(0, 229, 255, 0.9); }
+}
+
+.tmContent {
+  position: relative;
+  z-index: 2;
+  padding: 2.25rem 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.tmBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: rgba(0, 229, 255, 0.12);
+  color: #00e5ff;
+  border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  align-self: flex-start;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  background: #00e5ff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00e5ff;
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.85); opacity: 0.8; }
+}
+
+.tmTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+  margin-top: auto;
+  line-height: 1.15;
+}
+
+.tmDesc {
+  font-family: 'Inter', sans-serif;
+  color: rgba(240, 241, 247, 0.7);
+  font-size: 0.92rem;
+  max-width: 440px;
+  line-height: 1.5;
+  margin: 0 0 1.25rem 0;
+}
+
+.tmTelemetryRow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 1.25rem;
+  border-radius: 14px;
+}
+
+.telemetryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.telemetryLabel {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(240, 241, 247, 0.5);
+  letter-spacing: 0.08em;
+}
+
+.telemetryValue {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.telemetryValueHighlight {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #00e5ff;
+}
+
+.telemetryDivider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+}
 
 .pricingGlass { display: flex; flex-direction: row; justify-content: center; align-items: center; padding: 2rem; background: rgba(13, 15, 23, 0.7); border-color: rgba(255,255,255,0.05); box-shadow: inset 0 20px 40px rgba(0,0,0,0.5); gap: 3rem; height: 100%; }
 .pricingCol { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem; }

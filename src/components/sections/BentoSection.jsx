@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { animate, stagger } from 'animejs';
+import { animate } from 'animejs';
 import Image from 'next/image';
 import styles from './BentoSection.module.css';
 
@@ -13,139 +12,7 @@ export default function BentoSection({ id, onBook }) {
   const val3Ref = useRef(null);
   const hasAnimated = useRef(false);
 
-  const canvasContainer = useRef(null);
-
   useEffect(() => {
-    let animationId;
-    let renderer;
-    let scene;
-    let camera;
-    let particles;
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const initThree = () => {
-      if (!canvasContainer.current) return;
-      canvasContainer.current.innerHTML = ''; // Prevent duplicate canvas creation
-
-      const width = canvasContainer.current.clientWidth || canvasContainer.current.offsetWidth || 400;
-      const height = canvasContainer.current.clientHeight || canvasContainer.current.offsetHeight || 350;
-
-      if (width === 0 || height === 0) {
-        // Retry when container gets non-zero dimensions
-        setTimeout(initThree, 100);
-        return;
-      }
-
-      try {
-        scene = new THREE.Scene();
-
-        camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-        camera.position.z = 20;
-
-        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' });
-        renderer.setClearColor(0x000000, 0);
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        if (renderer.domElement) {
-          renderer.domElement.style.background = 'transparent';
-          renderer.domElement.style.position = 'absolute';
-          renderer.domElement.style.inset = '0';
-          renderer.domElement.style.width = '100%';
-          renderer.domElement.style.height = '100%';
-          renderer.domElement.style.pointerEvents = 'none';
-          canvasContainer.current.appendChild(renderer.domElement);
-        }
-
-        const geometry = new THREE.BufferGeometry();
-        const count = 2800;
-        const positions = new Float32Array(count * 3);
-        const colors = new Float32Array(count * 3);
-
-        for (let i = 0; i < count; i++) {
-          const i3 = i * 3;
-          const radius = Math.random() * 15;
-          const spinAngle = radius * 0.5;
-          const branchAngle = ((i % 5) / 5) * Math.PI * 2;
-
-          const spreadX = (Math.random() - 0.5) * 3;
-          const spreadY = (Math.random() - 0.5) * 3;
-          const spreadZ = (Math.random() - 0.5) * 3;
-
-          const x = Math.cos(branchAngle + spinAngle) * radius + spreadX;
-          const y = Math.sin(branchAngle + spinAngle) * radius + spreadY;
-          const z = spreadZ * (15 - radius) * 0.2;
-
-          positions[i3] = x;
-          positions[i3 + 1] = y;
-          positions[i3 + 2] = z;
-
-          const r = Math.random();
-          if (r < 0.33) {
-            colors[i3] = 0; colors[i3 + 1] = 0.9; colors[i3 + 2] = 1;
-          } else if (r < 0.66) {
-            colors[i3] = 0.66; colors[i3 + 1] = 0.33; colors[i3 + 2] = 1;
-          } else {
-            colors[i3] = 0.15; colors[i3 + 1] = 0.8; colors[i3 + 2] = 0.25;
-          }
-        }
-
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-        const material = new THREE.PointsMaterial({
-          size: 0.16,
-          vertexColors: true,
-          blending: THREE.AdditiveBlending,
-          transparent: true,
-          opacity: 0.85
-        });
-
-        particles = new THREE.Points(geometry, material);
-        particles.rotation.x = Math.PI * 0.2;
-        scene.add(particles);
-
-        window.addEventListener('resize', onResize);
-        if (canvasContainer.current) {
-          canvasContainer.current.addEventListener('mousemove', onMouseMove);
-        }
-
-        renderLoop();
-      } catch (err) {
-        console.warn('Three.js galaxy init warning:', err);
-      }
-    };
-
-    const onMouseMove = (event) => {
-      if (!canvasContainer.current) return;
-      const rect = canvasContainer.current.getBoundingClientRect();
-      mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-    };
-
-    const onResize = () => {
-      if (!canvasContainer.current || !camera || !renderer) return;
-      const width = canvasContainer.current.clientWidth;
-      const height = canvasContainer.current.clientHeight;
-      if (width === 0 || height === 0) return;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    };
-
-    const renderLoop = () => {
-      animationId = requestAnimationFrame(renderLoop);
-      if (particles) {
-        particles.rotation.z -= 0.003;
-        particles.rotation.x += (Math.PI * 0.2 + mouseY * 0.4 - particles.rotation.x) * 0.05;
-        particles.rotation.y += (mouseX * 0.4 - particles.rotation.y) * 0.05;
-      }
-      if (renderer && scene && camera) {
-        renderer.render(scene, camera);
-      }
-    };
-
     const initAnimeEffects = () => {
       if (hasAnimated.current) return;
       hasAnimated.current = true;
@@ -172,16 +39,36 @@ export default function BentoSection({ id, onBook }) {
         }
       });
 
+      // Orbit animation for price counters
       animate([`.${styles.mOrbit1}`, `.${styles.mOrbit2}`, `.${styles.mOrbit3}`], {
         rotate: '1turn',
         duration: 6000,
         easing: 'linear',
         loop: true
       });
-    };
 
-    // Ensure container has rendered in DOM before Three.js init
-    const timer = setTimeout(initThree, 50);
+      // Reactor rings continuous rotation for Núcleo Ativo
+      animate(`.${styles.reactorRing1}`, {
+        rotate: '1turn',
+        duration: 12000,
+        easing: 'linear',
+        loop: true
+      });
+
+      animate(`.${styles.reactorRing2}`, {
+        rotate: '-1turn',
+        duration: 8000,
+        easing: 'linear',
+        loop: true
+      });
+
+      animate(`.${styles.reactorRing3}`, {
+        rotate: '1turn',
+        duration: 15000,
+        easing: 'linear',
+        loop: true
+      });
+    };
 
     const observer = new IntersectionObserver((entries) => {
       if (entries[0]?.isIntersecting) {
@@ -195,15 +82,7 @@ export default function BentoSection({ id, onBook }) {
     }
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', onResize);
-      if (animationId) cancelAnimationFrame(animationId);
-      if (renderer) {
-        renderer.dispose();
-      }
-      if (canvasContainer.current) {
-        canvasContainer.current.innerHTML = '';
-      }
+      observer.disconnect();
     };
   }, []);
 
@@ -269,19 +148,51 @@ export default function BentoSection({ id, onBook }) {
           </div>
         </div>
 
+        {/* Modern Spacecore Reactor Core (Núcleo Ativo) */}
         <div className={`${styles.bentoCard} ${styles.tmCard}`}>
-          <div className={`${styles.cardGlass} ${styles.p0} ${styles.overflowHidden}`}>
+          <div className={`${styles.cardGlass} ${styles.tmGlass} ${styles.p0} ${styles.overflowHidden}`}>
             <div className={styles.hugeTextBg}>
               <span>ATOM</span>
               <span className={styles.outline}>ATOM</span>
               <span>ATOM</span>
               <span className={styles.outline}>ATOM</span>
             </div>
-            <div className={styles.canvasContainer} ref={canvasContainer}></div>
+
+            {/* Spacecore Reactor Graphic */}
+            <div className={styles.reactorDisplay}>
+              <div className={styles.reactorRing1}></div>
+              <div className={styles.reactorRing2}></div>
+              <div className={styles.reactorRing3}></div>
+              <div className={styles.reactorCoreOrb}>
+                <span className={styles.coreSymbol}>⚛️</span>
+              </div>
+            </div>
+
+            {/* Telemetry Metrics Overlay */}
             <div className={styles.tmContent}>
-              <span className={styles.badge}>Núcleo Ativo</span>
-              <h2>Inovação Quântica</h2>
-              <p>O epicentro onde suas ideias se transformam em produtos escaláveis.</p>
+              <div className={styles.tmBadge}>
+                <span className={styles.pulseDot}></span>
+                ✦ NÚCLEO ATIVO ATOM
+              </div>
+              <h2 className={styles.tmTitle}>Inovação Quântica</h2>
+              <p className={styles.tmDesc}>O epicentro tecnológico onde suas ideias se transformam em softwares escaláveis.</p>
+
+              <div className={styles.tmTelemetryRow}>
+                <div className={styles.telemetryItem}>
+                  <span className={styles.telemetryLabel}>ENERGIA</span>
+                  <span className={styles.telemetryValue}>99.9%</span>
+                </div>
+                <div className={styles.telemetryDivider}></div>
+                <div className={styles.telemetryItem}>
+                  <span className={styles.telemetryLabel}>ESTADO</span>
+                  <span className={styles.telemetryValueHighlight}>OPERACIONAL</span>
+                </div>
+                <div className={styles.telemetryDivider}></div>
+                <div className={styles.telemetryItem}>
+                  <span className={styles.telemetryLabel}>MODO</span>
+                  <span className={styles.telemetryValue}>QUÂNTICO</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

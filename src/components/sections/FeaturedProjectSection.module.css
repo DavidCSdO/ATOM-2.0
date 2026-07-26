@@ -474,6 +474,39 @@
   color: var(--text-muted);
 }
 
+.ctaButtonGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.symphonyExternalBtn {
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  color: #00e5ff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 100px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.symphonyExternalBtn:hover {
+  background: rgba(0, 229, 255, 0.25);
+  border-color: #00e5ff;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+}
+
 .ctaBtn {
   background: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
   color: #ffffff;

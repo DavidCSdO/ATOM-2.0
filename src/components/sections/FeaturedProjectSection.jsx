@@ -7,81 +7,75 @@ import styles from './FeaturedProjectSection.module.css';
 const symphonyScreens = [
   {
     id: 1,
-    title: 'Dashboard Principal & Visão Estratégica',
-    tagline: 'Interface centralizada para controle total do seu negócio com métricas em tempo real',
-    src: '/Carrocel/Symp.png',
+    title: 'Visão Geral & Assistente 24/7',
+    tagline: 'Landing page ultra-rápida com IA integrada para capturar e converter visitantes em tempo real.',
+    src: '/Carrocel/Symp.png'
   },
   {
     id: 2,
-    title: 'Chatbot Conversacional & Atendimento 24/7',
-    tagline: 'Assistente inteligente integrado para engajar visitantes e converter leads automaticamente',
-    src: '/Carrocel/Symp 2.png',
+    title: 'Dashboard Conversacional & Módulos',
+    tagline: 'Interface intuitiva com controle completo de métricas, leads e atendimento automatizado.',
+    src: '/Carrocel/Symp 2.png'
   },
   {
     id: 3,
-    title: 'Automação de Processos & Analytics',
-    tagline: 'Relatórios claros de desempenho com suporte estratégico para decisões de alto impacto',
-    src: '/Carrocel/Symp 3.png',
+    title: 'Integrações & Engenharia de Alta Performance',
+    tagline: 'Arquitetura moderna pronta para escala, garantindo velocidade máxima e segurança.',
+    src: '/Carrocel/Symp 3.png'
   }
 ];
 
 const sellingHighlights = [
   {
-    icon: '💬',
-    badge: 'CONVERSÃO AUMENTADA',
-    title: 'Chatbot Inteligente & Atendimento 24/7',
-    desc: 'Atendimento automatizado que engaja visitantes instantaneamente, tira dúvidas frequentes e qualifica leads no piloto automático.'
+    icon: '🤖',
+    badge: 'AUTOMAÇÃO 24/7',
+    title: 'Assistente Conversacional com IA',
+    desc: 'Atenda clientes a qualquer hora do dia ou da noite, tirando dúvidas e qualificando leads automaticamente.'
   },
   {
     icon: '⚡',
-    badge: 'ALTA PERFORMANCE',
-    title: 'Arquitetura Otimizada & Engenharia Web',
-    desc: 'Desenvolvido com tecnologia de ponta e suporte de ferramentas inteligentes para garantir velocidade extrema e zero fricção.'
+    badge: 'MÁXIMA VELOCIDADE',
+    title: 'Engenharia de Alta Performance',
+    desc: 'Desenvolvido sobre Next.js 16 para carregamento instantâneo e nota máxima em testes de velocidade.'
   },
   {
-    icon: '💎',
-    badge: 'AUTORIDADE DE MARCA',
-    title: 'Design Imersivo & Experiência Premium',
-    desc: 'Visual moderno com acabamento refinado que transmite credibilidade imediata, encantando clientes desde o primeiro segundo.'
+    icon: '🎯',
+    badge: 'FOCO EM CONVERSÃO',
+    title: 'UX/UI Orientada a Vendas',
+    desc: 'Arquitetura visual pensada para conduzir o usuário do primeiro clique até o agendamento final.'
   }
 ];
 
 export default function FeaturedProjectSection({ id, onBook }) {
-  const [mediaMode, setMediaMode] = useState('video'); // 'video' | 'images'
   const [activeScreenIndex, setActiveScreenIndex] = useState(0);
+  const [mediaMode, setMediaMode] = useState('images'); // 'images' | 'video'
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayRef = useRef(null);
   const videoRef = useRef(null);
 
   const activeScreen = symphonyScreens[activeScreenIndex];
 
+  // Auto rotate screens
   useEffect(() => {
-    if (mediaMode === 'images' && isAutoPlaying) {
-      autoPlayRef.current = setInterval(() => {
-        setActiveScreenIndex((prev) => (prev + 1) % symphonyScreens.length);
-      }, 5000);
-    }
-    return () => {
-      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-    };
-  }, [mediaMode, isAutoPlaying]);
+    if (!isAutoPlaying || mediaMode === 'video') return;
 
-  const handleSelectScreen = (index) => {
-    setActiveScreenIndex(index);
-    setMediaMode('images');
+    const interval = setInterval(() => {
+      setActiveScreenIndex((prev) => (prev + 1) % symphonyScreens.length);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, mediaMode]);
+
+  const handleNext = () => {
+    setActiveScreenIndex((prev) => (prev + 1) % symphonyScreens.length);
   };
 
   const handlePrev = () => {
     setActiveScreenIndex((prev) => (prev - 1 + symphonyScreens.length) % symphonyScreens.length);
   };
 
-  const handleNext = () => {
-    setActiveScreenIndex((prev) => (prev + 1) % symphonyScreens.length);
-  };
-
   return (
-    <section className={styles.featuredSection} id={id || 'ultimo-projeto'}>
-      {/* Background Decor */}
+    <section id={id} className={styles.featuredSection}>
+      {/* Background ambient glows */}
       <div className={styles.bgGlows} aria-hidden="true">
         <div className={styles.glowPurple}></div>
         <div className={styles.glowCyan}></div>
@@ -93,30 +87,29 @@ export default function FeaturedProjectSection({ id, onBook }) {
         <div className={styles.header}>
           <div className={styles.badge}>
             <span className={styles.badgePulse}></span>
-            ✦ CASE DE SUCESSO & ALTA CONVERSÃO
+            ✦ NOSSO ÚLTIMO PROJETO LANÇADO
           </div>
           <h2 className={styles.title}>
-            Symphony <span className={styles.titleHighlight}>— Orquestração & Chatbot</span>
+            Case <span className={styles.titleHighlight}>Symphony AI & Chatbot</span>
           </h2>
           <p className={styles.subtitle}>
-            Conheça o Symphony: uma plataforma web completa que combina engenharia de alta performance, 
-            design imersivo e assistente conversacional inteligente para transformar visitantes em clientes reais.
+            Conheça o ecossistema digital que combina IA conversacional 24/7 com engenharia de alta conversão.
           </p>
         </div>
 
-        {/* Media Mode Selector */}
+        {/* Media Selector Tabs */}
         <div className={styles.mediaTabsWrapper}>
-          <button 
-            className={`${styles.mediaTab} ${mediaMode === 'video' ? styles.mediaTabActive : ''}`}
-            onClick={() => setMediaMode('video')}
-          >
-            <span className={styles.tabIcon}>🎬</span> Vídeo em Ação
-          </button>
-          <button 
+          <button
             className={`${styles.mediaTab} ${mediaMode === 'images' ? styles.mediaTabActive : ''}`}
             onClick={() => setMediaMode('images')}
           >
-            <span className={styles.tabIcon}>📷</span> Galeria de Interface ({symphonyScreens.length})
+            <span className={styles.tabIcon}>🖼️</span> Fotos & Capturas
+          </button>
+          <button
+            className={`${styles.mediaTab} ${mediaMode === 'video' ? styles.mediaTabActive : ''}`}
+            onClick={() => setMediaMode('video')}
+          >
+            <span className={styles.tabIcon}>🎥</span> Demonstração em Vídeo
           </button>
         </div>
 
@@ -135,7 +128,7 @@ export default function FeaturedProjectSection({ id, onBook }) {
               </div>
               <div className={styles.windowAddressBar}>
                 <span className={styles.lockIcon}>🔒</span>
-                <span>symphony.atom.app</span>
+                <span>symphony-pearl.vercel.app</span>
               </div>
               <div className={styles.windowStatus}>
                 <span className={styles.liveTag}>
@@ -191,30 +184,23 @@ export default function FeaturedProjectSection({ id, onBook }) {
               )}
             </div>
 
-            {/* Display Footer Caption & Selector */}
+            {/* Display Caption & Thumbnails */}
             <div className={styles.displayCaption}>
-              {mediaMode === 'video' ? (
-                <div className={styles.captionText}>
-                  <span className={styles.captionStep}>DEMONSTRAÇÃO EM VÍDEO</span>
-                  <h3 className={styles.captionTitle}>Symphony em Funcionamento</h3>
-                  <p className={styles.captionTagline}>
-                    Veja a fluidez da interface, a navegação responsiva e a interação inteligente do assistente em tempo real.
-                  </p>
-                </div>
-              ) : (
-                <div className={styles.captionText}>
-                  <span className={styles.captionStep}>0{activeScreenIndex + 1} / 0{symphonyScreens.length}</span>
-                  <h3 className={styles.captionTitle}>{activeScreen.title}</h3>
-                  <p className={styles.captionTagline}>{activeScreen.tagline}</p>
-                </div>
-              )}
+              <div className={styles.captionText}>
+                <span className={styles.captionStep}>TELA {activeScreenIndex + 1} DE {symphonyScreens.length}</span>
+                <h3 className={styles.captionTitle}>{activeScreen.title}</h3>
+                <p className={styles.captionTagline}>{activeScreen.tagline}</p>
+              </div>
 
               <div className={styles.thumbnails}>
                 {symphonyScreens.map((screen, idx) => (
                   <button
                     key={screen.id}
-                    className={`${styles.thumbBtn} ${mediaMode === 'images' && idx === activeScreenIndex ? styles.thumbActive : ''}`}
-                    onClick={() => handleSelectScreen(idx)}
+                    className={`${styles.thumbBtn} ${activeScreenIndex === idx ? styles.thumbActive : ''}`}
+                    onClick={() => {
+                      setMediaMode('images');
+                      setActiveScreenIndex(idx);
+                    }}
                     aria-label={`Ver ${screen.title}`}
                   >
                     <div className={styles.thumbImageWrapper}>
@@ -251,12 +237,24 @@ export default function FeaturedProjectSection({ id, onBook }) {
         <div className={styles.ctaWrapper}>
           <div className={styles.ctaBox}>
             <div className={styles.ctaText}>
-              <h3>Quer uma solução com assistente inteligente para o seu negócio?</h3>
-              <p>Projetamos plataformas modernas, intuitivas e focadas na conversão do seu público.</p>
+              <h3>Quer testar a plataforma Symphony em tempo real?</h3>
+              <p>Acesse o site completo do projeto Symphony em uma nova aba do navegador.</p>
             </div>
-            <button className={styles.ctaBtn} onClick={onBook}>
-              Agendar Reunião de Projeto <span className={styles.ctaArrow}>→</span>
-            </button>
+            
+            <div className={styles.ctaButtonGroup}>
+              <a 
+                href="https://symphony-pearl.vercel.app/home" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={styles.symphonyExternalBtn}
+              >
+                Abrir Site Symphony ↗
+              </a>
+              
+              <button className={styles.ctaBtn} onClick={onBook}>
+                Agendar Reunião de Projeto <span className={styles.ctaArrow}>→</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
