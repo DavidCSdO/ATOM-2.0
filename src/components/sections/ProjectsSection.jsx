@@ -2,23 +2,25 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import { animate } from 'animejs';
 import styles from './ProjectsSection.module.css';
 
 import ConceptModal from '../modals/ConceptModal';
 
 const techList = [
-  { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
+  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
   { name: 'Jupiter', icon: '/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', isSpace: true },
+  { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
   { name: 'Three.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg' },
-  { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
-  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-  { name: 'Mars', icon: '/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', isSpace: true },
-  { name: 'Tailwind', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
   { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+  { name: 'Mars', icon: '/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', isSpace: true },
+  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'Tailwind', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
   { name: 'Saturn', icon: '/Planets/saturn-planet-on-isolated-transparent-background-png 1.png', isSpace: true },
   { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+  { name: 'Vue.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg' },
   { name: 'Neptune', icon: '/Planets/30_neptune 1.png', isSpace: true },
   { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' }
 ];
@@ -294,6 +296,17 @@ export default function ProjectsSection({ id }) {
     return centerOffset - activeIndex * sw;
   };
 
+  // Anime.js hover effect on tech box
+  const handleTechHover = (e) => {
+    try {
+      animate(e.currentTarget, {
+        scale: [1, 1.14, 1.06],
+        duration: 350,
+        easing: 'easeOutQuad'
+      });
+    } catch (err) {}
+  };
+
   return (
     <section className={styles.projectsSection} id={id || 'projetos'}>
       <div className={styles.projectsBg} aria-hidden="true">
@@ -302,13 +315,13 @@ export default function ProjectsSection({ id }) {
         
         <div className={styles.cosmicElements}>
           <div className={`${styles.floatingPlanet} ${styles.planetJupiter}`}>
-            <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%'}} />
+            <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%', mixBlendMode: 'screen'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetSaturn}`}>
             <img src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetMars}`}>
-            <img src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%'}} />
+            <img src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%', mixBlendMode: 'screen'}} />
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetNeptune}`}>
             <img src="/Planets/30_neptune 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%'}} />
@@ -453,17 +466,22 @@ export default function ProjectsSection({ id }) {
         </div>
       </div>
       
+      {/* Animated Tech Stack & Space Planets Marquee */}
       <div className={styles.techMarqueeWrapper}>
+        <div className={styles.techHeader}>
+          <span className={styles.techTag}>✦ ECOSSISTEMA TECNOLÓGICO ATOM</span>
+        </div>
+        
         <div className={styles.techMarqueeTrack}>
           <div className={styles.techMarqueeContent} aria-hidden="true">
             {techList.map((item, i) => (
               item.isSpace ? (
-                <div key={`a-${i}`} className={styles.spaceElement}>
-                  <Image src={item.icon} alt={item.name} width={40} height={40} />
+                <div key={`a-${i}`} className={styles.spaceElement} onMouseEnter={handleTechHover}>
+                  <Image src={item.icon} alt={item.name} width={42} height={42} style={{ mixBlendMode: 'screen' }} />
                 </div>
               ) : (
-                <div key={`a-${i}`} className={styles.techBox}>
-                  {item.icon && <Image src={item.icon} alt={item.name} width={20} height={20} className={styles.techIcon} />}
+                <div key={`a-${i}`} className={styles.techBox} onMouseEnter={handleTechHover}>
+                  {item.icon && <Image src={item.icon} alt={item.name} width={22} height={22} className={styles.techIcon} />}
                   <span>{item.name}</span>
                 </div>
               )
@@ -472,12 +490,12 @@ export default function ProjectsSection({ id }) {
           <div className={styles.techMarqueeContent} aria-hidden="true">
             {techList.map((item, i) => (
               item.isSpace ? (
-                <div key={`b-${i}`} className={styles.spaceElement}>
-                  <Image src={item.icon} alt={item.name} width={40} height={40} />
+                <div key={`b-${i}`} className={styles.spaceElement} onMouseEnter={handleTechHover}>
+                  <Image src={item.icon} alt={item.name} width={42} height={42} style={{ mixBlendMode: 'screen' }} />
                 </div>
               ) : (
-                <div key={`b-${i}`} className={styles.techBox}>
-                  {item.icon && <Image src={item.icon} alt={item.name} width={20} height={20} className={styles.techIcon} />}
+                <div key={`b-${i}`} className={styles.techBox} onMouseEnter={handleTechHover}>
+                  {item.icon && <Image src={item.icon} alt={item.name} width={22} height={22} className={styles.techIcon} />}
                   <span>{item.name}</span>
                 </div>
               )

@@ -2,12 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { animate, utils, stagger, createDrawable } from 'animejs';
+import { animate, stagger } from 'animejs';
 import Image from 'next/image';
 import styles from './BentoSection.module.css';
 
 export default function BentoSection({ id, onBook }) {
-
   const sectionRef = useRef(null);
   const val1Ref = useRef(null);
   const val2Ref = useRef(null);
@@ -27,75 +26,95 @@ export default function BentoSection({ id, onBook }) {
 
     const initThree = () => {
       if (!canvasContainer.current) return;
+      canvasContainer.current.innerHTML = ''; // Prevent duplicate canvas creation
 
-      scene = new THREE.Scene();
+      const width = canvasContainer.current.clientWidth || canvasContainer.current.offsetWidth || 400;
+      const height = canvasContainer.current.clientHeight || canvasContainer.current.offsetHeight || 350;
 
-      const width = canvasContainer.current.clientWidth;
-      const height = canvasContainer.current.clientHeight;
-
-      camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-      camera.position.z = 20;
-
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      canvasContainer.current.appendChild(renderer.domElement);
-
-      const geometry = new THREE.BufferGeometry();
-      const count = 3000;
-      const positions = new Float32Array(count * 3);
-      const colors = new Float32Array(count * 3);
-
-      for (let i = 0; i < count; i++) {
-        const i3 = i * 3;
-        const radius = Math.random() * 15;
-        const spinAngle = radius * 0.5;
-        const branchAngle = ((i % 5) / 5) * Math.PI * 2;
-
-        const spreadX = (Math.random() - 0.5) * 3;
-        const spreadY = (Math.random() - 0.5) * 3;
-        const spreadZ = (Math.random() - 0.5) * 3;
-
-        const x = Math.cos(branchAngle + spinAngle) * radius + spreadX;
-        const y = Math.sin(branchAngle + spinAngle) * radius + spreadY;
-        const z = spreadZ * (15 - radius) * 0.2;
-
-        positions[i3] = x;
-        positions[i3 + 1] = y;
-        positions[i3 + 2] = z;
-
-        const r = Math.random();
-        if (r < 0.33) {
-          colors[i3] = 1; colors[i3 + 1] = 0.2; colors[i3 + 2] = 0.2;
-        } else if (r < 0.66) {
-          colors[i3] = 0.2; colors[i3 + 1] = 0.6; colors[i3 + 2] = 1;
-        } else {
-          colors[i3] = 1; colors[i3 + 1] = 0.8; colors[i3 + 2] = 0.2;
-        }
+      if (width === 0 || height === 0) {
+        // Retry when container gets non-zero dimensions
+        setTimeout(initThree, 100);
+        return;
       }
 
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      try {
+        scene = new THREE.Scene();
 
-      const material = new THREE.PointsMaterial({
-        size: 0.15,
-        vertexColors: true,
-        blending: THREE.AdditiveBlending,
-        transparent: true,
-        opacity: 0.9
-      });
+        camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+        camera.position.z = 20;
 
-      particles = new THREE.Points(geometry, material);
-      particles.rotation.x = Math.PI * 0.2;
-      scene.add(particles);
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' });
+        renderer.setClearColor(0x000000, 0);
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      window.addEventListener('resize', onResize);
-      canvasContainer.current.addEventListener('mousemove', onMouseMove);
-      canvasContainer.current.addEventListener('mouseleave', () => {
-        mouseX = 0; mouseY = 0;
-      });
+        if (renderer.domElement) {
+          renderer.domElement.style.background = 'transparent';
+          renderer.domElement.style.position = 'absolute';
+          renderer.domElement.style.inset = '0';
+          renderer.domElement.style.width = '100%';
+          renderer.domElement.style.height = '100%';
+          renderer.domElement.style.pointerEvents = 'none';
+          canvasContainer.current.appendChild(renderer.domElement);
+        }
 
-      renderLoop();
+        const geometry = new THREE.BufferGeometry();
+        const count = 2800;
+        const positions = new Float32Array(count * 3);
+        const colors = new Float32Array(count * 3);
+
+        for (let i = 0; i < count; i++) {
+          const i3 = i * 3;
+          const radius = Math.random() * 15;
+          const spinAngle = radius * 0.5;
+          const branchAngle = ((i % 5) / 5) * Math.PI * 2;
+
+          const spreadX = (Math.random() - 0.5) * 3;
+          const spreadY = (Math.random() - 0.5) * 3;
+          const spreadZ = (Math.random() - 0.5) * 3;
+
+          const x = Math.cos(branchAngle + spinAngle) * radius + spreadX;
+          const y = Math.sin(branchAngle + spinAngle) * radius + spreadY;
+          const z = spreadZ * (15 - radius) * 0.2;
+
+          positions[i3] = x;
+          positions[i3 + 1] = y;
+          positions[i3 + 2] = z;
+
+          const r = Math.random();
+          if (r < 0.33) {
+            colors[i3] = 0; colors[i3 + 1] = 0.9; colors[i3 + 2] = 1;
+          } else if (r < 0.66) {
+            colors[i3] = 0.66; colors[i3 + 1] = 0.33; colors[i3 + 2] = 1;
+          } else {
+            colors[i3] = 0.15; colors[i3 + 1] = 0.8; colors[i3 + 2] = 0.25;
+          }
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+          size: 0.16,
+          vertexColors: true,
+          blending: THREE.AdditiveBlending,
+          transparent: true,
+          opacity: 0.85
+        });
+
+        particles = new THREE.Points(geometry, material);
+        particles.rotation.x = Math.PI * 0.2;
+        scene.add(particles);
+
+        window.addEventListener('resize', onResize);
+        if (canvasContainer.current) {
+          canvasContainer.current.addEventListener('mousemove', onMouseMove);
+        }
+
+        renderLoop();
+      } catch (err) {
+        console.warn('Three.js galaxy init warning:', err);
+      }
     };
 
     const onMouseMove = (event) => {
@@ -109,6 +128,7 @@ export default function BentoSection({ id, onBook }) {
       if (!canvasContainer.current || !camera || !renderer) return;
       const width = canvasContainer.current.clientWidth;
       const height = canvasContainer.current.clientHeight;
+      if (width === 0 || height === 0) return;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
@@ -158,50 +178,13 @@ export default function BentoSection({ id, onBook }) {
         easing: 'linear',
         loop: true
       });
-
-      animate([`.${styles.uiMockup} .${styles.mbox}`, `.${styles.uiMockup} .${styles.mline}`, `.${styles.uiMockup} .${styles.mbtn}`], {
-        opacity: [0.3, 1],
-        translateY: [10, 0],
-        delay: stagger(150),
-        duration: 1500,
-        easing: 'outExpo'
-      });
-
-      animate(`.${styles.cbar}`, {
-        scaleY: [0, 1],
-        delay: stagger(150),
-        duration: 1500,
-        easing: 'outElastic(1, .8)'
-      });
-
-      animate(`.${styles.statItem}`, {
-        translateY: [20, 0],
-        opacity: [0, 1],
-        duration: 800,
-        delay: stagger(100),
-        easing: 'outExpo'
-      });
-
-      const path = document.querySelector(`.${styles.chartNeonLine}`);
-      if (path) {
-        const length = path.getTotalLength();
-        path.style.strokeDasharray = length;
-        path.style.strokeDashoffset = length;
-        animate(path, {
-          strokeDashoffset: [length, 0],
-          duration: 2500,
-          easing: 'inOutSine',
-          delay: 500,
-          direction: 'alternate',
-          loop: true
-        });
-      }
     };
 
-    initThree();
+    // Ensure container has rendered in DOM before Three.js init
+    const timer = setTimeout(initThree, 50);
 
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
+      if (entries[0]?.isIntersecting) {
         initAnimeEffects();
         observer.disconnect();
       }
@@ -211,18 +194,15 @@ export default function BentoSection({ id, onBook }) {
       observer.observe(sectionRef.current);
     }
 
-
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('resize', onResize);
-      if (canvasContainer.current) {
-        canvasContainer.current.removeEventListener('mousemove', onMouseMove);
-      }
       if (animationId) cancelAnimationFrame(animationId);
       if (renderer) {
         renderer.dispose();
-        if (canvasContainer.current?.contains(renderer.domElement)) {
-          canvasContainer.current.removeChild(renderer.domElement);
-        }
+      }
+      if (canvasContainer.current) {
+        canvasContainer.current.innerHTML = '';
       }
     };
   }, []);
@@ -235,7 +215,6 @@ export default function BentoSection({ id, onBook }) {
       </div>
 
       <div className={styles.bentoContainer}>
-
         <div className={`${styles.bentoCard} ${styles.tlCard}`}>
           <div className={`${styles.cardGlass} ${styles.flexColBetween} ${styles.noiseOverlay}`}>
             <div className={styles.tlContent}>
@@ -274,7 +253,15 @@ export default function BentoSection({ id, onBook }) {
               <p className={styles.blText}>Experiências imersivas que conectam usuários através de interfaces de outra dimensão e performance impecável.</p>
               <div className={styles.blCoverWrapper}>
                 <div className={styles.blCover} style={{ position: 'relative' }}>
-                  <Image src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="Cover" width={150} height={150} quality={100} style={{ objectFit: 'contain' }} className={styles.blImage} />
+                  <Image 
+                    src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" 
+                    alt="Cover" 
+                    width={150} 
+                    height={150} 
+                    quality={100} 
+                    style={{ objectFit: 'contain', mixBlendMode: 'screen' }} 
+                    className={styles.blImage} 
+                  />
                   <div className={styles.blBadge}>EXPLORAR</div>
                 </div>
               </div>
@@ -301,14 +288,13 @@ export default function BentoSection({ id, onBook }) {
 
         <div className={`${styles.bentoCard} ${styles.bmCard}`}>
           <div className={`${styles.cardGlass} ${styles.pricingGlass} ${styles.noiseOverlay}`}>
-
             <div className={styles.pricingCol}>
               <div className={styles.mostradorWrapper}>
                 <div className={styles.mostradorTrack}></div>
                 <div className={`${styles.mOrbitAnimated} ${styles.mOrbit1}`}></div>
                 <div className={styles.mostradorValue}>
                   <span className={styles.currency}>R$</span>
-                  <span className={`${styles.priceNumber} pVal1`}>600</span>
+                  <span className={`${styles.priceNumber}`} ref={val1Ref}>600</span>
                 </div>
               </div>
               <span className={styles.pricingLabel}><span className={`${styles.dot} ${styles.dCyan}`}></span> Landing Page</span>
@@ -320,7 +306,7 @@ export default function BentoSection({ id, onBook }) {
                 <div className={`${styles.mOrbitAnimated} ${styles.mOrbit2}`}></div>
                 <div className={styles.mostradorValue}>
                   <span className={styles.currency}>R$</span>
-                  <span className={`${styles.priceNumber} pVal2`}>500</span>
+                  <span className={`${styles.priceNumber}`} ref={val2Ref}>500</span>
                 </div>
               </div>
               <span className={styles.pricingLabel}><span className={`${styles.dot} ${styles.dOrange}`}></span> Portfólio</span>
@@ -332,19 +318,17 @@ export default function BentoSection({ id, onBook }) {
                 <div className={`${styles.mOrbitAnimated} ${styles.mOrbit3}`}></div>
                 <div className={styles.mostradorValue}>
                   <span className={styles.currency}>R$</span>
-                  <span className={`${styles.priceNumber} pVal3`}>1200</span>
+                  <span className={`${styles.priceNumber}`} ref={val3Ref}>1200</span>
                 </div>
               </div>
               <span className={styles.pricingLabel}><span className={`${styles.dot} ${styles.dPurple}`}></span> E-commerce</span>
             </div>
-
           </div>
         </div>
 
         <div className={`${styles.bentoCard} ${styles.trCard}`}>
           <div className={`${styles.cardGlass} ${styles.flexColEnd} ${styles.p0} ${styles.noiseOverlay}`}>
             <div className={styles.trBg}></div>
-
             <div className={styles.chartMockup}>
               <div className={styles.chartBars}>
                 <div className={`${styles.cbar} ${styles.cbar1}`}></div>
@@ -359,7 +343,6 @@ export default function BentoSection({ id, onBook }) {
                 </svg>
               </div>
             </div>
-
             <div className={styles.trContent}>
               <h3>Escala Estelar</h3>
               <p>Softwares estruturados para expansão além das fronteiras.</p>
@@ -381,7 +364,6 @@ export default function BentoSection({ id, onBook }) {
             </div>
           </div>
         </div>
-
       </div>
 
       <div className={styles.servicesButtonWrapper}>

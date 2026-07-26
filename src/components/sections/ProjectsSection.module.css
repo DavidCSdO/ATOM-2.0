@@ -511,10 +511,28 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  margin-top: 5rem;
+  margin-top: 4.5rem;
   padding: 2.5rem 0;
   -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.techHeader {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.techTag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  padding: 0.3rem 0.9rem;
+  border-radius: 100px;
+  text-transform: uppercase;
 }
 
 .techMarqueeTrack {
@@ -541,6 +559,7 @@
   justify-content: center;
   width: 100px;
   animation: floatSpace 6s ease-in-out infinite;
+  cursor: pointer;
 }
 .spaceElement img {
   width: 80px;
@@ -571,7 +590,7 @@
   justify-content: center;
   gap: 0.5rem;
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  cursor: default;
+  cursor: pointer;
 }
 
 .techBox:hover {

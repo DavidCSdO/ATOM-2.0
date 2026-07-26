@@ -5,14 +5,14 @@ import Stepper from '../ui/Stepper';
 import OrbitingPlanets from '../3d/OrbitingPlanets';
 
 const planetsList = [
-  { src: '/Planets/isolated-realistic-mercury-illustration-png 1.png', alt: 'Mercury', width: '13%' },
-  { src: '/Planets/pngtree-beautiful-venus-planet-on-transparent-png-image_13144099 1.png', alt: 'Venus', width: '13%' },
-  { src: '/Planets/Earth_Western_Hemisphere_transparent_background 2.png', alt: 'Earth', width: '13.8%' },
-  { src: '/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', alt: 'Mars', width: '14.5%' },
-  { src: '/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', alt: 'Jupiter', width: '19%' },
-  { src: '/Planets/saturn-planet-on-isolated-transparent-background-png 1.png', alt: 'Saturn', width: '32%' },
-  { src: '/Planets/a-detailed-view-of-the-planet-uranus-showcasing-its-distinctive-blue-color-and-atmospheric-bands-captured-from-space-transparent-png 1.png', alt: 'Uranus', width: '22%' },
-  { src: '/Planets/30_neptune 1.png', alt: 'Neptune', width: '35%' },
+  { src: '/Planets/isolated-realistic-mercury-illustration-png 1.png', alt: 'Mercury', width: '12%' },
+  { src: '/Planets/pngtree-beautiful-venus-planet-on-transparent-png-image_13144099 1.png', alt: 'Venus', width: '12%' },
+  { src: '/Planets/Earth_Western_Hemisphere_transparent_background 2.png', alt: 'Earth', width: '13%' },
+  { src: '/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png', alt: 'Mars', width: '13.5%' },
+  { src: '/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png', alt: 'Jupiter', width: '18%' },
+  { src: '/Planets/saturn-planet-on-isolated-transparent-background-png 1.png', alt: 'Saturn', width: '28%' },
+  { src: '/Planets/a-detailed-view-of-the-planet-uranus-showcasing-its-distinctive-blue-color-and-atmospheric-bands-captured-from-space-transparent-png 1.png', alt: 'Uranus', width: '20%' },
+  { src: '/Planets/30_neptune 1.png', alt: 'Neptune', width: '32%' },
 ];
 
 export default function PlanetsSection({ id }) {
@@ -45,6 +45,10 @@ export default function PlanetsSection({ id }) {
 
   return (
     <section id={id} className={styles.planetsSection}>
+      {/* Top & Bottom Cosmic Dark Blur Overlays */}
+      <div className={styles.topFadeOverlay} aria-hidden="true"></div>
+      <div className={styles.bottomFadeOverlay} aria-hidden="true"></div>
+
       <div className={styles.planetsContainer}>
         <div className={styles.starsLayer}></div>
         <div className={`${styles.starsLayer} ${styles.starsLayer2}`}></div>
@@ -54,15 +58,20 @@ export default function PlanetsSection({ id }) {
         <div className={`${styles.shootingStar} ${styles.st2}`}></div>
         <div className={`${styles.shootingStar} ${styles.st3}`}></div>
 
-        <div style={{ transform: 'translateX(15%)', width: '100%', height: '100%', position: 'absolute' }}>
-          <OrbitingPlanets planets={planetsList} speed={0.8} orbitWidthPct={120} />
+        {/* 3D Orbiting Planets Engine */}
+        <div className={styles.orbitWrapper}>
+          <OrbitingPlanets planets={planetsList} speed={0.9} orbitWidthPct={92} />
         </div>
         
-        {/* Cards Overlay */}
+        {/* Cards Overlay with ATOM Spacecore Design */}
         <div className={`${styles.glassCard} ${styles.cardVendas}`}>
           <div className={styles.cardVendasInner}>
+            <div className={styles.spaceBadge}>
+              <span className={styles.pulseDot}></span>
+              ✦ SISTEMA ÓRBITAL DE ALTA CONVERSÃO
+            </div>
             <h2 className={styles.cardVendasTitle}>
-              <span className={styles.textPink}>Transformamos sua</span><br />
+              <span className={styles.textWhite}>Transformamos sua</span><br />
               <span className={styles.textGradient}>presença digital em uma<br />máquina de vendas.</span>
             </h2>
             <p className={styles.cardVendasText}>

@@ -4,7 +4,9 @@
   position: relative;
   width: 100%;
   padding: 6.5rem 1.5rem 7.5rem;
-  background: #070913;
+  background: url('/Fundo 2.webp') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
   overflow: hidden;
   z-index: 10;
 }

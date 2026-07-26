@@ -45,7 +45,7 @@ export default function HeroSection({ id, onNavigate, onReady }) {
     setTimeout(() => setIsSettled(true), 2200);
   };
 
-  // Deterministic & Smooth Loading Progress Counter (0% to 100% over 2.2 seconds)
+  // Deterministic & Smooth Loading Progress Counter
   useEffect(() => {
     const startTime = Date.now();
     const duration = 2200; // 2.2 seconds
@@ -83,7 +83,7 @@ export default function HeroSection({ id, onNavigate, onReady }) {
   }, []);
 
   const onEarthLoaded = () => {
-    // Earth model initialized in background
+    // Earth model initialized
   };
 
   return (
@@ -175,7 +175,7 @@ export default function HeroSection({ id, onNavigate, onReady }) {
             for the next generation.
           </p>
 
-          <div className={styles.heroScrollIndicator}>
+          <div className={styles.heroScrollIndicator} onClick={() => onNavigate('explore')}>
             <div className={styles.heroScrollCircle}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M10 4 L10 14 M6 10 L10 14 L14 10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

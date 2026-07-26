@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 .featuredSection {
-  --bg: #070913;
+  --bg: #090B17;
   --accent-purple: #a855f7;
   --accent-cyan: #00e5ff;
   --text-primary: #f0f1f7;
@@ -9,7 +9,7 @@
   
   position: relative;
   width: 100%;
-  padding: 7rem 1.5rem 8rem;
+  padding: 6rem 1.5rem 8rem;
   background-color: var(--bg);
   overflow: hidden;
   z-index: 10;

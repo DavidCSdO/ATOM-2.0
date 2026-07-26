@@ -3,12 +3,13 @@
 
 .faqSection {
   padding: 8rem 2rem;
-  background: url('/Fundo 2.png') no-repeat center center;
+  background: url('/Fundo 2.webp') no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
   color: white;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .faqContainer {
