@@ -51,7 +51,7 @@ export default function BeforeAfterSection({ id }) {
         <div className={styles.header}>
           <div className={styles.badge}>✦ TRANSFORMAÇÃO DIGITAL</div>
           <h2 className={styles.title}>
-            Antes & Depois <span className={styles.titleHighlight}>do ATOM 2.0</span>
+            Antes & Depois <span className={styles.titleHighlight}>do ATOM</span>
           </h2>
           <p className={styles.subtitle}>
             Arraste o divisor interativo para ver a diferença entre um site convencional 
@@ -76,7 +76,7 @@ export default function BeforeAfterSection({ id }) {
             <span className={styles.tagBefore}>❌ SITE CONVENCIONAL (GENÉRICO)</span>
           </div>
           <div className={styles.fixedHeaderRight}>
-            <span className={styles.tagAfter}>✦ COM ATOM 2.0 (ALTA CONVERSÃO)</span>
+            <span className={styles.tagAfter}>✦ COM ATOM (ALTA CONVERSÃO)</span>
           </div>
 
           {/* AFTER (Right/Bottom Layer - ATOM 2.0) */}
@@ -84,7 +84,7 @@ export default function BeforeAfterSection({ id }) {
             <div className={styles.imageBox}>
               <Image
                 src="/Carrocel/Symp.png"
-                alt="ATOM 2.0 - Site de Alta Conversão"
+                alt="ATOM - Site de Alta Conversão"
                 fill
                 quality={95}
                 draggable={false}
@@ -137,7 +137,7 @@ export default function BeforeAfterSection({ id }) {
                 <div className={styles.barProgress} style={{ width: '35%', background: '#ff5f56' }}></div>
               </div>
               <div className={styles.barItem}>
-                <span>ATOM 2.0: 0.6s (Instantâneo)</span>
+                <span>ATOM: 0.6s (Instantâneo)</span>
                 <div className={styles.barProgress} style={{ width: '98%', background: '#00e5ff' }}></div>
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function BeforeAfterSection({ id }) {
                 <div className={styles.barProgress} style={{ width: '25%', background: '#ffbd2e' }}></div>
               </div>
               <div className={styles.barItem}>
-                <span>ATOM 2.0: Chatbot 24/7 Ativo</span>
+                <span>ATOM: Chatbot 24/7 Ativo</span>
                 <div className={styles.barProgress} style={{ width: '95%', background: '#a855f7' }}></div>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function BeforeAfterSection({ id }) {
                 <div className={styles.barProgress} style={{ width: '20%', background: '#ff5f56' }}></div>
               </div>
               <div className={styles.barItem}>
-                <span>ATOM 2.0: Até 4.8% (+300%)</span>
+                <span>ATOM: Até 4.8% (+300%)</span>
                 <div className={styles.barProgress} style={{ width: '90%', background: '#27c93f' }}></div>
               </div>
             </div>

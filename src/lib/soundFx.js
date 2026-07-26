@@ -1,4 +1,4 @@
-// Web Audio API Sound FX Synthesizer for ATOM 2.0 Spacecore UI
+// Web Audio API Sound FX Synthesizer for ATOM Spacecore UI
 let audioCtx = null;
 let isMuted = true; // Default muted until user toggles or enables
 

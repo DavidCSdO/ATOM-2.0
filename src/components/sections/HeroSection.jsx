@@ -63,7 +63,7 @@ export default function HeroSection({ id, onNavigate, onReady }) {
       } else if (pct < 100) {
         setLoadingStatus('SINCRONIZANDO ÓRBITAS DIGITAL...');
       } else {
-        setLoadingStatus('SISTEMAS ATOM 2.0 PRONTOS 🚀');
+        setLoadingStatus('SISTEMAS ATOM PRONTOS 🚀');
         clearInterval(timer);
         setTimeout(() => {
           startSequence();

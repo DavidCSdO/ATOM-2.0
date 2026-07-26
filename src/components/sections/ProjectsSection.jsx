@@ -39,7 +39,7 @@ const initialProjectsData = [
     activeScreen: 0
   },
   {
-    name: 'ATOM 2.0',
+    name: 'ATOM',
     category: 'PLATAFORMA ESPACIAL',
     description: 'Ecossistema web interativo com órbita 3D, estética spacecore de elite e máxima taxa de conversão.',
     accent: '#00e5ff',

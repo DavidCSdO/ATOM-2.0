@@ -19,6 +19,7 @@ export default function BookingModal({ onClose }) {
   
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [mobileStep, setMobileStep] = useState(1);
 
   const [availableTimes, setAvailableTimes] = useState([]);
   const [isLoadingTimes, setIsLoadingTimes] = useState(false);
@@ -145,7 +146,7 @@ export default function BookingModal({ onClose }) {
     <div className={styles.bookingOverlay} onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <RisingLines lineCount={40} speed={1.2} />
       
-      <div className={styles.bookingModal}>
+      <div className={`${styles.bookingModal} ${styles['step' + mobileStep]}`}>
         <button className={styles.closeBtn} onClick={onClose} disabled={isSubmitting}>
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
@@ -209,6 +210,7 @@ export default function BookingModal({ onClose }) {
                     if (!isPast) {
                       setSelectedDay(day); 
                       setSelectedTime(null); 
+                      setMobileStep(2);
                       setTimeout(() => {
                         colTimesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }, 100);
@@ -224,7 +226,23 @@ export default function BookingModal({ onClose }) {
 
         <div ref={colTimesRef} className={`${styles.bookingCol} ${styles.colTimes} ${selectedDay ? styles.visible : ''}`}>
           <div className={styles.timesHeader}>
-            <h3>{selectedDateString}</h3>
+            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+              <button 
+                className={styles.mobileBackBtn} 
+                onClick={() => {
+                  if (mobileStep === 3) {
+                    setSelectedTime(null);
+                    setMobileStep(2);
+                  } else {
+                    setSelectedDay(null);
+                    setMobileStep(1);
+                  }
+                }}
+              >
+                ←
+              </button>
+              <h3>{selectedDateString}</h3>
+            </div>
             <div className={styles.formatToggle}>
               <span className={styles.active}>24h</span>
             </div>
@@ -239,7 +257,10 @@ export default function BookingModal({ onClose }) {
                   <button 
                     key={time}
                     className={`${styles.timeBtn} ${selectedTime === time ? styles.selected : ''}`}
-                    onClick={() => setSelectedTime(time)}
+                    onClick={() => {
+                      setSelectedTime(time);
+                      setMobileStep(3);
+                    }}
                   >
                     {time}
                   </button>
@@ -250,9 +271,9 @@ export default function BookingModal({ onClose }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer} style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '10px' }}>
-              <button type="button" className={styles.timeBtn} style={{ marginBottom: '10px' }} onClick={() => setSelectedTime(null)}>
-                ← Voltar ({selectedTime})
-              </button>
+              <div style={{ marginBottom: '10px', color: '#00f0ff', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                Horário: {selectedTime}
+              </div>
               
               <div>
                 <input 
