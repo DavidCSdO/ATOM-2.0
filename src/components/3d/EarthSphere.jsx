@@ -178,6 +178,7 @@ export default function EarthSphere({
       controls.dispose();
       resizeObserver.disconnect();
       renderer.dispose();
+      renderer.forceContextLoss();
       if (container.contains(canvas)) container.removeChild(canvas);
     };
   }, [backgroundColor, autoRotate, autoRotateSpeed, onLoaded]);

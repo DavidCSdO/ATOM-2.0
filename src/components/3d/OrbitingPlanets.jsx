@@ -113,17 +113,33 @@ export default function OrbitingPlanets({
                 zIndex: pos.zIndex,
               }}
             >
-              <img
-                src={planet.src}
-                alt={planet.alt}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.6))',
-                  mixBlendMode: planet.src.includes('white-background') ? 'screen' : 'normal'
-                }}
-              />
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  inset: '5%',
+                  borderRadius: '50%',
+                  boxShadow: '0 0 40px 15px rgba(255, 255, 255, 0.15)',
+                  background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent)',
+                  mixBlendMode: 'screen',
+                }}></div>
+                <img
+                  src={planet.src}
+                  alt={planet.alt}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    filter: 'saturate(1.4) contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))',
+                    mixBlendMode: planet.src.includes('white-background') ? 'screen' : 'normal'
+                  }}
+                />
+              </div>
             </div>
           );
         })}

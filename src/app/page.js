@@ -38,12 +38,12 @@ export default function Page() {
       }
       setIsToastVisible(true);
     } else {
-      // 2 seconds delay before sliding WhatsApp button down to prevent jumping during message rotation
+      // 1 second delay before sliding WhatsApp button down to prevent jumping during message rotation
       if (!toastDebounceTimerRef.current) {
         toastDebounceTimerRef.current = setTimeout(() => {
           setIsToastVisible(false);
           toastDebounceTimerRef.current = null;
-        }, 2000);
+        }, 1000);
       }
     }
   }, []);

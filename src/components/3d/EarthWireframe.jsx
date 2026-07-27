@@ -246,6 +246,7 @@ export default function EarthWireframe({
       controls.dispose();
       resizeObserver.disconnect();
       renderer.dispose();
+      renderer.forceContextLoss();
       if (container.contains(canvas)) container.removeChild(canvas);
     };
   }, [backgroundColor, autoRotate, autoRotateSpeed, onLoaded]);

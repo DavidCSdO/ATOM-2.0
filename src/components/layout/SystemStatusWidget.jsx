@@ -110,6 +110,7 @@ export default function SystemStatusWidget() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       renderer.dispose();
+      renderer.forceContextLoss();
       ringGeo1.dispose();
       ringMat1.dispose();
       ringGeo2.dispose();

@@ -474,6 +474,7 @@ self.onmessage = (e) => {
       resizeObserver.disconnect();
       if (composer) composer.dispose();
       renderer.dispose();
+      renderer.forceContextLoss();
       if (container.contains(canvas)) container.removeChild(canvas);
     };
   }, [scale, backgroundColor, toneMappingExposure, quality, lightIntensity, lightColor, waterColor, waterOpacity, autoRotate, autoRotateSpeed, bloomStrength, bloomRadius, bloomThreshold, pointsCount, scaleFactor, animate, particleSize, edgeSoftness, landColor, blendFactor, onLoaded]);

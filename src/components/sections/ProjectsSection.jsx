@@ -315,16 +315,28 @@ export default function ProjectsSection({ id }) {
         
         <div className={styles.cosmicElements}>
           <div className={`${styles.floatingPlanet} ${styles.planetJupiter}`}>
-            <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%', mixBlendMode: 'screen'}} />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <div style={{ position: 'absolute', inset: '5%', borderRadius: '50%', boxShadow: '0 0 40px 15px rgba(255, 255, 255, 0.15)', background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent)', mixBlendMode: 'screen' }}></div>
+              <img src="/Planets/pngtree-jupiter-planet-image-on-white-background-png-image_13888640 1.png" alt="" style={{ position: 'absolute', inset: 0, objectFit:'contain', width: '100%', height: '100%', filter: 'saturate(1.4) contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))', mixBlendMode: 'screen' }} />
+            </div>
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetSaturn}`}>
-            <img src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%'}} />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <div style={{ position: 'absolute', inset: '5%', borderRadius: '50%', boxShadow: '0 0 40px 15px rgba(255, 255, 255, 0.15)', background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent)', mixBlendMode: 'screen' }}></div>
+              <img src="/Planets/saturn-planet-on-isolated-transparent-background-png 1.png" alt="" style={{ position: 'absolute', inset: 0, objectFit:'contain', width: '100%', height: '100%', filter: 'saturate(1.4) contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))' }} />
+            </div>
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetMars}`}>
-            <img src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%', mixBlendMode: 'screen'}} />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <div style={{ position: 'absolute', inset: '5%', borderRadius: '50%', boxShadow: '0 0 40px 15px rgba(255, 255, 255, 0.15)', background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent)', mixBlendMode: 'screen' }}></div>
+              <img src="/Planets/pngtree-mars-planet-image-on-white-background-png-image_13888526 1.png" alt="" style={{ position: 'absolute', inset: 0, objectFit:'contain', width: '100%', height: '100%', filter: 'saturate(1.4) contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))', mixBlendMode: 'screen' }} />
+            </div>
           </div>
           <div className={`${styles.floatingPlanet} ${styles.planetNeptune}`}>
-            <img src="/Planets/30_neptune 1.png" alt="" style={{objectFit:'contain', width: '100%', height: '100%'}} />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <div style={{ position: 'absolute', inset: '5%', borderRadius: '50%', boxShadow: '0 0 40px 15px rgba(255, 255, 255, 0.15)', background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent)', mixBlendMode: 'screen' }}></div>
+              <img src="/Planets/30_neptune 1.png" alt="" style={{ position: 'absolute', inset: 0, objectFit:'contain', width: '100%', height: '100%', filter: 'saturate(1.4) contrast(1.15) brightness(1.05) drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))' }} />
+            </div>
           </div>
           
           <div className={`${styles.shootingStar} ${styles.st1}`}></div>

@@ -163,7 +163,11 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', onMouseOver);
       window.removeEventListener('resize', onResize);
       if (animationId) cancelAnimationFrame(animationId);
-      if (renderer) renderer.dispose();
+      if (renderer) {
+        renderer.dispose();
+        renderer.forceContextLoss();
+        renderer = null;
+      }
     };
   }, []);
 

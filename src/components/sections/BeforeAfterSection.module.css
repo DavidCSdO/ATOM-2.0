@@ -285,7 +285,8 @@
   }
 
   .fixedHeaderRight {
-    top: 0.6rem;
+    top: auto;
+    bottom: 0.6rem;
     right: 0.6rem;
   }
 
@@ -311,7 +312,8 @@
   }
 
   .fixedHeaderRight {
-    top: 0.5rem;
+    top: auto;
+    bottom: 0.5rem;
     right: 0.4rem;
   }
 
