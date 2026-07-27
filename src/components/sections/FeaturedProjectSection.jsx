@@ -158,7 +158,6 @@ export default function FeaturedProjectSection({ id, onBook }) {
                     alt={`Symphony - ${activeScreen.title}`}
                     fill
                     quality={95}
-                    priority
                     draggable={false}
                     onDragStart={(e) => e.preventDefault()}
                     sizes="(max-width: 1200px) 100vw, 1200px"

@@ -63,7 +63,6 @@ export default function LatestProjectModal({ onClose, onExplore }) {
               alt="Symphony - Último projeto da agência ATOM"
               fill
               quality={95}
-              priority
               draggable={false}
               onDragStart={(e) => e.preventDefault()}
               sizes="(max-width: 600px) 100vw, 600px"

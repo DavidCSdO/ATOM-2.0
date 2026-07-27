@@ -80,7 +80,6 @@ export default function PlanPreviewModal({ plan, onClose, onBook }) {
               alt={`${plan.name} preview - ${activeScreenIndex + 1}`}
               fill
               quality={95}
-              priority
               draggable={false}
               onDragStart={(e) => e.preventDefault()}
               sizes="(max-width: 1000px) 100vw, 1000px"

@@ -11,11 +11,11 @@ export default function FooterSection() {
     const canvas = galaxyCanvas.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    
+
     let width, height;
     let animationFrameId;
     let stars = [];
-    
+
     const params = {
       starSpeed: 0.4,
       density: 1.5,
@@ -34,11 +34,11 @@ export default function FooterSection() {
     function initStars() {
       stars = [];
       const numStars = Math.floor((width * height) / 2000 * params.density);
-      
+
       for (let i = 0; i < numStars; i++) {
         const angle = Math.random() * Math.PI * 2;
         const radius = Math.random() * Math.max(width, height);
-        
+
         stars.push({
           angle,
           radius,
@@ -54,13 +54,13 @@ export default function FooterSection() {
 
     function draw() {
       ctx.clearRect(0, 0, width, height);
-      
+
       const cx = width / 2;
       const cy = height / 2;
 
       stars.forEach(star => {
         star.angle += (params.rotationSpeed * 0.005) / (star.radius / 500 + 0.5);
-        
+
         const x = cx + Math.cos(star.angle) * star.radius;
         const y = cy + Math.sin(star.angle) * star.radius;
 
@@ -69,17 +69,17 @@ export default function FooterSection() {
 
         ctx.beginPath();
         ctx.arc(x, y, star.size, 0, Math.PI * 2);
-        
+
         const rgb = `hsl(${star.hue}, 80%, 70%)`;
         ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, Math.min(1, alpha))})`;
-        
+
         if (params.glowIntensity > 0 && Math.random() > 0.5) {
           ctx.shadowBlur = 10 * params.glowIntensity;
           ctx.shadowColor = rgb;
         } else {
           ctx.shadowBlur = 0;
         }
-        
+
         ctx.fill();
       });
 
@@ -117,7 +117,7 @@ export default function FooterSection() {
           <div className={styles.footerCol}>
             <h4>Contato</h4>
             <a href="mailto:cardosodavid92@gmail.com">cardosodavid92@gmail.com</a>
-            <a href="https://wa.me/5524992622909" target="_blank" rel="noopener noreferrer">WhatsApp: (24) 9 92622-909</a>
+            <a href="https://wa.me/5524992622909" target="_blank" rel="noopener noreferrer">WhatsApp: (24) 9 9262-2909</a>
           </div>
         </div>
 
